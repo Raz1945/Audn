@@ -1,0 +1,35 @@
+.btn-container {
+  display: flex;
+  width: 320px;
+  padding: 12px 16px;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+
+  position: relative;
+  bottom: 20px;
+}
+
+.btn__text {
+  color: var(--blanco, #fdfeff);
+  text-align: center;
+
+  /* Headings/Heading 5 - 16px/Medium */
+  font-family: Rubik;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 24px; /* 150% */
+  letter-spacing: 0.5px;
+}
+
+.btndesactive {
+  width: 320px;
+  border-radius: 0px 16px;
+  background: var(--medios-tonos-gris-1, #e4e6e8);
+}
+.btnactive {
+  width: 320px;
+  border-radius: 0px 16px;
+  background: var(--primario, #ff8e0a);
+}
