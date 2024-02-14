@@ -1,0 +1,33 @@
+#root {
+  max-width: 368px;
+  max-height: 792px;
+}
+
+.layout {
+  width: 368px;
+  height: 792px;
+
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+
+  font-family: 'Rubik', sans-serif;
+
+  /* Se modifica el gradiente */
+  background: linear-gradient(
+    0deg,
+    rgba(253, 254, 255, 0) 25%,
+    rgba(255, 142, 10, 0.229) 75%,
+    rgba(255, 142, 10, 0.702) 100%
+  );
+  overflow: hidden;
+  position: relative;
+  z-index: 1;
+
+  border: 2px solid #242424;
+  /* Es solo para ver el tamaño que ocupa */
+  border-radius: 2rem;
+  /* box-shadow: 7px 7px 0px 1px #242424; */
+  box-shadow: var(--shadow-elevation-high);
+}
