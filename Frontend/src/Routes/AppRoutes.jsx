@@ -10,28 +10,36 @@ export const AppRoutes = createBrowserRouter([
     element: <Layout />,
     children: [
       {
-        path: '', // Ruta a la página de inicio
-        element: <Login />, // Ruta a la página de inicio
+        path: '/login', 
+        element: <Login />, 
         index: true, // Indica que es la página de inicio
         // children: [
         //   { path: '/login', index: true, element: <h1>Login</h1> },
         //   // { path: 'register', index: false, element: <Register /> },
         // ],
-        
         // para traer los datos de usuario
         // loader: () => fetch('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'), 
       },
       {
-        path: '/home',
+        path: '/google-login',
         index: false,
-        element: <h1>Home</h1>,
+        element: <h1>Logueado con Google</h1>,
+      },
+      {
+        path: '/apple-login',
+        index: false,
+        element: <h1>Logueado con Apple</h1>,
       },
       {
         path: '/register',
         index: false,
         element: <Register />,
       },
-      {},
+      {
+        path: '/sing-in',
+        index: false,
+        element: <h1> Iniciar Sesión</h1>,
+      },
     ],
   },
 ]);

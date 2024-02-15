@@ -13,8 +13,14 @@
   position: relative;
   cursor: pointer;
 }
+
+.btn-link:focus-visible{
+  outline: 3px solid hsl(32, 100%, 52%);
+  border-radius: 0px 16px;
+}
+
+
 .btn-text {
-  /* Headings/Heading 5 - 16px/Medium */
   font-family: Rubik;
   font-weight: 700;
   font-size: 16px;
@@ -22,7 +28,7 @@
   letter-spacing: 0.5px;
   text-align: center;
 }
-.none{
+.none {
   color: hsla(238, 10%, 16%, 1);
   background-color: transparent;
 }
@@ -34,6 +40,7 @@
   background: hsl(32, 100%, 52%);
 }
 .primary:active {
+  border: none;
   box-shadow: inset 0px 0px 8px 0px rgba(8, 8, 17, 0.078),
     inset 8px 8px 16px 0px rgba(8, 8, 17, 0.08);
 }
@@ -46,11 +53,11 @@
   color: hsla(32, 100%, 52%, 1);
   background-color: transparent;
 }
-.cuaternary{
+.cuaternary {
   background-color: transparent;
   border: 2px solid hsla(238, 10%, 16%, 1);
-  color:  hsla(238, 10%, 16%, 1);
-  ;
+  color: hsla(238, 10%, 16%, 1);
+  box-shadow: var(--shadow-elevation-low);
 }
 .disabled {
   color: var(--blanco, hsla(210, 100%, 100%, 1));
