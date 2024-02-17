@@ -1,7 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors'); 
-const routes = require('./src/routes');
+const routes = require('./app/routes');
 
 // Obtener las variables de entorno
 const port = process.env.PORT || 3000; // Puerto del servidor
