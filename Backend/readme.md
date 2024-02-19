@@ -1,35 +1,71 @@
 # Backend
-npm init
-npm install
-npm i dotenv express express-validator
-npm i bcryptj cors jsonwebtoken
-npm i nodemon knex pg
 
+1. **Inicializa el proyecto**:
+   ```bash
+   npm init
+   ```
 
-# Comandos migracion
+2. **Instala las dependencias**:
+   ```bash
+   npm install
+   ```
 
-## Crear
-- para crear archivos de migración  
+3. **Agrega las siguientes librerías**:
+   ```bash
+   npm i dotenv express express-validator
+   ```
+
+4. **Incluye estas herramientas**:
+   ```bash
+   npm i bcrypt cors jsonwebtoken
+   ```
+
+5. **Configura el entorno de desarrollo**:
+   ```bash
+   npm i nodemon knex pg
+   ```
+
+## Comandos de migración
+
+### Crear una migración
+
+Para generar archivos de migración, utiliza el siguiente comando:
+```bash
 npx knex migrate:make <nombre_archivo>
+```
 
-## Subir
-- Para ejecutar la siguiente migración que aún no se ha ejecutado
+### Ejecutar migraciones pendientes
+
+Para aplicar la siguiente migración que aún no se ha ejecutado:
+```bash
 npx knex migrate:up
+```
 
-- Para ejecutar la migración especificada que aún no se ha ejecutado
-npx knex migrate:up <nomre_del_archivo>
+También puedes ejecutar una migración específica que aún no se ha aplicado:
+```bash
+npx knex migrate:up <nombre_del_archivo>
+```
 
-  o se puede usar este para subir lo ultimo. 
+O simplemente, para aplicar la última migración pendiente:
+```bash
 npx knex migrate:latest
+```
 
+### Revertir migraciones
 
-## Revertir
-- Para revertir el último lote de migraciones:
+Para deshacer el último lote de migraciones:
+```bash
 npx knex migrate:rollback
+```
 
-- Para revertir todas las migraciones completadas:
+Si deseas revertir todas las migraciones completadas:
+```bash
 npx knex migrate:rollback --all
+```
 
+## Listado de migraciones
 
-## Para enumerar las migraciones completadas y pendientes:
+Para enumerar las migraciones completadas y pendientes:
+```bash
 npx knex migrate:list
+```
