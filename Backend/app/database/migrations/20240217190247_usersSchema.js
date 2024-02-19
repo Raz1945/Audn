@@ -1,4 +1,4 @@
-const usersSchema = require('../schemas/usersSchema'); 
+const usersSchema = require('../schemas/usersSchema');
 
 exports.up = async (knex) => {
   await knex.schema.createTable('users', (table) => {

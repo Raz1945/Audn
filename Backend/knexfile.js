@@ -12,7 +12,7 @@ module.exports = {
       database: process.env.DB_NAME,
     },
     migrations: {
-      directory: path.join(__dirname, 'app/database', 'migrations'), 
+      directory: path.join(__dirname, 'app/database', 'migrations'),
       // Ruta personalizada para los archivos de migración
     },
   },
