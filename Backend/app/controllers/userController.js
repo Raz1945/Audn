@@ -3,7 +3,8 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const User = require('../models/userSchema');
 
-exports.register = async (req, res) => {
+// Crear un nuevo usuario
+const register = async (req, res) => {
   try {
     const { email, username, password } = req.body;
 
@@ -32,3 +33,37 @@ exports.register = async (req, res) => {
     res.status(500).json({ error: 'Error creating user' });
   }
 };
+
+// Iniciar sesión de usuario
+const login = async (req, res) => {
+  try {
+    const { userIdentifier, password } = req.body;
+    console.log(userIdentifier);
+
+    const user = await User.findOne({
+      $or: [{ username: userIdentifier }, { email: userIdentifier }],
+    });
+
+    // Verificar si el usuario existe y la contraseña es correcta
+    if (!user || !(await bcrypt.compare(password, user.password))) {
+      return res
+        .status(400)
+        .json({ message: 'Usuario o contraseña inválidos' });
+    }
+
+    // Generar un token JWT
+    const accessToken = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
+      expiresIn: process.env.JWT_EXPIRATION_TIME,
+    });
+
+    // Responder con el Token JWT
+    res.status(200).json({ accessToken });
+  } catch (error) {
+    console.error('Error al iniciar sesión:', error);
+    res
+      .status(500)
+      .json({ message: 'Error al iniciar sesión', error: error.message });
+  }
+};
+
+module.exports = { register, login };
