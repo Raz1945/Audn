@@ -14,11 +14,11 @@
   cursor: pointer;
 }
 
-.btn-link:focus-visible{
+.btn-link:focus,
+.btn-link:focus-visible {
   outline: 3px solid hsl(32, 100%, 52%);
   border-radius: 0px 16px;
 }
-
 
 .btn-text {
   font-family: Rubik;
@@ -28,6 +28,7 @@
   letter-spacing: 0.5px;
   text-align: center;
 }
+
 .none {
   color: hsla(238, 10%, 16%, 1);
   background-color: transparent;
@@ -59,17 +60,9 @@
   color: hsla(238, 10%, 16%, 1);
   box-shadow: var(--shadow-elevation-low);
 }
+
 .disabled {
   color: var(--blanco, hsla(210, 100%, 100%, 1));
   background: hsla(210, 8%, 90%, 1);
   pointer-events: none; /* Esto desactivará cualquier evento de clic en el botón */
 }
-
-/* .btn-desactive {
-  width: 320px;
-  border-radius: 0px 16px;
-  background: var(--medios-tonos-gris-1, #e4e6e8);
-}
-.btn-active {
-  background: var(--primario, #ff8e0a);
-} */

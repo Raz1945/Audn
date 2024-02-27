@@ -2,7 +2,7 @@ import { createBrowserRouter } from 'react-router-dom';
 import { Layout } from '../Components/Layout/Layout';
 import { Login } from '../Components/Login/Login';
 import { Register } from '../Components/Register/Register';
-// import { Login } from '../components/Login/Login';
+import { Register2 } from '../Components/Register/Register2';
 
 export const AppRoutes = createBrowserRouter([
   {
@@ -34,6 +34,11 @@ export const AppRoutes = createBrowserRouter([
         path: '/register',
         index: false,
         element: <Register />,
+      },
+      {
+        path: '/register2',
+        index: false,
+        element: <Register2 />,
       },
       {
         path: '/sing-in',

@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'; 
+import { Link } from 'react-router-dom';
 import './index.css';
 
 export const ButtonStandard = ({
@@ -11,19 +11,21 @@ export const ButtonStandard = ({
   tabindex
 }) => {
   return (
-    <Link to={to} className="btn-link" tabIndex={tabindex}>
-      <button
-        disabled={state === 'disabled'}
-        type="button"
-        data-testid="btn-standard"
-        id="btn-login-standard"
-        className={`btn-container btn-text ${hierarchy} ${state}`}
-        tabIndex='-1'
-      >
-        {icon_left}
-        <span>{text}</span>
-        {icon_right}
-      </button>
-    </Link>
+    <>
+      <Link to={to} className="btn-link" tabIndex={tabindex}>
+        <button
+          disabled={state === 'disabled'}
+          type="button"
+          data-testid="btn-standard"
+          id="btn-login-standard"
+          className={`btn-container btn-text ${hierarchy} ${state}`}
+          tabIndex='-1'
+        >
+          {icon_left}
+          <span>{text}</span>
+          {icon_right}
+        </button>
+      </Link>
+    </>
   );
 };
