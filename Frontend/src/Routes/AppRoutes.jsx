@@ -45,6 +45,11 @@ export const AppRoutes = createBrowserRouter([
         index: false,
         element: <h1> Iniciar Sesión</h1>,
       },
+      {
+        path: '/otra',
+        index: false,
+        element: <h1> Registro exitoso</h1>,
+      },
     ],
   },
 ]);

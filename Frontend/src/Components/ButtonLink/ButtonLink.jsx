@@ -1,11 +1,13 @@
+import { Link } from 'react-router-dom';
 import './index.css';
 
-export const ButtonStandard = ({
+export const ButtonLink = ({
   hierarchy = 'primary',
   state = 'active',
   icon_left,
   icon_right,
   text = 'label-text',
+  to,
   tabindex,
   type = state === 'active' ? 'submit' : 'button',
 
@@ -16,6 +18,7 @@ export const ButtonStandard = ({
 
   return (
     <>
+      <Link to={to} className="btn-link" tabIndex='-1'>
         <button
           disabled={state === 'disabled'}
           type={type}
@@ -29,6 +32,7 @@ export const ButtonStandard = ({
           <span>{text}</span>
           {icon_right}
         </button>
+      </Link>
     </>
   );
 };

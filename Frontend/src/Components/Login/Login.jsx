@@ -1,4 +1,4 @@
-import { ButtonStandard } from '../ButtonStandard/ButtonStandard';
+import { ButtonLink } from '../ButtonLink/ButtonLink';
 import { AppleIcon } from '../icons/AppleIcon';
 import { GoogleIcon } from '../icons/GoogleIcon';
 
@@ -18,20 +18,20 @@ export const Login = () => {
         </div>
         <div className="btn-layout">
           <div className='btn-wrapper'>
-            <ButtonStandard
+            <ButtonLink
               text="Registrarse gratis"
               hierarchy='primary'
               to={'/register'}
               tabindex='1'
             />
-            <ButtonStandard
+            <ButtonLink
               text="Continuar con Google"
               icon_left={<GoogleIcon />}
               hierarchy='cuaternary'
               to="/google-login"
               tabindex='2'
             />
-            <ButtonStandard
+            <ButtonLink
               text="Continuar con Apple"
               icon_left={<AppleIcon />}
               hierarchy='cuaternary'
@@ -39,7 +39,7 @@ export const Login = () => {
               tabindex='3'
             />
           </div>
-          <ButtonStandard
+          <ButtonLink
             text="Iniciar Sesión"
             hierarchy='none'
             to="/sing-in"

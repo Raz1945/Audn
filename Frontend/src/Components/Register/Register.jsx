@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import { InputInstruction } from "../other/InputInstruction/InputInstruction";
-import { ButtonStandard } from "../ButtonStandard/ButtonStandard";
 import { useDispatch } from "react-redux";
 import { updateEmail } from "../../app/features/emailSlice";
 
 import './index.css'
 import { Navbar } from "./navbar";
+import { ButtonLink } from "../ButtonLink/ButtonLink";
 const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
 export const Register = () => {
@@ -24,6 +24,9 @@ export const Register = () => {
 
   useEffect(() => {
     const result = EMAIL_REGEX.test(email);
+    
+    console.log(result);
+
     setValidEmail(result);
     setErrMsg('');
   }, [email]);
@@ -32,7 +35,6 @@ export const Register = () => {
 
   const handleChange = (e) => {
     setEmail(e.target.value);
-    // console.log(e.target.value);
     dispatch(updateEmail(e.target.value));
   };
 
@@ -66,30 +68,32 @@ export const Register = () => {
               onBlur={() => setEmailFocus(false)}
               placeholder="Audn@music.com"
               tabIndex="2"
-              className={`register__input ${validEmail ? "valid" : ""
-                } ${validEmail || !email ? "" : "invalid"}`}
+              className={`register__input ${validEmail ? "valid" : ""} ${validEmail || !email ? "" : "invalid"}`}
             />
-            <InputInstruction
-              id="emailnote"
-              focus={emailFocus}
-              refe={email}
-              valid={validEmail}
-            >
-              Must be a valid email address.
-            </InputInstruction>
-            <p className="register__input-text">Deberás poder confirmarlo luego.</p>
+
+            {validEmail ? (
+              <p className="register__input-text">Deberás poder confirmarlo luego.</p>) :
+              <InputInstruction
+                id="emailnote"
+                focus={!emailFocus}
+                refe={email}
+                valid={validEmail}
+              >
+                Must be a valid email address.
+              </InputInstruction>
+            }
+          </div>
+
+          <div className="section__button">
+            <ButtonLink
+              state={validEmail ? 'active' : 'disabled'}
+              text="Continuar"
+              tabIndex={validEmail ? '3' : '-1'}
+              to={validEmail ? "/register2" : null}
+            />
           </div>
         </form>
-        {/* el div con la clase section__button, 
-        hacen que el buttonStandard se desplace hacia abajo,
-        sin afectar el foco del mismo  */}
-        <div className="section__button"></div>
-        <ButtonStandard
-          state={validEmail ? 'active' : 'disabled'}
-          text="Continuar"
-          tabIndex='3'
-          to={validEmail ? "/register2" : null}
-        />
+
         <div className="errRef">
           <p ref={errRef} className={`errmsg ${errMsg ? "visible" : ""}`} aria-live="assertive">
             {errMsg}
