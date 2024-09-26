@@ -2,15 +2,9 @@ const knex = require('../database/config/db');
 
 // Verifica si existe el usuario según el correo electrónico o nombre de usuario proporcionado.
 const findOne = async (data) => {
-  // Eliminar estas líneas después
-  // console.log('data', data);
-  // console.log('data.$or', data.$or);
-  // console.log('data.$or[0]', data.$or[0]);
-  // console.log('data.$or[0].username', data.$or[0].username);
-  // console.log('data.$or[0].email', data.$or[0].email);
-
   try {
     let userExists;
+    
     if (data.$or) {
       // Extraer las condiciones de búsqueda del objeto $or
       const { username, email } = data.$or[0];
@@ -29,15 +23,7 @@ const findOne = async (data) => {
           .from('users')
           .where('email', email)
           .first();
-      } else {
-        throw new Error(
-          'Debe proporcionar un correo electrónico válido o un nombre de usuario'
-        );
       }
-    } else {
-      throw new Error(
-        'Debe proporcionar un correo electrónico válido o un nombre de usuario'
-      );
     }
 
     return userExists;

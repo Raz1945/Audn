@@ -5,7 +5,7 @@ const routes = require('./app/routes');
 
 // Obtener las variables de entorno
 const port = process.env.PORT || 3000; // Puerto del servidor
-const corsOrigin = process.env.CORS_ORIGIN; // Origen permitido para el CORS
+const corsOrigin = process.env.CORS_ORIGIN || 'http://localhost:5173'; // Origen permitido para el CORS
 
 // Crear la aplicación Express
 const app = express();
@@ -17,7 +17,6 @@ app.use(
     credentials: true, // Permitir el envío de credenciales en las solicitudes
   })
 );
-app.options('*', cors()); // Aplicar el CORS a todas las rutas
 
 // Configurar el middleware para parsear el cuerpo de las solicitudes en formato JSON
 app.use(express.json());

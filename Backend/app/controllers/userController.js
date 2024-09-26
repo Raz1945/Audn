@@ -7,9 +7,9 @@ const User = require('../models/userSchema');
 const register = async (req, res) => {
   try {
     const { email, username, password } = req.body;
-
     // Verifica si el usuario ya existe
     const existingUser = await User.findOne({ email });
+
     if (existingUser) {
       console.log('User already exists');
       return res.status(400).json({ error: 'Error, User already exists' });
@@ -25,7 +25,7 @@ const register = async (req, res) => {
       username,
       password: hashedPassword,
     });
-
+    
     const message = 'User created successfully'; // Eliminar esta línea después
     res.json({ message, user: newUser }); // Eliminar esta línea después
   } catch (error) {
@@ -41,6 +41,7 @@ const login = async (req, res) => {
     console.log(userIdentifier);
 
     const user = await User.findOne({
+      // $or es un operador de búsqueda que busca en los campos username y email.
       $or: [{ username: userIdentifier }, { email: userIdentifier }],
     });
 
