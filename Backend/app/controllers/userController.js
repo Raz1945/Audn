@@ -7,12 +7,12 @@ const User = require('../models/userSchema');
 const register = async (req, res) => {
   try {
     const { email, username, password } = req.body;
+
     // Verifica si el usuario ya existe
     const existingUser = await User.findOne({ email });
-
     if (existingUser) {
-      console.log('User already exists');
-      return res.status(400).json({ error: 'Error, User already exists' });
+      console.log('User already registered');
+      return res.status(409).json({ error: 'Registration error' });
     }
 
     // Genera un hash para la contraseña
@@ -25,12 +25,11 @@ const register = async (req, res) => {
       username,
       password: hashedPassword,
     });
-    
-    const message = 'User created successfully'; // Eliminar esta línea después
-    res.json({ message, user: newUser }); // Eliminar esta línea después
+
+    return res.status(201).json({ message: 'User created successfully' });
   } catch (error) {
     console.error('Error creating user:', error);
-    res.status(500).json({ error: 'Error creating user' });
+    res.status(500).json({ error: 'Server error, please try again' });
   }
 };
 
@@ -38,32 +37,43 @@ const register = async (req, res) => {
 const login = async (req, res) => {
   try {
     const { userIdentifier, password } = req.body;
-    console.log(userIdentifier);
 
-    const user = await User.findOne({
-      // $or es un operador de búsqueda que busca en los campos username y email.
-      $or: [{ username: userIdentifier }, { email: userIdentifier }],
-    });
+    // Validar que userIdentifier y password estén presentes
+    if (!userIdentifier || !password) {
+      return res.status(400).json({ message: 'Credenciales incompletas' });
+    }
+
+    //todo A eliminar -> Logs Sensibles
+    console.log('Buscando usuario con identifier:', userIdentifier);
+
+    // Buscar al usuario usando la función findOne
+    const user = await User.findOne(userIdentifier);
+
+    //todo A eliminar -> Logs Sensibles
+    console.log('Usuario encontrado:', user);
 
     // Verificar si el usuario existe y la contraseña es correcta
     if (!user || !(await bcrypt.compare(password, user.password))) {
+      // Mensaje genérico para evitar revelar información sensible
       return res
-        .status(400)
+        .status(401)
         .json({ message: 'Usuario o contraseña inválidos' });
     }
 
     // Generar un token JWT
-    const accessToken = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
+    const accessToken = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, {
       expiresIn: process.env.JWT_EXPIRATION_TIME,
     });
+
+    //todo A eliminar -> Logs Sensibles
+    console.log('Token generado:', accessToken);
 
     // Responder con el Token JWT
     res.status(200).json({ accessToken });
   } catch (error) {
     console.error('Error al iniciar sesión:', error);
-    res
-      .status(500)
-      .json({ message: 'Error al iniciar sesión', error: error.message });
+    // Mensaje genérico para errores internos del servidor
+    res.status(500).json({ message: 'Error interno del servidor' });
   }
 };
 

@@ -1,30 +1,19 @@
 const knex = require('../database/config/db');
 
-// Verifica si existe el usuario según el correo electrónico o nombre de usuario proporcionado.
-const findOne = async (data) => {
+// Verifica si existe el usuario según el userIdentifier proporcionado
+const findOne = async (userIdentifier) => {
   try {
-    let userExists;
-    
-    if (data.$or) {
-      // Extraer las condiciones de búsqueda del objeto $or
-      const { username, email } = data.$or[0];
-
-      if (username) {
-        // Buscar por nombre de usuario
-        userExists = await knex
-          .select('*')
-          .from('users')
-          .where('username', username)
-          .first();
-      } else if (email) {
-        // Buscar por correo electrónico
-        userExists = await knex
-          .select('*')
-          .from('users')
-          .where('email', email)
-          .first();
-      }
+    if (!userIdentifier) {
+      throw new Error('User identifier is required');
     }
+
+    const userExists = await knex('users')
+      .select('*')
+      .where(function() {
+        this.where('username', userIdentifier)
+            .orWhere('email', userIdentifier);
+      })
+      .first();
 
     return userExists;
   } catch (error) {
