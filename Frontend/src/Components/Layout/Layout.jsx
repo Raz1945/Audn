@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom"
-import '../Layout/layout.css'
+import '../Layout/index.css'
 
 export const Layout = () => {
   return (

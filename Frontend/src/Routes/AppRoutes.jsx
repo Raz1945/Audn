@@ -3,6 +3,8 @@ import { Layout } from '../Components/Layout/Layout';
 import { Login } from '../Components/Login/Login';
 import { Register } from '../Components/Register/Register';
 import { Register2 } from '../Components/Register/Register2';
+import { SingIn } from '../Components/SingIn/SingIn';
+import { RegistroExitoso } from '../Components/RegistroExitoso/RegistroExitoso';
 
 export const AppRoutes = createBrowserRouter([
   {
@@ -13,12 +15,6 @@ export const AppRoutes = createBrowserRouter([
         path: '/login', 
         element: <Login />, 
         index: true, // Indica que es la página de inicio
-        // children: [
-        //   { path: '/login', index: true, element: <h1>Login</h1> },
-        //   // { path: 'register', index: false, element: <Register /> },
-        // ],
-        // para traer los datos de usuario
-        // loader: () => fetch('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'), 
       },
       {
         path: '/google-login',
@@ -36,19 +32,27 @@ export const AppRoutes = createBrowserRouter([
         element: <Register />,
       },
       {
+        // TODO msj de error 
         path: '/register2',
         index: false,
         element: <Register2 />,
       },
       {
+        // TODO
         path: '/sing-in',
         index: false,
-        element: <h1> Iniciar Sesión</h1>,
+        element: <SingIn/>,
       },
       {
-        path: '/otra',
+        // loader de carga
+        path: '/exitoso',
         index: false,
-        element: <h1> Registro exitoso</h1>,
+        element: <RegistroExitoso/>
+      },
+      {
+        path: '/dashboard',
+        index: false,
+        element: <h1> Welcome to Audn</h1>,
       },
     ],
   },

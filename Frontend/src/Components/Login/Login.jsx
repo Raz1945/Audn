@@ -10,12 +10,13 @@ export const Login = () => {
     <>
       <div className="bg">
 
-        <div className="login__logo" tabIndex="-1"> 
+        <div className="login__logo" tabIndex="-1">
           <picture className='login__picture'>
             <img src="./logo-large.png" alt="logo audn" />
           </picture>
           <p className='login__title'>Musica a pedida.</p>
         </div>
+        
         <div className="btn-layout">
           <div className='btn-wrapper'>
             <ButtonLink
@@ -39,15 +40,15 @@ export const Login = () => {
               tabindex='3'
             />
           </div>
-          <ButtonLink
-            text="Iniciar Sesión"
-            hierarchy='none'
-            to="/sing-in"
-            tabindex='4'
-          />
+            <ButtonLink
+              text="Iniciar Sesión"
+              hierarchy='quinary'
+              to="/sing-in"
+              tabindex='4'
+            />
         </div>
 
-    </div >
+      </div >
     </>
   );
 };

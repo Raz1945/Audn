@@ -12,6 +12,7 @@ export const ButtonLink = ({
   type = state === 'active' ? 'submit' : 'button',
 
 }) => {
+  // Testeamos que funcione
   const onClick = () => {
     console.log('click');
   }
@@ -26,7 +27,8 @@ export const ButtonLink = ({
           id="btn-login-standard"
           className={`btn-container btn-text ${hierarchy} ${state}`}
           tabIndex={tabindex}
-          onClick={onClick}
+          
+          onClick={onClick} // todo eliminar
         >
           {icon_left}
           <span>{text}</span>

@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom"
-import { ArrowLeft } from "../icons/ArrowLeft";
+import { ArrowLeft } from "../../icons/ArrowLeft";
+import './index.css';
 
 export const Navbar = ({
   to,
@@ -8,15 +9,15 @@ export const Navbar = ({
   text
 }) => {
   return (
-    <div className="register__navbar">
+    <div className="navbar">
       <Link
         to={to}
         tabIndex={tabIndex}
-        className="register__navbar-link"
+        className="navbar-link"
         aria-label={label}>
         <ArrowLeft />
       </Link>
-      <p className="register__navbar-text">{text}</p>
+      <p className="navbar-text">{text}</p>
     </div>
 
 

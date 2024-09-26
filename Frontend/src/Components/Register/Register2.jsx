@@ -1,9 +1,9 @@
 import { useState, useMemo } from 'react';
 import { useDispatch, useSelector } from "react-redux";
-
+import { useNavigate } from 'react-router-dom'; // Importa useNavigate
 import axios from '../../api/axios';
 
-import { Navbar } from "./navbar";
+import { Navbar } from "../other/Navbar/Navbar";
 import { updateUser } from '../../app/features/userSlice';
 import { updatePassword } from '../../app/features/passwordSlice';
 import { validate } from '../../app/features/validate';
@@ -15,7 +15,7 @@ const REGISTER_URL = '/register';
 
 export const Register2 = () => {
   const [user, setUser] = useState('');
-  const [validName, setValidName] = useState(false);
+  const [validUser, setValidName] = useState(false);
   const [userFocus, setUserFocus] = useState(false);
 
   const [pwd, setPwd] = useState('');
@@ -24,10 +24,10 @@ export const Register2 = () => {
 
   const [isAgreed, setIsAgreed] = useState(false);
 
-
   const [errMsg, setErrMsg] = useState('');
 
   const dispatch = useDispatch();
+  const navigate = useNavigate(); // Hook para la redirección
 
   const emailFromStore = useSelector((state) => state.email.value);
   const userFromStore = useSelector((state) => state.user.value);
@@ -43,25 +43,18 @@ export const Register2 = () => {
     dispatch(updatePassword(e.target.value));
   };
 
+  // Validación de nombre de usuario y contraseña
   useMemo(() => {
     const { validName, validPwd } = validate(userFromStore, passwordFromStore, emailFromStore);
     setValidName(validName);
     setValidPwd(validPwd);
   }, [userFromStore, passwordFromStore, emailFromStore]);
 
-  // No esta funcionando 
   const handleSubmit = async (e) => {
-    console.log('enviar datos a backend')
     e.preventDefault();
 
-    console.log({
-      email: emailFromStore,
-      username: userFromStore,
-      password: passwordFromStore,
-      isAgreed: isAgreed
-    });
-
-    if (!validName) {
+    // Verificar si los campos son válidos
+    if (!validUser) {
       setErrMsg('Nombre de usuario no válido.');
       return;
     }
@@ -70,7 +63,7 @@ export const Register2 = () => {
       return;
     }
     if (!isAgreed) {
-      setErrMsg('You must agree to the terms and conditions.');
+      setErrMsg('Debes aceptar los términos y condiciones.');
       return;
     }
 
@@ -89,15 +82,21 @@ export const Register2 = () => {
       );
 
       console.log(response.data);
+      navigate('/exitoso');
+
     } catch (error) {
-      setErrMsg('Error al enviar datos.');
+      if (error.response && error.response.status === 409) {
+        setErrMsg('El nombre de usuario no está disponible.');
+      } else {
+        setErrMsg('Error en el registro. Inténtelo de nuevo más tarde.');
+      }
+      setPwd(''); 
       console.error(error);
     }
   };
 
   return (
     <div className="register__wrapper">
-
       <Navbar
         to={'/login'}
         tabIndex='1'
@@ -108,9 +107,8 @@ export const Register2 = () => {
       <section className="section__wrapper">
         <h1 className="section__title">Ingresa un nombre de usuario y contraseña.</h1>
         <form className="register__form" onSubmit={handleSubmit}>
-
           <div className='register__label-wrapper'>
-            <label htmlFor="username" className={`register__label normal ${validName && !validName !== null ? 'valid-text' : ''} ${validName || !user ? '' : 'invalid-text'}`}>
+            <label htmlFor="username" className={`register__label normal ${validUser && !validUser !== null ? 'valid-text' : ''} ${validUser || !user ? '' : 'invalid-text'}`}>
               Nombre de Usuario:
             </label>
             <div className='relative'>
@@ -120,29 +118,29 @@ export const Register2 = () => {
                 autoComplete="off"
                 value={user}
                 required
-                aria-invalid={!validName}
+                aria-invalid={!validUser}
                 aria-describedby="uidnote"
                 onChange={handleChangeUser}
                 onFocus={() => setUserFocus(true)}
                 onBlur={() => setUserFocus(false)}
                 placeholder='Username'
-                className={`register__input ${validName && !validName !== null ? 'valid' : ''} ${validName || !user ? '' : 'invalid'}`}
+                className={`register__input ${validUser && !validUser !== null ? 'valid' : ''} ${validUser || !user ? '' : 'invalid'}`}
               />
-              <InputInstruction focus={!userFocus} refe={user} valid={validName}>
+              <InputInstruction focus={!userFocus} refe={user} valid={validUser}>
                 4 to 20 characters.<br />
                 Must begin with a letter.<br />
                 Letters, numbers, underscores, hyphens allowed.
               </InputInstruction>
-
-              {/* //todo  Deberá realizar una busquedad en la base de datos para verificar que el nombre de usuario no esté en uso. */}
-              <p className={` ${validName && !validName !== null ? 'register__input-text-green' : 'none'} ${validName || !user ? '' : 'invalid'}`}>
+              <p className={` ${validUser && !validUser !== null ? 'register__input-text-green' : 'none'} ${validUser || !user ? '' : 'invalid'}`}>
                 El nombre de usuario está disponible.
               </p>
             </div>
           </div>
 
           <div className='register__label-wrapper'>
-            <label htmlFor="password" className={`register__label normal ${validPwd ? 'valid-text' : ''} ${validPwd || !pwd ? '' : 'invalid-text'}`}>
+            <label 
+              htmlFor="password" 
+              className={`register__label normal ${validPwd ? 'valid-text' : ''} ${validPwd || !pwd ? '' : 'invalid-text'}`} >
               Contraseña:
             </label>
             <div className="relative">
@@ -158,38 +156,28 @@ export const Register2 = () => {
                 onBlur={() => setPwdFocus(false)}
                 placeholder='Password'
                 className={`register__input normal ${validPwd ? 'valid' : ''} ${validPwd || !pwd ? '' : 'invalid'}`}
-
               />
               <InputInstruction focus={!pwdFocus} refe={pwd} valid={validPwd}>
                 8 to 20 characters.<br />
                 Must include uppercase and lowercase letters, a number, and a special character.<br />
                 Allowed special characters: !, @, #, $, %.
               </InputInstruction>
-              {/* <p className="register__input-text">Deberás poder confirmarlo luego.</p> */}
             </div>
           </div>
 
           <div className='register__checkbox-wapper'>
             <InputCheckbox onChange={(e) => setIsAgreed(e.target.checked)} />
             <span className='register__checkbox-text'>He leído y acepto los
-              <span className='register__text-orange'>
-                Términos
-              </span>
-              y
-              <span className='register__text-orange'>
-                Condiciones.
-              </span>
+              <span className='register__text-orange'>Términos</span> y
+              <span className='register__text-orange'>Condiciones.</span>
             </span>
           </div>
 
-          <div className="section__button" >
-            {/* <button type='submit'>Continuar</button> */}
-
+          <div className="section__button">
             <ButtonStandard
               text='Continuar'
               tabIndex='3'
-
-              state={validPwd && validName && isAgreed ? 'active' : 'disabled'}
+              state={validPwd && validUser && isAgreed ? 'active' : 'disabled'}
               type='submit'
             />
           </div>

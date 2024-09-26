@@ -1,0 +1,24 @@
+
+/* NavBar */
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 320px;
+  height: 40px;
+  padding: 0px 24px 0px 0px;
+  margin-top: 5%;
+}
+
+.navbar-link:focus,
+.navbar-link:focus-visible {
+  outline: 3px solid hsla(32, 100%, 52%, 1);
+  border-radius: 2px;
+}
+
+.navbar-text {
+  width: 272px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 500;
+}

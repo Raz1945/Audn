@@ -4,8 +4,12 @@ import { useDispatch } from "react-redux";
 import { updateEmail } from "../../app/features/emailSlice";
 
 import './index.css'
-import { Navbar } from "./navbar";
+import '../../validate.css'
+
+import { Navbar } from "../other/Navbar/Navbar";
+
 import { ButtonLink } from "../ButtonLink/ButtonLink";
+
 const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
 export const Register = () => {
@@ -18,21 +22,26 @@ export const Register = () => {
 
   const [errMsg, setErrMsg] = useState("");
 
+  const dispatch = useDispatch();
+
+  // Auto-focus en el campo de email al cargar
   useEffect(() => {
     emailRef.current.focus();
   }, []);
 
+  // Validación del correo electrónico
   useEffect(() => {
     const result = EMAIL_REGEX.test(email);
-    
-    console.log(result);
-
     setValidEmail(result);
-    setErrMsg('');
+
+    if (!result && email) {
+      setErrMsg('Correo electrónico no válido.');
+    } else {
+      setErrMsg('');
+    }
   }, [email]);
 
-  const dispatch = useDispatch();
-
+  // Manejar cambios en el input y actualizar el estado global
   const handleChange = (e) => {
     setEmail(e.target.value);
     dispatch(updateEmail(e.target.value));
@@ -79,7 +88,7 @@ export const Register = () => {
                 refe={email}
                 valid={validEmail}
               >
-                Must be a valid email address.
+                Debe ser una dirección de correo electrónico válida.
               </InputInstruction>
             }
           </div>
@@ -94,11 +103,14 @@ export const Register = () => {
           </div>
         </form>
 
-        <div className="errRef">
-          <p ref={errRef} className={`errmsg ${errMsg ? "visible" : ""}`} aria-live="assertive">
-            {errMsg}
-          </p>
-        </div>
+        {/* // No es necesario aca */}
+        {/* 
+          <div className="errRef">
+            <p ref={errRef} className={`errmsg ${errMsg ? "visible" : ""}`} aria-live="assertive">
+              {errMsg}
+            </p>
+          </div> 
+        */}
       </section>
     </div>
   );
