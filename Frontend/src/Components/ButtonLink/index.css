@@ -1,0 +1,96 @@
+.btn-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+
+  width: 320px;
+  height: 48px;
+  
+  padding: 12px 16px;
+  border: 2px outset transparent;
+  border-radius: 0px 16px;
+  position: relative;
+  cursor: pointer;
+  outline:none;
+  transition: border 0.3s ease-in, outline 0.3s ease-in; 
+} 
+
+.btn-container:focus,
+.btn-container:focus-visible {
+  outline: 2px solid hsl(32, 100%, 52%);
+  border: 3px solid white ;
+}
+
+.btn-text {
+  font-family: Rubik;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0.5px;
+  text-align: center;
+}
+
+/* .none {
+  color: hsla(238, 10%, 16%, 1);
+  background-color: transparent;
+} */
+
+.primary {
+  color: var(--blanco, hsla(210, 100%, 100%, 1));
+  background: hsl(32, 100%, 52%);
+}
+.primary:active {
+  border: none;
+  box-shadow: inset 0px 0px 8px 0px rgba(8, 8, 17, 0.078),
+    inset 8px 8px 16px 0px rgba(8, 8, 17, 0.08);
+}
+
+.secondary {
+  background-color: transparent;
+  color: hsla(32, 100%, 52%, 1);
+  border: 2px solid hsla(32, 100%, 52%, 1);
+}
+
+.tertiary {
+  color: hsla(32, 100%, 52%, 1);
+  background-color: transparent;
+}
+
+.cuaternary {
+  background-color: transparent;
+  border: 2px solid hsla(238, 10%, 16%, 1);
+  color: hsla(238, 10%, 16%, 1);
+  box-shadow: var(--shadow-elevation-low);
+}
+
+.quinary {
+  color: hsla(238, 10%, 16%, 1);
+  background-color: transparent;
+  transition: text-shadow 0.5s ease;
+}
+.quinary:hover {
+  border: none;
+  text-shadow: 1px 0px ;
+}
+
+.sextenary{
+  background-color: hsla(238, 10%, 16%, 1);
+  color: var(--blanco);
+}
+/* .sextenary:hover{
+}
+*/
+
+.disabled {
+  color: var(--blanco, hsla(210, 100%, 100%, 1));
+  background: hsla(210, 8%, 90%, 1);
+  pointer-events: none; /* Esto desactivará cualquier evento de clic en el botón */
+}
+
+
+/* Eliminamos el borde de enfoque predeterminado del navegador */
+.btn-link:focus,
+.btn-link:focus-visible {
+  outline: none; 
+}

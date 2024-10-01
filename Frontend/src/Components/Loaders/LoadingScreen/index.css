@@ -1,0 +1,46 @@
+@keyframes pulse {
+  0% {
+    transform: scale(0.9);
+    opacity: 0.7;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.3;
+  }
+  100% {
+    transform: scale(0.9);
+    opacity: 0.7;
+  }
+}
+
+.loader__screen {
+  width: 368px;
+  height: 792px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative; /* Para que el círculo se posicione dentro de este contenedor */
+}
+
+.loader__pulse {
+  position: absolute;
+  width: 150px;
+  height: 150px;
+
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.8) 0%,
+    rgba(255, 255, 255, 0.5) 25%,
+    rgba(255, 193, 7, 0.4) 50%,
+    rgba(255, 142, 10, 0.4) 75%,
+    rgba(255, 94, 0, 0.5) 100%
+  );
+
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+  z-index: 0; /* Asegura que el círculo esté debajo del Loader */
+}
+
+.loader__wrapper img {
+  z-index: 1; /* Loader encima del círculo pulsante */
+}
