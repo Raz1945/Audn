@@ -12,7 +12,8 @@ export const ButtonLink = ({
   type = state === 'active' ? 'submit' : 'button',
 
 }) => {
-  // Testeamos que funcione
+
+  // TODO ELIMINAR 
   const onClick = () => {
     console.log('click');
   }

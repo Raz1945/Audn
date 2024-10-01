@@ -1,13 +1,13 @@
 import { useState, useMemo } from 'react';
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom'; // Importa useNavigate
 import axios from '../../api/axios';
 
-import { Navbar } from "../other/Navbar/Navbar";
+import { Navbar } from '../other/Navbar/Navbar';
 import { updateUser } from '../../app/features/userSlice';
 import { updatePassword } from '../../app/features/passwordSlice';
 import { validate } from '../../app/features/validate';
-import { InputInstruction } from "../other/InputInstruction/InputInstruction";
+import { InputInstruction } from '../other/InputInstruction/InputInstruction';
 import { ButtonStandard } from '../ButtonStandard/ButtonStandard';
 import { InputCheckbox } from '../other/inputCheckbox/inputCheckbox';
 
@@ -73,24 +73,24 @@ export const Register2 = () => {
         JSON.stringify({
           email: emailFromStore,
           username: userFromStore,
-          password: passwordFromStore
+          password: passwordFromStore,
         }),
         {
           headers: { 'Content-Type': 'application/json' },
-          withCredentials: true
+          withCredentials: true,
         }
       );
 
-      console.log(response.data);
-      navigate('/exitoso');
+      console.log(response.data); // todo ELIMINAR 
 
+      navigate('/LoginSuccess');
     } catch (error) {
       if (error.response && error.response.status === 409) {
         setErrMsg('El nombre de usuario no está disponible.');
       } else {
         setErrMsg('Error en el registro. Inténtelo de nuevo más tarde.');
       }
-      setPwd(''); 
+      setPwd('');
       console.error(error);
     }
   };
@@ -99,19 +99,19 @@ export const Register2 = () => {
     <div className="register__wrapper">
       <Navbar
         to={'/login'}
-        tabIndex='1'
-        label='Ir a la página de inicio de sesión'
-        text='Crear Cuenta'
+        tabIndex="1"
+        label="Ir a la página de inicio de sesión"
+        text="Crear Cuenta"
       />
 
       <section className="section__wrapper">
         <h1 className="section__title">Ingresa un nombre de usuario y contraseña.</h1>
         <form className="register__form" onSubmit={handleSubmit}>
-          <div className='register__label-wrapper'>
-            <label htmlFor="username" className={`register__label normal ${validUser && !validUser !== null ? 'valid-text' : ''} ${validUser || !user ? '' : 'invalid-text'}`}>
+          <div className="register__label-wrapper">
+            <label htmlFor="username" className="register__label">
               Nombre de Usuario:
             </label>
-            <div className='relative'>
+            <div className="relative">
               <input
                 type="text"
                 id="username"
@@ -123,7 +123,7 @@ export const Register2 = () => {
                 onChange={handleChangeUser}
                 onFocus={() => setUserFocus(true)}
                 onBlur={() => setUserFocus(false)}
-                placeholder='Username'
+                placeholder="Username"
                 className={`register__input ${validUser && !validUser !== null ? 'valid' : ''} ${validUser || !user ? '' : 'invalid'}`}
               />
               <InputInstruction focus={!userFocus} refe={user} valid={validUser}>
@@ -131,16 +131,16 @@ export const Register2 = () => {
                 Must begin with a letter.<br />
                 Letters, numbers, underscores, hyphens allowed.
               </InputInstruction>
-              <p className={` ${validUser && !validUser !== null ? 'register__input-text-green' : 'none'} ${validUser || !user ? '' : 'invalid'}`}>
+
+              <p className={`${validUser && !validUser !== null ? 'register__input-text-green' : 'none'} ${validUser || !user ? '' : 'invalid'}`}>
                 El nombre de usuario está disponible.
               </p>
             </div>
           </div>
 
-          <div className='register__label-wrapper'>
-            <label 
-              htmlFor="password" 
-              className={`register__label normal ${validPwd ? 'valid-text' : ''} ${validPwd || !pwd ? '' : 'invalid-text'}`} >
+          <div className="register__label-wrapper">
+            <label
+              htmlFor="password" className="register__label">
               Contraseña:
             </label>
             <div className="relative">
@@ -154,7 +154,7 @@ export const Register2 = () => {
                 onChange={handleChangePwd}
                 onFocus={() => setPwdFocus(true)}
                 onBlur={() => setPwdFocus(false)}
-                placeholder='Password'
+                placeholder="Password"
                 className={`register__input normal ${validPwd ? 'valid' : ''} ${validPwd || !pwd ? '' : 'invalid'}`}
               />
               <InputInstruction focus={!pwdFocus} refe={pwd} valid={validPwd}>
@@ -165,26 +165,26 @@ export const Register2 = () => {
             </div>
           </div>
 
-          <div className='register__checkbox-wapper'>
+          <div className="register__checkbox-wapper">
             <InputCheckbox onChange={(e) => setIsAgreed(e.target.checked)} />
-            <span className='register__checkbox-text'>He leído y acepto los
-              <span className='register__text-orange'>Términos</span> y
-              <span className='register__text-orange'>Condiciones.</span>
+            <span className="register__checkbox-text">He leído y acepto los
+              <span className="register__text-orange">Términos</span> y
+              <span className="register__text-orange">Condiciones.</span>
             </span>
           </div>
 
           <div className="section__button">
             <ButtonStandard
-              text='Continuar'
-              tabIndex='3'
+              text="Continuar"
+              tabIndex="3"
               state={validPwd && validUser && isAgreed ? 'active' : 'disabled'}
-              type='submit'
+              type="submit"
             />
           </div>
         </form>
 
         <div className="errRef">
-          <p className={`errmsg ${errMsg ? "visible" : ""}`} aria-live="assertive">
+          <p className={`errmsg ${errMsg ? 'visible' : ''}`} aria-live="assertive">
             {errMsg}
           </p>
         </div>

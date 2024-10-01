@@ -4,7 +4,11 @@ import { Login } from '../Components/Login/Login';
 import { Register } from '../Components/Register/Register';
 import { Register2 } from '../Components/Register/Register2';
 import { SingIn } from '../Components/SingIn/SingIn';
-import { RegistroExitoso } from '../Components/RegistroExitoso/RegistroExitoso';
+import { LoadingScreen } from '../Components/Loaders/LoadingScreen/LoadingScreen';
+import { Recovery } from '../Components/Recovery/Recovery';
+import { RecoverySuccess } from '../Components/Loaders/RecoverySuccess/RecoverySuccess';
+import { RecoveryMsg } from '../Components/Loaders/RecoveryMsg/RecoveryMsg';
+
 
 export const AppRoutes = createBrowserRouter([
   {
@@ -12,8 +16,8 @@ export const AppRoutes = createBrowserRouter([
     element: <Layout />,
     children: [
       {
-        path: '/login', 
-        element: <Login />, 
+        path: '/login',
+        element: <Login />,
         index: true, // Indica que es la página de inicio
       },
       {
@@ -32,24 +36,38 @@ export const AppRoutes = createBrowserRouter([
         element: <Register />,
       },
       {
-        // TODO msj de error 
         path: '/register2',
         index: false,
         element: <Register2 />,
       },
       {
-        // TODO
         path: '/sing-in',
         index: false,
-        element: <SingIn/>,
+        element: <SingIn />,
+      },
+      {
+        path: '/recovery',
+        index: false,
+        element: <Recovery />
+      },
+      {
+        path: '/recoverySuccess',
+        index: false,
+        element: <RecoverySuccess />
+      },
+      {
+        path: '/recoveryMsg',
+        index: false,
+        element: <RecoveryMsg />
       },
       {
         // loader de carga
-        path: '/exitoso',
+        path: '/LoginSuccess',
         index: false,
-        element: <RegistroExitoso/>
+        element: <LoadingScreen />
       },
       {
+        // TODO 
         path: '/dashboard',
         index: false,
         element: <h1> Welcome to Audn</h1>,

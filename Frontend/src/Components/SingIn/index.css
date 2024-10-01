@@ -5,8 +5,6 @@
   align-items: center;
   height: 100%;
   width: 100%;
-
-  
 }
 
 
@@ -50,6 +48,7 @@
 
 .relative {
   position: relative;
+  
 }
 
 .singin__input {
@@ -112,4 +111,33 @@
   line-height: 18px;
   letter-spacing: 0.5px;
   text-align: left;
+}
+
+.secction__center{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.recovery-link{
+  position: absolute;
+  top: 600px;
+  padding: 10px;
+
+  opacity: 1;
+  border-color: transparent; /* Borde normal por defecto */
+  border-style: solid;
+  border-radius: 0px 16px;
+  transition: border-color 0.3s ease, border-radius 0.3s ease;
+  
+  font-family: 'Rubik', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 18px;
+}
+.recovery-link:focus,
+.recovery-link:focus-visible {
+  outline:none;
+  border: 2px solid hsla(32, 100%, 52%, 1);
 }

@@ -1,7 +1,10 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Loader } from '../Loader/Loader';
 
-export const RegistroExitoso = () => {
+import './index.css'
+
+export const LoadingScreen = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -13,10 +16,11 @@ export const RegistroExitoso = () => {
   }, [navigate]);
 
   return (
-    <div>
-      <h1>¡Bienvenido!</h1>
-      
-      <p>Serás redirigido en unos momentos...</p>
-    </div>
+    <>
+      <div className="loader__screen">
+        <div className="loader__pulse"></div>
+        <Loader />
+      </div>
+    </>
   );
 };

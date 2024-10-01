@@ -7,7 +7,6 @@ import './index.css'
 import '../../validate.css'
 
 import { Navbar } from "../other/Navbar/Navbar";
-
 import { ButtonLink } from "../ButtonLink/ButtonLink";
 
 const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;

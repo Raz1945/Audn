@@ -1,50 +1,58 @@
 /* Para las validaciones */
 .normal {
   opacity: 1;
+  border-style: solid;
+  border-color: transparent; /* Borde normal por defecto */
+  transition: border-color 0.3s ease, border-radius 0.3s ease;
 }
+
 .normal:focus,
 .normal:focus-visible {
-  outline: 1px solid hsla(32, 100%, 52%, 1);
+  outline: 1px solid hsla(32, 100%, 52%, 1); /* Borde naranja al hacer foco */
   border-radius: 0px 16px;
 }
 
 .visited {
   border-style: solid;
-  border-color:hsla(223, 1%, 52%, 1);
+  border-color: hsla(223, 1%, 52%, 1); /* Borde para estado visitado */
   color: hsla(223, 1%, 52%, 1);
   font-family: Rubik;
   font-size: 12px;
   font-weight: 500;
   line-height: 18px;
   letter-spacing: 0.5px;
+  transition: border-color 0.3s ease, border-radius 0.3s ease;
 }
+
 .visited:focus,
 .visited:focus-visible {
-  border-style: solid;
   border-radius: 0px 16px;
 }
 
 .valid {
   border-style: solid;  
+  transition: border-color 0.3s ease, border-radius 0.3s ease;
 }
+
 .valid:focus,
 .valid:focus-visible {
-  border-style: solid !important;
-  border-color:green !important;
+  border-color: green !important; /* Borde verde al hacer foco si es válido */
   border-radius: 0px 16px !important;
   outline: none !important;
 }
 
 .invalid {
   border-style: solid;
-  border-color: red ;
+  border-color: red !important; /* Borde rojo si es inválido */
   box-shadow: 0.1px 0.2px 0.1px brown;
+  transition: border-color 0.5s ease, box-shadow 0.3s ease, border-radius 0.3s ease; 
 }
+
 .invalid:focus,
 .invalid:focus-visible {
-  border-style: solid;
-  border-radius: 0px 16px;
-  outline: none;
+  border-color: red !important; /* Borde rojo al hacer foco si es inválido */
+  border-radius: 0px 16px !important;
+  outline: none !important;
 }
 
 .disable {
@@ -55,6 +63,7 @@
   color: green;
   text-shadow: 0.1px 0.2px 0.1px rgb(8, 107, 8);
 }
+
 .invalid-text {
   color: red;
   text-shadow: 0.1px 0.2px 0.1px brown;
