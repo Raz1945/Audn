@@ -1,4 +1,4 @@
-const { findOne } = require('./userSchema'); // Asegúrate de que la ruta sea correcta
+const { findOne } = require('../services/userService'); // Asegúrate de que la ruta sea correcta
 
 const testFindOne = async (userIdentifier) => {
   try {

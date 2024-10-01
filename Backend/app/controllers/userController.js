@@ -1,7 +1,7 @@
 require('dotenv').config();
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const User = require('../models/userSchema');
+const User = require('../services/userService');
 
 // Crear un nuevo usuario
 const register = async (req, res) => {
@@ -77,4 +77,31 @@ const login = async (req, res) => {
   }
 };
 
-module.exports = { register, login };
+// Controlador de recuperación de contraseña
+const recovery = async (req, res) => {
+  try {
+    const { userIdentifier } = req.body;
+
+    if (!userIdentifier) {
+      return res.status(400).json({ message: 'El identificador de usuario es requerido' });
+    }
+
+    // Llama a la función para encontrar el email del usuario
+    const email = await User.findUserEmail(userIdentifier);
+
+    if (!email) {
+      return res.status(404).json({ message: 'Usuario no encontrado' });
+    }
+
+    // Simula el envío del email (en una implementación real, se usaría un servicio de email)
+    console.log(`Simulación de envío de email a: ${email}`);
+
+    // Retorna el email al frontend para su uso
+    res.status(200).json({ email });
+  } catch (error) {
+    console.error('Error en la recuperación de contraseña:', error);
+    res.status(500).json({ message: 'Error en el servidor, intenta nuevamente' });
+  }
+};
+
+module.exports = { register, login, recovery };
