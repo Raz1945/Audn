@@ -8,6 +8,8 @@ import { LoadingScreen } from '../Components/Loaders/LoadingScreen/LoadingScreen
 import { Recovery } from '../Components/Recovery/Recovery';
 import { RecoverySuccess } from '../Components/Loaders/RecoverySuccess/RecoverySuccess';
 import { RecoveryMsg } from '../Components/Loaders/RecoveryMsg/RecoveryMsg';
+import { Dashboard } from '../Components/Dashboard/Dashboard';
+import Home from '../Components/Home/Home';
 
 
 export const AppRoutes = createBrowserRouter([
@@ -67,10 +69,28 @@ export const AppRoutes = createBrowserRouter([
         element: <LoadingScreen />
       },
       {
-        // TODO 
+        // TODO corregir css 
         path: '/dashboard',
         index: false,
-        element: <h1> Welcome to Audn</h1>,
+        element: <Dashboard/>,
+        children: [
+          {
+            path: 'home',
+            element: <Home/>
+          },
+          {
+            path: 'search',
+            element: <h1>Search</h1>
+          },
+          {
+            path: 'profile',
+            element: <h1>Perfil</h1>
+          },
+          {
+            path: 'friends',
+            element: <h1>Amigos</h1>
+          },
+        ]
       },
     ],
   },
