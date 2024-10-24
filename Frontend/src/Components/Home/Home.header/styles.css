@@ -1,0 +1,25 @@
+.header-container {
+  display: flex;
+  width: 320px;
+  align-items: center;
+
+  position: relative;
+  top: 25px;
+}
+
+.header__title {
+  flex: 1 0 0;
+  color: var(--medios-tonos-gris-5);
+  font-family: 'Rubik';
+  font-size: 26px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 36px;
+  letter-spacing: 0.5px;
+}
+
+.header__btn {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}

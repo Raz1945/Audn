@@ -1,8 +1,9 @@
+import { smIcons } from "../../assets/icons"
 
 export const PaperPlane = () => {
   return (
     <>
-      <img src="public/icons/large/paper-plane.svg" alt="Avion de papel, representando el envio del mensaje" />
+      <img src={smIcons.paper_plane} alt="Avion de papel, representando el envio del mensaje" />
     </>
   )
 }

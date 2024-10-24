@@ -8,6 +8,10 @@ import { LoadingScreen } from '../Components/Loaders/LoadingScreen/LoadingScreen
 import { Recovery } from '../Components/Recovery/Recovery';
 import { RecoverySuccess } from '../Components/Loaders/RecoverySuccess/RecoverySuccess';
 import { RecoveryMsg } from '../Components/Loaders/RecoveryMsg/RecoveryMsg';
+import { Dashboard } from '../Components/Dashboard/Dashboard';
+import Home from '../Components/Home/Home';
+import { CupidoMusical } from '../Components/CupidoMusical/CupidoMusical';
+import { Search } from '../Components/Search/Search';
 
 
 export const AppRoutes = createBrowserRouter([
@@ -67,10 +71,33 @@ export const AppRoutes = createBrowserRouter([
         element: <LoadingScreen />
       },
       {
-        // TODO 
+        // TODO corregir css 
         path: '/dashboard',
         index: false,
-        element: <h1> Welcome to Audn</h1>,
+        element: <Dashboard/>,
+        children: [
+          {
+            path: 'home',
+            element: <Home/>
+          },
+          {
+            path: 'search',
+            element: <Search/>
+          },
+          {
+            path: 'profile',
+            element: <h1>Perfil</h1>
+          },
+          {
+            path: 'friends',
+            element: <h1>Amigos</h1>
+          },
+        ],
+      },
+      {
+        path: '/cupidoMusical',
+        index: false,
+        element: <CupidoMusical/>,
       },
     ],
   },
