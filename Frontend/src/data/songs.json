@@ -1,0 +1,222 @@
+[
+  {
+    "id": 1,
+    "artist": "Nathy Peluso",
+    "title": "Buenos Aires",
+    "duration": "247.00",
+    "genre": "[Pop]",
+    "rating": 1,
+    "created_at": "2023-07-18 22:05:43.798583+00",
+    "updated_at": "2023-07-18 22:05:43.798583+00",
+    "imageURL": "https://i.imgur.com/cPGJGb2.jpg"
+  },
+  {
+    "id": 2,
+    "artist": "Charly Garcia",
+    "title": "Funky",
+    "duration": "197.00",
+    "genre": "[Rock]",
+    "rating": 2,
+    "created_at": "2023-07-18 22:05:43.798583+00",
+    "updated_at": "2023-07-18 22:05:43.798583+00",
+    "imageURL": "https://i.imgur.com/EeL4Zwd.jpg"
+  },
+  {
+    "id": 3,
+    "artist": "Wos",
+    "title": "Caravana",
+    "duration": "189.00",
+    "genre": "[Rock]",
+    "rating": 3,
+    "created_at": "2023-07-18 22:05:43.798583+00",
+    "updated_at": "2023-07-18 22:05:43.798583+00",
+    "imageURL": "https://i.imgur.com/UCXzQmK.jpeg"
+  },
+  {
+    "id": 4,
+    "artist": "Imagine Dragons",
+    "title": "Thunder",
+    "duration": "196.00",
+    "genre": "[Rock, Alternativo]",
+    "rating": 4,
+    "created_at": "2023-07-20 00:14:07.748993+00",
+    "updated_at": "2023-07-20 00:14:07.748993+00",
+    "imageURL": "https://i.imgur.com/BSs7bO1.jpg"
+  },
+  {
+    "id": 6,
+    "artist": "Chris Stapleton",
+    "title": "White Horse",
+    "duration": "253.00",
+    "genre": "[Country]",
+    "rating": 15,
+    "created_at": "2023-07-25 00:29:58.429585+00",
+    "updated_at": "2023-07-25 00:29:58.429585+00",
+    "imageURL": "https://i.imgur.com/21Jexa3.jpg"
+  },
+  {
+    "id": 7,
+    "artist": "Taylor Swift",
+    "title": "Back To December",
+    "duration": "300.00",
+    "genre": "[Country, Pop]",
+    "rating": 16,
+    "created_at": "2023-07-25 00:29:58.429585+00",
+    "updated_at": "2023-07-25 00:29:58.429585+00",
+    "imageURL": "https://i.imgur.com/xhpbeJO.jpg"
+  },
+  {
+    "id": 8,
+    "artist": "Olivia Dean",
+    "title": "Crosswords",
+    "duration": "197.00",
+    "genre": "[Soul, Pop, R&B]",
+    "rating": 5,
+    "created_at": "2023-07-25 00:29:58.429585+00",
+    "updated_at": "2023-07-25 00:29:58.429585+00",
+    "imageURL": "https://i.imgur.com/muqcXnH.jpg"
+  },
+  {
+    "id": 9,
+    "artist": "Louis Armstrong",
+    "title": "La vie en rose ",
+    "duration": "183.00",
+    "genre": "[Jazz]",
+    "rating": 14,
+    "created_at": "2023-07-25 00:33:18.804763+00",
+    "updated_at": "2023-07-25 00:33:18.804763+00",
+    "imageURL": "https://i.imgur.com/IXLP6el.jpg"
+  },
+  {
+    "id": 10,
+    "artist": "Michael Bublé",
+    "title": "Feeling Good",
+    "duration": "240.00",
+    "genre": "[Jazz, Pop]",
+    "rating": 13,
+    "created_at": "2023-07-25 00:33:18.804763+00",
+    "updated_at": "2023-07-25 00:33:18.804763+00",
+    "imageURL": "https://i.imgur.com/saCTNyg.jpg"
+  },
+  {
+    "id": 11,
+    "artist": "B.B. King",
+    "title": "The Trhill Is Gone",
+    "duration": "187.00",
+    "genre": "[Blues]",
+    "rating": 12,
+    "created_at": "2023-07-25 00:35:24.457782+00",
+    "updated_at": "2023-07-25 00:35:24.457782+00",
+    "imageURL": "https://i.imgur.com/Wes37Kz.jpg"
+  },
+  {
+    "id": 12,
+    "artist": "Jimi Hendrix",
+    "title": "Little Wing",
+    "duration": "234.00",
+    "genre": "[Blues]",
+    "rating": 10,
+    "created_at": "2023-07-25 00:37:51.657624+00",
+    "updated_at": "2023-07-25 00:37:51.657624+00",
+    "imageURL": "https://i.imgur.com/vDB8Q4l.jpg"
+  },
+  {
+    "id": 13,
+    "artist": "Latejapride",
+    "title": "Corré",
+    "duration": "197.00",
+    "genre": "[Hip-Hop]",
+    "rating": 9,
+    "created_at": "2023-07-25 00:37:51.657624+00",
+    "updated_at": "2023-07-25 00:37:51.657624+00",
+    "imageURL": "https://i.imgur.com/H0LYhEk.jpg"
+  },
+  {
+    "id": 14,
+    "artist": "Canserbero",
+    "title": "Pensando en Ti",
+    "duration": "245.00",
+    "genre": "[Hip-Hop]",
+    "rating": 11,
+    "created_at": "2023-07-25 00:39:02.355669+00",
+    "updated_at": "2023-07-25 00:39:02.355669+00",
+    "imageURL": "https://i.imgur.com/9l4JkTF.jpg"
+  },
+  {
+    "id": 15,
+    "artist": "Bob Marley",
+    "title": "Is This Love",
+    "duration": "197.00",
+    "genre": "[Reggae]",
+    "rating": 17,
+    "created_at": "2023-07-25 00:41:11.604854+00",
+    "updated_at": "2023-07-25 00:41:11.604854+00",
+    "imageURL": "https://i.imgur.com/hXA8hwD.jpg"
+  },
+  {
+    "id": 16,
+    "artist": "El Kuelgue",
+    "title": "Parque Acuático",
+    "duration": "232.00",
+    "genre": "[Alternativo]",
+    "rating": 18,
+    "created_at": "2023-07-25 00:44:55.258628+00",
+    "updated_at": "2023-07-25 00:44:55.258628+00",
+    "imageURL": "https://i.imgur.com/F0lrcrI.jpg"
+  },
+  {
+    "id": 17,
+    "artist": "Avicii",
+    "title": "Wake Me Up",
+    "duration": "262.00",
+    "genre": "[EDM, Electrónica]",
+    "rating": 19,
+    "created_at": "2023-07-25 00:44:55.258628+00",
+    "updated_at": "2023-07-25 00:44:55.258628+00",
+    "imageURL": "https://i.imgur.com/wRHJKfU.jpg"
+  },
+  {
+    "id": 18,
+    "artist": "David Guetta",
+    "title": "Titanium (feat. Sia)",
+    "duration": "298.00",
+    "genre": "[Electrónica, Disco]",
+    "rating": 20,
+    "created_at": "2023-07-25 00:44:55.258628+00",
+    "updated_at": "2023-07-25 00:44:55.258628+00",
+    "imageURL": "https://i.imgur.com/dP4osbO.jpg"
+  },
+  {
+    "id": 19,
+    "artist": "Debussy",
+    "title": "Claro de luna",
+    "duration": "232.00",
+    "genre": "[Clásico]",
+    "rating": 8,
+    "created_at": "2023-07-25 00:45:54.711045+00",
+    "updated_at": "2023-07-25 00:45:54.711045+00",
+    "imageURL": "https://i.imgur.com/YHFsA7s.jpg"
+  },
+  {
+    "id": 20,
+    "artist": "Blink-182",
+    "title": "All The Small Things",
+    "duration": "231.00",
+    "genre": "[Punk]",
+    "rating": 7,
+    "created_at": "2023-07-25 00:47:05.886962+00",
+    "updated_at": "2023-07-25 00:47:05.886962+00",
+    "imageURL": "https://i.imgur.com/pevO0qv.jpg"
+  },
+  {
+    "id": 21,
+    "artist": "Linkin Park",
+    "title": "Fait",
+    "duration": "243.00",
+    "genre": "[Hip-Hop, Punk]",
+    "rating": 6,
+    "created_at": "2023-07-25 00:48:27.38418+00",
+    "updated_at": "2023-07-25 00:48:27.38418+00",
+    "imageURL": "https://i.imgur.com/OWpL9Dt.jpg"
+  }
+]

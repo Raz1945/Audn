@@ -7,6 +7,7 @@ import { images } from "../../assets/images";
 const Home = () => {
   return (
     <>
+      {/* // todo Revisar Header */}
       <HomeHeader />
       <HomeCardsContainer>
         <HomeCard

@@ -10,7 +10,9 @@ const HomeHeader = () => {
     <div className='header-container'>
       <h1 className='header__title'>Música ya</h1>
       <div className='header__btn'>
+        {/* //note hacer una funcion que recupere le historial */}
         <History/>
+        {/* //note hacer una funcion que notifique  */}
         <Bell/>
       </div>
     </div>

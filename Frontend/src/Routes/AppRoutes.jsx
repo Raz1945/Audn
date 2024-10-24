@@ -10,6 +10,8 @@ import { RecoverySuccess } from '../Components/Loaders/RecoverySuccess/RecoveryS
 import { RecoveryMsg } from '../Components/Loaders/RecoveryMsg/RecoveryMsg';
 import { Dashboard } from '../Components/Dashboard/Dashboard';
 import Home from '../Components/Home/Home';
+import { CupidoMusical } from '../Components/CupidoMusical/CupidoMusical';
+import { Search } from '../Components/Search/Search';
 
 
 export const AppRoutes = createBrowserRouter([
@@ -80,7 +82,7 @@ export const AppRoutes = createBrowserRouter([
           },
           {
             path: 'search',
-            element: <h1>Search</h1>
+            element: <Search/>
           },
           {
             path: 'profile',
@@ -90,7 +92,12 @@ export const AppRoutes = createBrowserRouter([
             path: 'friends',
             element: <h1>Amigos</h1>
           },
-        ]
+        ],
+      },
+      {
+        path: '/cupidoMusical',
+        index: false,
+        element: <CupidoMusical/>,
       },
     ],
   },
