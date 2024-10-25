@@ -1,0 +1,124 @@
+.cupido-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+
+  position: relative;
+  top: 100px;
+  z-index: 2;
+}
+
+.cupido__title {
+  width: 320px;
+  text-align: center;
+
+  color: var(--medios-tonos-gris-5, #26262e);
+
+  font-family: 'Rubik';
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 28px; /* 140% */
+  letter-spacing: 0.5px;
+
+  position: relative;
+  top: 50px;
+  z-index: 21;
+}
+
+.cupido__btn {
+  width: 100%;
+  height: 10%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+
+  position: relative;
+  top: 40px;
+  z-index: 20;
+}
+
+.cupido-matches-container {
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+  justify-items: center;
+  top: 25px;
+}
+.cupido__matches {
+  margin-left: -90px;
+  z-index: 30;
+}
+.cupido__matches-sub_title {
+  width: 100%;
+  color: var(--medios-tonos-gris-5, #26262e);
+  text-align: center;
+  font-family: 'Rubik';
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: 0.5px;
+}
+.cupido-matches-likes {
+  width: 100%;
+  height: 40%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-left: 100px;
+  overflow: hidden;
+}
+
+.miniCover {
+  width: 64px;
+  height: 64px;
+  border-radius: 32px;
+  background-size: cover;
+  overflow: hidden;
+}
+.miniCover:nth-child(1) {
+  z-index: 100;
+  position: relative;
+  right: 0px;
+}
+.miniCover:nth-child(2) {
+  z-index: 101;
+  position: relative;
+  right: 20px;
+}
+.miniCover:nth-child(3) {
+  z-index: 102;
+  position: relative;
+  right: 40px;
+}
+.miniCover:nth-child(4) {
+  z-index: 103;
+  position: relative;
+  right: 60px;
+}
+.miniCover:nth-child(5) {
+  z-index: 104;
+  position: relative;
+  right: 80px;
+}
+.miniCover:nth-child(6) {
+  z-index: 105;
+  position: relative;
+  right: 100px;
+}
+.miniCover:nth-child(7) {
+  z-index: 106;
+  position: relative;
+  right: 120px;
+}
+.miniCover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

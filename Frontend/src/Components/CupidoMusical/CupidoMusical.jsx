@@ -1,79 +1,136 @@
-import { useEffect } from "react";
-import { AppContainer } from "../other/AppContainer/AppContainer"
-import CupidoMusicalHeader from "./CupidoMusical.header/CupidoMusical.header"
-import { useState } from "react";
-
+import { useEffect, useState } from "react";
+import { AppContainer } from "../other/AppContainer/AppContainer";
+import { CupidoMusicalHeader } from "./CupidoMusical.header/CupidoMusical.header";
 import artistsData from '../../data/songs.json';
 import { Loader } from "../Loaders/Loader/Loader";
+import { CupidoMusicalCard } from "./CupidoMusical.card/CupidoMusical.card";
+import { CupidoMusicalButton } from "./CupidoMusicalButton/CupidoMusicalButton";
+import { smIcons } from "../../assets/icons";
+import { ButtonStandard } from "../ButtonStandard/ButtonStandard";
+import './index.css';
 
-// TODO      
 export const CupidoMusical = () => {
+  const [likeList, setLikeList] = useState([]);
+  const [artists, setArtists] = useState([]);
+  const [currentArtistIndex, setCurrentArtistIndex] = useState(0);
+  const [nextArtistIndex, setNextArtistIndex] = useState(1);
+  const [availableArtists, setAvailableArtists] = useState([]);
 
-  const [likeList, setLikeList] = useState([]);                       // Estado para almacenar los artistas con like
-  const [artists, setArtists] = useState([]);                         // Estado para almacenar todos los artistas que estan disponibles
-  const [currentArtistIndex, setCurrentArtistIndex] = useState(0);    // Estado para almacenar el indice del artista actual
-  const [likedArtist, setLikedArtist] = useState([]);                 // Estado para almacenar los artistas con like
-  const [availableArtists, setAvailableArtists] = useState([]);       // Estado para almacenar los artistas disponibles para mostrar
-
-  // Cargar artistas desde el JSON al montar el componente
   useEffect(() => {
     setArtists(artistsData);
   }, []);
 
   useEffect(() => {
-    const filteredArtists = artists.filter((artists) => !likedArtist.includes(artists));
+    const filteredArtists = artists.filter((artist) => !likeList.includes(artist));
     setAvailableArtists(filteredArtists);
-    // console.log('Artistas con like:', likedArtist);
-
-  }, [artists, likedArtist]);
+  }, [artists, likeList]);
 
   const handleLikeArtist = () => {
-    // Verificamos si alcanzo el limite 
     if (likeList.length >= 6) {
       alert('¡Has alcanzado el límite de 6 likes!');
       return;
     }
-    const currentArtist = availableArtists[currentArtistIndex];
-    setLikeList((prevLikes) => [...prevLikes, currentArtist]);                        // Agregamos el artista actual a la lista de 'likes'
-    setCurrentArtistIndex((prevLikes) => (prevLikes + 1) % availableArtists.length)   // Avanzamos al siguiente artista disponible o retornamos al inicio
-    setLikedArtist((prevLikedArtists => [...prevLikedArtists, currentArtist]))        // Movemos el artista actual a la lista de artistas con 'likes'
-  }
 
-  const handleDislikeArtist = () => {
-    setCurrentArtistIndex((prevIndex) => (prevIndex + 1) % availableArtists.length);
+    const currentArtist = availableArtists[currentArtistIndex];
+    setLikeList((prevLikes) => [...prevLikes, currentArtist]);
+
+    // todo VER PROBLEMA DE QUE CUANDO SE DA UN LIKE SE SALTEA LA IMAGEN DE UN ARTISTA
+    // Avanzar ambos índices al siguiente artista
+    setCurrentArtistIndex(nextArtistIndex);
+    setNextArtistIndex((nextArtistIndex + 1) % availableArtists.length);
   };
 
-  const handleRewindArtis = () => {
-    // Verificamos si hay algun artista en la lista de likes antes de intentar eliminar
+  const handleDislikeArtist = () => {
+    setCurrentArtistIndex(nextArtistIndex);
+    setNextArtistIndex((nextArtistIndex + 1) % availableArtists.length);
+  };
+
+  const handleRewindArtist = () => {
     if (likeList.length === 0) {
       console.log('No hay artistas en la lista de likes para remover.');
-      return;      
+      return;
     }
 
-    // obtenemos el ultimo artista de la lista de 'likes'
+    // Obtener el último artista de la lista de "likes"
     const lastLikedArtist = likeList[likeList.length - 1];
+    setLikeList((prevLikes) => prevLikes.slice(0, -1)); // Eliminar el último artista de la lista de "likes"
 
-    // Remover el ultimo artista de la lista de 'likes'
-    setLikeList((prevIndex) => prevIndex.slice(0, -1));
-    setLikedArtist((prevLikedArtists) => prevLikedArtists.filter((artists) => artists !== lastLikedArtist))
-    console.log('Se removió el artista:', lastLikedArtist);
-  }
+    // Si el artista eliminado era el actual, ajustar los índices
+    if (availableArtists[currentArtistIndex] === lastLikedArtist) {
+      setCurrentArtistIndex(nextArtistIndex);
+      setNextArtistIndex((nextArtistIndex + 1) % availableArtists.length);
+    }
+  };
 
   const handleCreatePlaylist = () => {
-    alert('Se crea la playlists')
-  }
+    alert('Se crea la playlist');
+  };
 
   return (
-    <>
-      <AppContainer>
-        {availableArtists.length === 0 ? (
-          <Loader/>
-        ) : (
-          <>
-            <CupidoMusicalHeader/>
-          </>
-        )}
-      </AppContainer>
-    </>
-  )
-}
+    <AppContainer>
+      {availableArtists.length === 0 ? (
+        <Loader />
+      ) : (
+        <>
+          <CupidoMusicalHeader />
+
+          <div className="cupido-container">
+            <CupidoMusicalCard
+              src={availableArtists[currentArtistIndex]?.imageURL}
+              alt={availableArtists[currentArtistIndex]?.artist}
+            />
+
+            <CupidoMusicalCard
+              src={availableArtists[nextArtistIndex]?.imageURL}
+              alt={availableArtists[nextArtistIndex]?.artist}
+              next="next"
+            />
+
+            <div className="cupido__btn">
+              <CupidoMusicalButton
+                onClick={handleLikeArtist}
+                img={smIcons.like}
+                alt="like"
+              />
+              <CupidoMusicalButton
+                onClick={handleDislikeArtist}
+                img={smIcons.cross}
+                alt="Dislike"
+              />
+            </div>
+
+            <h2 className="cupido__title">{availableArtists[currentArtistIndex]?.artist}</h2>
+
+            <div className="cupido-matches-container">
+              <span className="cupido__matches-sub_title">Matches actuales:</span>
+              <div className="cupido__matches">
+                <CupidoMusicalButton
+                  onClick={handleRewindArtist}
+                  img={smIcons.rewind}
+                  alt="history"
+                />
+              </div>
+            </div>
+
+            <div className="cupido-matches-likes">
+              {likeList.map((artist, index) => (
+                <div key={index} className="miniCover">
+                  <img
+                    src={artist?.imageURL}
+                    alt={artist?.artist}
+                  />
+                </div>
+              ))}
+            </div>
+
+            <ButtonStandard
+              text="Crear Playlist"
+              state={likeList.length === 6 ? "btnactive" : "btndesactive"}
+              onClick={handleCreatePlaylist}
+            />
+          </div>
+        </>
+      )}
+    </AppContainer>
+  );
+};
