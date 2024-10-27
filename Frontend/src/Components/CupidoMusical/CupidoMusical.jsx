@@ -1,12 +1,12 @@
-import { useEffect, useState } from "react";
-import { AppContainer } from "../other/AppContainer/AppContainer";
-import { CupidoMusicalHeader } from "./CupidoMusical.header/CupidoMusical.header";
+import { useEffect, useState } from 'react';
+import { AppContainer } from '../other/AppContainer/AppContainer';
+import { CupidoMusicalHeader } from './CupidoMusical.header/CupidoMusical.header';
 import artistsData from '../../data/songs.json';
-import { Loader } from "../Loaders/Loader/Loader";
-import { CupidoMusicalCard } from "./CupidoMusical.card/CupidoMusical.card";
-import { CupidoMusicalButton } from "./CupidoMusicalButton/CupidoMusicalButton";
-import { smIcons } from "../../assets/icons";
-import { ButtonStandard } from "../ButtonStandard/ButtonStandard";
+import { Loader } from '../Loaders/Loader/Loader';
+import { CupidoMusicalCard } from './CupidoMusical.card/CupidoMusical.card';
+import { CupidoMusicalButton } from './CupidoMusicalButton/CupidoMusicalButton';
+import { smIcons } from '../../assets/icons';
+import { ButtonStandard } from '../ButtonStandard/ButtonStandard';
 import './index.css';
 
 export const CupidoMusical = () => {
@@ -21,7 +21,9 @@ export const CupidoMusical = () => {
   }, []);
 
   useEffect(() => {
-    const filteredArtists = artists.filter((artist) => !likeList.includes(artist));
+    const filteredArtists = artists.filter(
+      (artist) => !likeList.includes(artist)
+    );
     setAvailableArtists(filteredArtists);
   }, [artists, likeList]);
 
@@ -33,9 +35,6 @@ export const CupidoMusical = () => {
 
     const currentArtist = availableArtists[currentArtistIndex];
     setLikeList((prevLikes) => [...prevLikes, currentArtist]);
-
-    // todo VER PROBLEMA DE QUE CUANDO SE DA UN LIKE SE SALTEA LA IMAGEN DE UN ARTISTA
-    // Avanzar ambos índices al siguiente artista
     setCurrentArtistIndex(nextArtistIndex);
     setNextArtistIndex((nextArtistIndex + 1) % availableArtists.length);
   };
@@ -62,8 +61,10 @@ export const CupidoMusical = () => {
     }
   };
 
+  // Todo Falta agregar la funcion para crear una playlist recomendada, basandose en los 'likes' 
   const handleCreatePlaylist = () => {
     alert('Se crea la playlist');
+    console.log('Se crea la playlist');
   };
 
   return (
@@ -74,58 +75,63 @@ export const CupidoMusical = () => {
         <>
           <CupidoMusicalHeader />
 
-          <div className="cupido-container">
+          <div className='cupido-container'>
             <CupidoMusicalCard
               src={availableArtists[currentArtistIndex]?.imageURL}
               alt={availableArtists[currentArtistIndex]?.artist}
             />
 
             <CupidoMusicalCard
-              src={availableArtists[nextArtistIndex]?.imageURL}
-              alt={availableArtists[nextArtistIndex]?.artist}
-              next="next"
+              src={availableArtists[nextArtistIndex + 1]?.imageURL}
+              alt={availableArtists[nextArtistIndex + 1]?.artist}
+              next='next'
             />
 
-            <div className="cupido__btn">
+            <div className='cupido__btn'>
               <CupidoMusicalButton
                 onClick={handleLikeArtist}
                 img={smIcons.like}
-                alt="like"
+                alt='like'
               />
               <CupidoMusicalButton
                 onClick={handleDislikeArtist}
                 img={smIcons.cross}
-                alt="Dislike"
+                alt='Dislike'
               />
             </div>
 
-            <h2 className="cupido__title">{availableArtists[currentArtistIndex]?.artist}</h2>
+            <h2 className='cupido__title'>
+              {availableArtists[currentArtistIndex]?.artist}
+            </h2>
 
-            <div className="cupido-matches-container">
-              <span className="cupido__matches-sub_title">Matches actuales:</span>
-              <div className="cupido__matches">
+            <div className='cupido-matches-container'>
+              <span className='cupido__matches-sub_title'>
+                Matches actuales:
+              </span>
+              <div className='cupido__matches'>
                 <CupidoMusicalButton
                   onClick={handleRewindArtist}
                   img={smIcons.rewind}
-                  alt="history"
+                  alt='history'
                 />
               </div>
             </div>
 
-            <div className="cupido-matches-likes">
+            <div className='cupido-matches-likes'>
               {likeList.map((artist, index) => (
-                <div key={index} className="miniCover">
-                  <img
-                    src={artist?.imageURL}
-                    alt={artist?.artist}
-                  />
+                <div key={index} className='miniCover'>
+                  <img src={artist?.imageURL} alt={artist?.artist} />
                 </div>
               ))}
             </div>
 
             <ButtonStandard
-              text="Crear Playlist"
-              state={likeList.length === 6 ? "btnactive" : "btndesactive"}
+              text='Crear Playlist'
+              state={
+                likeList.length <= 6 && likeList.length != 0
+                  ? 'active'
+                  : 'disabled'
+              }
               onClick={handleCreatePlaylist}
             />
           </div>

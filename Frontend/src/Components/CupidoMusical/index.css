@@ -1,6 +1,6 @@
 .cupido-container {
   width: 100%;
-  height: 100%;
+  height: 70%;
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -13,9 +13,7 @@
 .cupido__title {
   width: 320px;
   text-align: center;
-
   color: var(--medios-tonos-gris-5, #26262e);
-
   font-family: 'Rubik';
   font-size: 20px;
   font-style: normal;
@@ -26,6 +24,7 @@
   position: relative;
   top: 50px;
   z-index: 21;
+  /* margin: 0px; */
 }
 
 .cupido__btn {
@@ -66,7 +65,7 @@
 }
 .cupido-matches-likes {
   width: 100%;
-  height: 40%;
+  height: 25%;
 
   display: flex;
   justify-content: center;
