@@ -7,10 +7,11 @@ exports.getAllArtists = async (_req, res) => {
   try {
     const all = await musicModel.getAllArtists();
 
-    const allMusic = all.map(({ id, artist_name, genre_name }) => ({
+    const allMusic = all.map(({ id, artist_name, genre_name, image }) => ({
       id,
       name: artist_name, 
-      genre: genre_name
+      genre: genre_name,
+      image: image
     }));
 
     res.json(allMusic);
@@ -21,29 +22,24 @@ exports.getAllArtists = async (_req, res) => {
 };
 
 
-
 // ! sin testear 
 // Obtiene una lista con todas las canciones o filtra por término de búsqueda
 exports.getAllSongs = async (req, res) => {
   try {
     const { search } = req.query;
-    let all;
+    let allSongs;
 
-    // Condicion de busqueda
-    search
-      ? (all = await musicModel.searchSongs(search))
-      : (all = await musicModel.getAllSongs());
+    // Determinar si usar búsqueda o consulta general
+    if (search) {
+      allSongs = await musicModel.searchSongs(search);
+    } else {
+      allSongs = await musicModel.getAllSongs();
+    }
 
-    // Filtro los datos obtenidos
-    const allMusic = all.map(
-      ({ id, artist, title, duration, genre, rating }) => {
-        return { id, title, artist, duration, rating, genre };
-      }
-    );
-
-    res.json(allMusic);
+    res.json(allSongs);
   } catch (error) {
-    console.error(error);
+    console.error('Error fetching songs:', error);
     res.status(500).json({ error: 'Error al obtener los datos solicitados.' });
   }
 };
+

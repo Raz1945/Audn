@@ -1,12 +1,23 @@
 const knex = require('../database/config/db');
 
 //=== Artists ===//
-const getAllArtists = () => {
-  return knex
-    .select('artists.id', 'artists.name AS artist_name', 'genres.name AS genre_name') 
-    .from('artists')
-    .leftJoin('genres', 'artists.genre_id', 'genres.id');
+const getAllArtists = async () => {
+  try {
+    return await knex('music_data.artists')
+      .select(
+        'music_data.artists.id AS artist_id',
+        'music_data.artists.name AS artist_name',
+        'music_data.genres.name AS genre_name',
+        'music_data.artists.image_url AS artist_image'
+      )
+      .leftJoin('music_data.genres', 'music_data.artists.genre_id', 'music_data.genres.id')
+      .orderBy('artist_name', 'asc');
+  } catch (error) {
+    console.error('Error fetching artists:', error);
+    throw error;
+  }
 };
+
 
 
 //! De aca para abajo no esta testeado. 
@@ -41,27 +52,53 @@ const getUserPlaylistData = async (id) => {
 
 //=== Songs ===//
 // Muesto todas las canciones de la base de datos.
-const getAllSongs = () => {
-  return knex.select('*').from('songs');
-};
 
-// Realiza una busqueda
-const searchSongs = async (search) => {
+// Obtiene todas las canciones con nombres de artista, álbum y género
+const getAllSongs = async () => {
   try {
-    // console.log('Valor de búsqueda:', search); 
-    const songs = await knex.select('*')
-      .from('songs')
-      .where('title', 'ilike', `%${search}%`)
-      .orWhere('artist', 'ilike', `%${search}%`);
-
-    // console.log('Resultado de la consulta:', songs);
-    return songs;
+    return await knex('music_data.songs')
+      .join('music_data.artists', 'music_data.songs.artist_id', 'music_data.artists.id')
+      .join('music_data.albums', 'music_data.songs.album_id', 'music_data.albums.id')
+      .join('music_data.genres', 'music_data.songs.genre_id', 'music_data.genres.id')
+      .select(
+        'music_data.songs.title',
+        'music_data.artists.name as artist', 
+        'music_data.artists.image_url as image_artist', 
+        'music_data.albums.title as album',
+        'music_data.albums.image_url as image_album',
+        'music_data.songs.duration',
+        'music_data.songs.rating',
+        'music_data.genres.name as genre' 
+      );
   } catch (error) {
-    console.error('Error al realizar la búsqueda de canciones:', error); // Agrega un mensaje de error en caso de que ocurra un error
-    throw new Error('Error al realizar la búsqueda de canciones.');
+    console.error('Error fetching songs:', error);
+    throw error;
   }
 };
 
+// Busca canciones por término con nombres de artista, álbum y género
+const searchSongs = async (searchTerm) => {
+  try {
+    return await knex('music_data.songs')
+      .join('music_data.artists', 'music_data.songs.artist_id', 'music_data.artists.id')
+      .join('music_data.albums', 'music_data.songs.album_id', 'music_data.albums.id')
+      .join('music_data.genres', 'music_data.songs.genre_id', 'music_data.genres.id')
+      .select(
+        'music_data.songs.title',
+        'music_data.artists.name as artist_name',
+        'music_data.artists.image_url as image_artist', 
+        'music_data.albums.title as album_title',
+        'music_data.albums.image_url as image_album',
+        'music_data.songs.duration',
+        'music_data.songs.rating',
+        'music_data.genres.name as genre_name'
+      )
+      .where('music_data.songs.title', 'like', `%${searchTerm}%`);
+  } catch (error) {
+    console.error('Error searching songs:', error);
+    throw error;
+  }
+};
 
 
 // Agrega una canción a la Playlist.

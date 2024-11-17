@@ -13,9 +13,10 @@ router.post('/login', userController.login);
 // http://localhost:3000/recovery
 router.post('/recovery', userController.recovery);
 
+router.get('/flow/artists', musicController.getAllArtists);
+
 // Todo testear 
 router.get('/flow/songs', musicController.getAllSongs);
-router.get('/flow/artists', musicController.getAllArtists);
 
 //* Testeo que haya conexcion http://localhost:3000/ping
 router.get('/ping', (_req, res) => {
