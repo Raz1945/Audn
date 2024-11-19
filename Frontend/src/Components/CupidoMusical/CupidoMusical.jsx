@@ -12,23 +12,23 @@ import './index.css';
 export const CupidoMusical = () => {
   const apiUrl = import.meta.env.VITE_API_BACKEND_URL;
 
-  const [likeList, setLikeList] = useState([]);
-  const [artists, setArtists] = useState([]);
-  const [currentArtistIndex, setCurrentArtistIndex] = useState(0);
-  const [nextArtistIndex, setNextArtistIndex] = useState(1);
-  const [availableArtists, setAvailableArtists] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [likeList, setLikeList] = useState([]); // Artistas que el usuario ha marcado con "like"
+  const [artists, setArtists] = useState([]); // Artistas disponibles
+  const [currentArtistIndex, setCurrentArtistIndex] = useState(0); // Índice del artista actual
+  const [nextArtistIndex, setNextArtistIndex] = useState(1); // Índice del siguiente artista
+  const [availableArtists, setAvailableArtists] = useState([]); // Artistas disponibles para mostrar (no en likeList)
+  const [loading, setLoading] = useState(true); // Estado de carga de los datos
+  const [error, setError] = useState(null); // Mensaje de error en caso de fallo
 
+  // Obtener los artistas desde la API al montar el componente
   useEffect(() => {
     const fetchArtists = async () => {
       try {
         setLoading(true);
-        const response = await axios.get(`${apiUrl}/flow/artists`);
-        setArtists(response.data);
+        const response = await axios.get(`${apiUrl}/flow/artists`); // Petición a la API
+        setArtists(response.data); // Guardar artistas en el estado
         setLoading(false);
       } catch (err) {
-        console.error('Error al obtener datos:', err);
         setError('Error al obtener los datos de artistas.');
         setLoading(false);
       }
@@ -37,13 +37,13 @@ export const CupidoMusical = () => {
     fetchArtists();
   }, [apiUrl]);
 
+  // Filtrar artistas que no están en la lista de likes
   useEffect(() => {
-    const filteredArtists = artists.filter(
-      (artist) => !likeList.some((liked) => liked.id === artist.id)
-    );
-    setAvailableArtists(filteredArtists);
+    const filteredArtists = artists.filter((artist) => !likeList.includes(artist));
+    setAvailableArtists(filteredArtists); // Actualizar la lista de artistas disponibles
   }, [artists, likeList]);
 
+  // Manejar el "like" de un artista
   const handleLikeArtist = () => {
     if (likeList.length >= 6) {
       alert('¡Has alcanzado el límite de 6 likes!');
@@ -51,35 +51,35 @@ export const CupidoMusical = () => {
     }
 
     const currentArtist = availableArtists[currentArtistIndex];
-    setLikeList((prevLikes) => [...prevLikes, currentArtist]);
-    setCurrentArtistIndex(nextArtistIndex);
-    setNextArtistIndex((nextArtistIndex + 1) % availableArtists.length);
+    setLikeList((prevLikes) => [...prevLikes, currentArtist]); // Agregar artista a la lista de likes
+    setCurrentArtistIndex(nextArtistIndex); // Avanzar al siguiente artista
+    setNextArtistIndex((nextArtistIndex + 1) % availableArtists.length); // Actualizar el índice del siguiente artista
   };
 
+  // Manejar el "dislike" de un artista (avanzar al siguiente)
   const handleDislikeArtist = () => {
-    setCurrentArtistIndex(nextArtistIndex);
-    setNextArtistIndex((nextArtistIndex + 1) % availableArtists.length);
+    setCurrentArtistIndex(nextArtistIndex); // Avanzar al siguiente artista
+    setNextArtistIndex((nextArtistIndex + 1) % availableArtists.length); // Actualizar índice siguiente
   };
 
+  // Deshacer un "like" (volver al último artista marcado)
   const handleRewindArtist = () => {
-    if (likeList.length === 0) {
-      console.log('No hay artistas en la lista de likes para remover.');
-      return;
-    }
+    if (likeList.length === 0) return;
 
     const lastLikedArtist = likeList[likeList.length - 1];
-    setLikeList((prevLikes) => prevLikes.slice(0, -1));
+    setLikeList((prevLikes) => prevLikes.slice(0, -1)); // Eliminar el último "like"
     if (availableArtists[currentArtistIndex]?.id === lastLikedArtist.id) {
-      setCurrentArtistIndex(nextArtistIndex);
+      setCurrentArtistIndex(nextArtistIndex); // Avanzar al siguiente artista si es necesario
       setNextArtistIndex((nextArtistIndex + 1) % availableArtists.length);
     }
   };
 
+  //TODO Crear una nueva playlist (todavía no implementado)
   const handleCreatePlaylist = () => {
     alert('Se crea la playlist');
-    console.log('Se crea la playlist');
   };
 
+  //Mostrar el Loader mientras se cargan los datos o un mensaje de error
   if (loading) {
     return <Loader />;
   }
@@ -97,13 +97,13 @@ export const CupidoMusical = () => {
           <CupidoMusicalHeader />
           <div className="cupido-container">
             <CupidoMusicalCard
-              src={availableArtists[currentArtistIndex]?.imageURL}
+              src={availableArtists[currentArtistIndex]?.image}
               alt={availableArtists[currentArtistIndex]?.name}
             />
 
             {availableArtists.length > 1 && (
               <CupidoMusicalCard
-                src={availableArtists[nextArtistIndex]?.imageURL}
+                src={availableArtists[nextArtistIndex]?.image}
                 alt={availableArtists[nextArtistIndex]?.name}
                 next="next"
               />
@@ -142,18 +142,14 @@ export const CupidoMusical = () => {
             <div className="cupido-matches-likes">
               {likeList.map((artist, index) => (
                 <div key={index} className="miniCover">
-                  <img src={artist?.imageURL} alt={artist?.name} />
+                  <img src={artist?.image} alt={artist?.name} />
                 </div>
               ))}
             </div>
 
             <ButtonStandard
               text="Crear Playlist"
-              state={
-                likeList.length <= 6 && likeList.length !== 0
-                  ? 'active'
-                  : 'disabled'
-              }
+              state={likeList.length <= 6 && likeList.length !== 0 ? 'active' : 'disabled'}
               onClick={handleCreatePlaylist}
             />
           </div>

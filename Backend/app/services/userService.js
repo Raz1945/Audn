@@ -1,68 +1,77 @@
 const knex = require('../database/config/db');
 
-// Verifica si existe el usuario según el userIdentifier proporcionado
+// Verifica si existe el usuario según el identificador proporcionado (username o email)
 const findOne = async (userIdentifier) => {
-  try {
-    if (!userIdentifier) {
-      throw new Error('User identifier is required');
-    }
+  if (!userIdentifier) {
+    throw new Error('El identificador de usuario es obligatorio.');
+  }
 
-    const userExists = await knex('users')
+  try {
+    return await knex('user_data.users')
       .select('*')
-      .where(function() {
-        this.where('username', userIdentifier)
-            .orWhere('email', userIdentifier);
+      .where((builder) => {
+        builder.where('username', userIdentifier).orWhere('email', userIdentifier);
       })
       .first();
-
-    return userExists;
   } catch (error) {
-    console.error('Error al buscar usuario:', error);
-    throw error;
+    console.error('Error al buscar el usuario:', error);
+    throw new Error('Error al buscar la información del usuario.');
   }
 };
 
-// Verifica si existe el usuario según el userIdentifier proporcionado y retorna el email
+// Verifica si existe el usuario y retorna el email según el identificador proporcionado
 const findUserEmail = async (userIdentifier) => {
-  try {
-    if (!userIdentifier) {
-      throw new Error('User identifier is required');
-    }
+  if (!userIdentifier) {
+    throw new Error('El identificador de usuario es obligatorio.');
+  }
 
-    const user = await knex('users')
+  try {
+    const user = await knex('user_data.users')
       .select('email')
-      .where(function() {
-        this.where('username', userIdentifier)
-            .orWhere('email', userIdentifier);
+      .where((builder) => {
+        builder.where('username', userIdentifier).orWhere('email', userIdentifier);
       })
       .first();
 
     if (!user) {
-      throw new Error('User not found');
+      throw new Error('Usuario no encontrado.');
     }
 
     return user.email;
   } catch (error) {
-    console.error('Error al buscar usuario:', error);
-    throw error;
+    console.error('Error al buscar el correo del usuario:', error);
+    throw new Error('Error al obtener el correo del usuario.');
   }
 };
 
-// Crea un usuario
+// Crea un nuevo usuario
 const create = async (data) => {
+  const { email, username, password } = data;
+
+  // Validar los campos obligatorios
+  if (!email || !username || !password) {
+    throw new Error('El correo, nombre de usuario y contraseña son obligatorios.');
+  }
+
   try {
-    const newUser = await knex
+    const [newUser] = await knex('user_data.users')
       .insert({
-        email: data.email,
-        username: data.username,
-        password: data.password,
+        email,
+        username,
+        password,
       })
-      .into('users')
       .returning('*');
+
     return newUser;
   } catch (error) {
-    console.error('Error al crear usuario:', error);
-    throw error;
+    // Manejo de errores específicos para claves únicas
+    if (error.code === '23505') {
+      const campo = error.detail.includes('email') ? 'El correo' : 'El nombre de usuario';
+      throw new Error(`${campo} ya está registrado.`);
+    }
+
+    console.error('Error al crear el usuario:', error);
+    throw new Error('Error al registrar el usuario.');
   }
 };
 

@@ -3,15 +3,15 @@ const musicModel = require('../models/musicServices');
 
 // Todo Testear
 // Obtiene una lista con todos los artistas
-exports.getAllArtists = async (_req, res) => {
+const getAllArtists = async (_req, res) => {
   try {
     const all = await musicModel.getAllArtists();
 
-    const allMusic = all.map(({ id, artist_name, genre_name, image }) => ({
+    const allMusic = all.map(({ id, artist_name, genre_name, artist_image }) => ({
       id,
       name: artist_name, 
       genre: genre_name,
-      image: image
+      image: artist_image
     }));
 
     res.json(allMusic);
@@ -24,7 +24,7 @@ exports.getAllArtists = async (_req, res) => {
 
 // ! sin testear 
 // Obtiene una lista con todas las canciones o filtra por término de búsqueda
-exports.getAllSongs = async (req, res) => {
+const getAllSongs = async (req, res) => {
   try {
     const { search } = req.query;
     let allSongs;
@@ -43,3 +43,4 @@ exports.getAllSongs = async (req, res) => {
   }
 };
 
+module.exports = { getAllArtists, getAllSongs};
