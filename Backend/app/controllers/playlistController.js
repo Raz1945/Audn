@@ -1,77 +1,116 @@
 const musicModel = require('../models/musicServices');
 
-// Obtiene informacion sobre las playslist de un usuario especifico
+// Función para convertir "HH:MM:SS" a segundos
+const convertHMSToSeconds = (duration) => {
+  const [hours, minutes, seconds] = duration.split(':').map(Number);
+  return hours * 3600 + minutes * 60 + seconds;
+};
+
+// Función para convertir la duración a "HH:MM:SS"
+const formatDurationAsString = (duration) => {
+  const hours = duration.hours.toString().padStart(2, '0');
+  const minutes = duration.minutes.toString().padStart(2, '0');
+  const seconds = duration.seconds.toString().padStart(2, '0');
+
+  return `${hours}:${minutes}:${seconds}`;
+};
+
+// Función para convertir segundos a un objeto con horas, minutos y segundos
+const convertSecondsToHMS = (seconds) => {
+  if (isNaN(seconds) || seconds < 0) {
+    // Depura valores inválidos
+    console.log('Invalid duration:', seconds); 
+    return { hours: 0, minutes: 0, seconds: 0 };
+  }
+
+  const hours = Math.floor(seconds / 3600);
+  const minutes = Math.floor((seconds % 3600) / 60);
+  const remainingSeconds = seconds % 60;
+
+  return {
+    hours: hours,
+    minutes: minutes,
+    seconds: remainingSeconds
+  };
+};
+
+
+// Función para obtener la playlist del usuario
 exports.getUserPlaylist = async (req, res) => {
   try {
-    const id = req.user.id;
-
+    const { id } = req.body; // Leer el id desde el body
     const data = await musicModel.getUserPlaylistData(id);
 
-    // console.log(data[0]?.user ?? 'No existe ningina playlist');
-    // console.log(data);
+    // Verifica los valores de la respuesta
+    // console.log('Data from database:', data); // TODO ELIMINAR LUEGO 
 
+    // Si no se encuentran playlists, devolver una respuesta vacía
     if (data.length < 1) {
-      // console.log(data);
       return res.json({ playlists: [] });
     }
 
-    // Procesar los resultados para agrupar las canciones por listas de reproducción
-    const formattedResult = data.reduce((acc, row) => {
-      //? acc es el 'acumulador', se está utilizando para acumular los datos formateados y organizarlos en la estructura deseada.
-
-      // Extraer los datos de la fila actual del resultado
+    // Usamos un objeto para acumular las playlists por usuario
+    const userPlaylists = data.reduce((acc, row) => {
       const {
         song_id,
         playlist_id,
-        user,
-        playlist,
-        title,
-        duration,
-        artist,
-        rating,
+        user_id,
+        playlist_name,
+        playlist_img,
+        song_title,
+        song_duration,
+        song_img,
+        artist_name,
+        artis_img,
+        song_rating,
       } = row;
 
-      // Si el usuario aún no está en el acumulador, agregarlo con una lista de reproducción vacía
-      if (!acc[user]) {
-        acc[user] = { playlists: [] };
+      console.log('duracion:', song_duration);
+
+      // Convertir la duración a segundos
+      const durationInSeconds = convertHMSToSeconds(song_duration);
+
+      // Asegurarse de que la playlist existe en el acumulador, sino crearla
+      if (!acc[user_id]) {
+        acc[user_id] = { playlists: {} };
       }
 
-      // Encontrar el índice de la lista de reproducción actual dentro de las playlists del usuario
-      let playlistIndex = acc[user].playlists.findIndex(
-        (pl) => pl.id === playlist_id
-      );
-      // console.log(playlist_id);
-
-      // Si la lista de reproducción actual no está en el acumulador, agregarla con una lista de canciones vacía
-      if (playlistIndex === -1) {
-        acc[user].playlists.push({
+      // Si la playlist no está, agregarla
+      if (!acc[user_id].playlists[playlist_id]) {
+        acc[user_id].playlists[playlist_id] = {
           id: playlist_id,
-          name: playlist,
+          name: playlist_name,
+          img: playlist_img, // Imagen de la playlist
           songs: [],
-        });
-        playlistIndex = acc[user].playlists.length - 1; // Actualizamos el índice después de agregar la nueva playlist
+        };
       }
 
-      if (song_id !== null) {
-        // Agregar la canción actual a la lista de canciones de la lista de reproducción actual
-        acc[user].playlists[playlistIndex].songs.push({
-          id: song_id,
-          title,
-          duration,
-          artist,
-          rating,
-        });
-      }
-      return acc; // Devolver el acumulador actualizado para la siguiente iteración
-    }, {}); // Iniciar el acumulador como un objeto vacío
+      // Agregar la canción a la lista de reproducción
+      acc[user_id].playlists[playlist_id].songs.push({
+        id: song_id,
+        title: song_title,
+        duration: formatDurationAsString(convertSecondsToHMS(durationInSeconds)), // Asegúrate de pasar una duración válida
+        img: song_img, 
+        artist_name: artist_name,
+        artist_img: artis_img, 
+        rating: song_rating,
+      });
 
-    res.json(formattedResult[data[0].user]);
+      return acc;
+    }, {});
+
+    const playlists = userPlaylists[id] ? userPlaylists[id].playlists : [];
+    res.json({ playlists: Object.values(playlists) });
   } catch (error) {
-    console.error(error);
+    console.error('Error al obtener las playlists del usuario:', error);
     res.status(500).json({ error: 'Error al obtener los datos solicitados.' });
   }
 };
 
+
+
+
+// TODO 
 // Agrega una cancion a una playlist.
 exports.addSongToUserPlaylist = async (req, res) => {
   try {

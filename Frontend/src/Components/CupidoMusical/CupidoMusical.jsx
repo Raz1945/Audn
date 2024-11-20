@@ -76,6 +76,9 @@ export const CupidoMusical = () => {
 
   //TODO Crear una nueva playlist (todavía no implementado)
   const handleCreatePlaylist = () => {
+    // Se crea la playlist
+    // Se agregan una/dos canciones de cada artista elegido
+    
     alert('Se crea la playlist');
   };
 

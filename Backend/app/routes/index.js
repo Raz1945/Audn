@@ -3,6 +3,7 @@ const router = express.Router();
 
 const userController = require('../controllers/userController');
 const musicController = require('../controllers/musicController')
+const playlistController = require('../controllers/playlistController')
 
 // http://localhost:3000/register
 router.post('/register', userController.register);
@@ -17,6 +18,10 @@ router.get('/flow/artists', musicController.getAllArtists);
 
 // Todo testear 
 router.get('/flow/songs', musicController.getAllSongs);
+
+
+router.get('/flow/pl', playlistController.getUserPlaylist);
+
 
 //* Testeo que haya conexcion http://localhost:3000/ping
 router.get('/ping', (_req, res) => {

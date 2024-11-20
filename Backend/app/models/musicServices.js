@@ -19,34 +19,38 @@ const getAllArtists = async () => {
 };
 
 
-
-//! De aca para abajo no esta testeado. 
 //=== Info ===//
-// Muestro las playlist y su contenido segun de un usuario especifico.
-const getUserPlaylistData = async (id) => {
-  const result = await knex
-    .select({
-      user: 'us.user',
-      playlist: 'pl.name',
-    })
-    .column(
-      'pl.id as playlist_id',
-      'ps.song_id',
-      'so.title',
-      'so.duration',
-      'so.artist',
-      'so.rating'
-    )
-    .from('playlists as pl')
-    .leftJoin('playlist_song as ps', 'pl.id', 'ps.playlist_id')
-    .leftJoin('songs as so', 'ps.song_id', 'so.id')
-    .join('users as us', 'pl.user_id', 'us.id')
-    .where('us.id', id)
-    .orderBy('pl.name');
-
-  return result;
+// Obtiene las playlists y su contenido para un usuario específico
+const getUserPlaylistData = async (userId) => {
+  try {
+    const result = await knex('music_data.playlists as p')
+      .select({
+        user_id: 'u.id', 
+        playlist_name: 'p.name', 
+        playlist_id: 'p.id',
+        playlist_img: 'p.image_url',
+        song_id: 'ps.song_id', 
+        song_title: 's.title', 
+        song_duration: 's.duration',
+        artist_id: 's.artist_id', 
+        artist_name: 'a.name', 
+        artist_img: 'a.image_url', 
+        song_rating: 's.rating', 
+        song_img: 's.image_url'
+      })
+      .leftJoin('music_data.playlist_songs as ps', 'p.id', 'ps.playlist_id') 
+      .leftJoin('music_data.songs as s', 'ps.song_id', 's.id') 
+      .leftJoin('music_data.artists as a', 's.artist_id', 'a.id')
+      .innerJoin('user_data.users as u', 'p.user_id', 'u.id') 
+      .where('u.id', userId)
+      .orderBy('p.name', 'asc');
+      
+    return result;
+  } catch (error) {
+    console.error('Error al obtener las playlists del usuario:', error);
+    throw new Error('No se pudo obtener los datos de las playlists.');
+  }
 };
-
 
 
 
@@ -101,6 +105,8 @@ const searchSongs = async (searchTerm) => {
 };
 
 
+
+// TODO 
 // Agrega una canción a la Playlist.
 const addSongToPlaylist = async (song_id, playlist_id) => {
   await knex('playlist_song').insert({
@@ -108,6 +114,7 @@ const addSongToPlaylist = async (song_id, playlist_id) => {
     playlist_id: playlist_id,
   });
 };
+
 // Elimina una cancion de la playlists.
 const removeSongFromPlaylist = (song_id, playlist_id) => {
   return knex('playlist_song')
@@ -128,6 +135,7 @@ const addPlaylist = (id, playlist_name) => {
     })
     .returning('id'); // Especificamos que queremos obtener el ID generado
 };
+
 // Elimina una playlist.
 const removePlaylist = async (id, playlist_id) => {
   await knex('playlist_song').where('playlist_id', playlist_id).del();
