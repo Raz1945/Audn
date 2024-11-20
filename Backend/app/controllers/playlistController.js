@@ -108,8 +108,6 @@ exports.getUserPlaylist = async (req, res) => {
 };
 
 
-
-
 // TODO 
 // Agrega una cancion a una playlist.
 exports.addSongToUserPlaylist = async (req, res) => {

@@ -55,8 +55,6 @@ const getUserPlaylistData = async (userId) => {
 
 
 //=== Songs ===//
-// Muesto todas las canciones de la base de datos.
-
 // Obtiene todas las canciones con nombres de artista, álbum y género
 const getAllSongs = async () => {
   try {
