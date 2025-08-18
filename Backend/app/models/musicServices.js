@@ -24,34 +24,33 @@ const getAllArtists = async () => {
 const getUserPlaylistData = async (userId) => {
   try {
     const result = await knex('music_data.playlists as p')
+      .innerJoin('user_data.users as u', 'p.user_id', 'u.id')
+      .leftJoin('music_data.playlist_songs as ps', 'p.id', 'ps.playlist_id')
+      .leftJoin('music_data.songs as s', 'ps.song_id', 's.id')
+      .leftJoin('music_data.artists as a', 's.artist_id', 'a.id')
       .select({
-        user_id: 'u.id', 
-        playlist_name: 'p.name', 
+        user_id: 'u.id',
+        playlist_name: 'p.name',
         playlist_id: 'p.id',
         playlist_img: 'p.image_url',
-        song_id: 'ps.song_id', 
-        song_title: 's.title', 
+        song_id: 'ps.song_id',
+        song_title: 's.title',
         song_duration: 's.duration',
-        artist_id: 's.artist_id', 
-        artist_name: 'a.name', 
-        artist_img: 'a.image_url', 
-        song_rating: 's.rating', 
+        artist_id: 's.artist_id',
+        artist_name: 'a.name',
+        artist_img: 'a.image_url',
+        song_rating: 's.rating',
         song_img: 's.image_url'
       })
-      .leftJoin('music_data.playlist_songs as ps', 'p.id', 'ps.playlist_id') 
-      .leftJoin('music_data.songs as s', 'ps.song_id', 's.id') 
-      .leftJoin('music_data.artists as a', 's.artist_id', 'a.id')
-      .innerJoin('user_data.users as u', 'p.user_id', 'u.id') 
       .where('u.id', userId)
       .orderBy('p.name', 'asc');
-      
+
     return result;
   } catch (error) {
     console.error('Error al obtener las playlists del usuario:', error);
     throw new Error('No se pudo obtener los datos de las playlists.');
   }
 };
-
 
 
 //=== Songs ===//
@@ -103,26 +102,6 @@ const searchSongs = async (searchTerm) => {
 };
 
 
-
-// TODO 
-// Agrega una canción a la Playlist.
-const addSongToPlaylist = async (song_id, playlist_id) => {
-  await knex('playlist_song').insert({
-    song_id: song_id,
-    playlist_id: playlist_id,
-  });
-};
-
-// Elimina una cancion de la playlists.
-const removeSongFromPlaylist = (song_id, playlist_id) => {
-  return knex('playlist_song')
-    .where('song_id', song_id)
-    .where('playlist_id', playlist_id)
-    .del();
-};
-
-
-
 //=== Playlists ===//
 // Agrega una playlist a un usuario especifico.
 const addPlaylist = (id, playlist_name) => {
@@ -139,6 +118,23 @@ const removePlaylist = async (id, playlist_id) => {
   await knex('playlist_song').where('playlist_id', playlist_id).del();
   await knex('playlists').where('user_id', id).where('id', playlist_id).del();
 };
+
+// Agrega una canción a la Playlist.
+const addSongToPlaylist = async (song_id, playlist_id) => {
+  await knex('playlist_song').insert({
+    song_id: song_id,
+    playlist_id: playlist_id,
+  });
+};
+
+// Elimina una cancion de la playlists.
+const removeSongFromPlaylist = (song_id, playlist_id) => {
+  return knex('playlist_song')
+    .where('song_id', song_id)
+    .where('playlist_id', playlist_id)
+    .del();
+};
+
 
 
 

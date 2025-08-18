@@ -1,0 +1,1 @@
+Interaccion con la DB, aqui entrarian las queries del Knex

@@ -1,0 +1,473 @@
+{
+    "info": {
+        "_postman_id": "4621be39-7583-454a-887c-3c6972f853ef",
+        "name": "Audn",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+        "description": ""
+    },
+    "item": [
+        {
+            "name": "user",
+            "item": [
+                {
+                    "name": "get Users",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "http://localhost:3000/ping",
+                            "path": [
+                                "ping"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3000"
+                        },
+                        "header": [
+                            {
+                                "key": "User-Agent",
+                                "value": "Thunder Client (https://www.thunderclient.com)",
+                                "disabled": true
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "Login",
+                    "request": {
+                        "method": "POST",
+                        "url": {
+                            "raw": "http://localhost:3000/login",
+                            "path": [
+                                "login"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3000"
+                        },
+                        "header": [
+                            {
+                                "key": "User-Agent",
+                                "value": "Thunder Client (https://www.thunderclient.com)",
+                                "disabled": true
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            },
+                            "raw": "{\n  \"userIdentifier\": \"testuser\",\n  \"password\": \"Asd1234!\"\n}\n"
+                        }
+                    }
+                },
+                {
+                    "name": "Create User",
+                    "request": {
+                        "method": "POST",
+                        "url": {
+                            "raw": "http://localhost:3000/register",
+                            "path": [
+                                "register"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3000"
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            },
+                            "raw": "{\n  \"email\":\"testuser@mail.com\",\n  \"username\":\"testuser\",\n  \"password\":\"Asd1234!\"\n}"
+                        }
+                    }
+                },
+                {
+                    "name": "Recovery",
+                    "request": {
+                        "method": "POST",
+                        "url": {
+                            "raw": "http://localhost:3000/recovery",
+                            "path": [
+                                "recovery"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3000"
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            },
+                            "raw": "{\n  \"userIdentifier\":\"testuser\"\n}"
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "music",
+            "item": [
+                {
+                    "name": "Get Songs",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "http://localhost:3000/flow/songs",
+                            "path": [
+                                "flow",
+                                "songs"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3000"
+                        },
+                        "header": [
+                            {
+                                "key": "x-access-token",
+                                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjkwMzIzODA2LCJleHAiOjE2OTAzMzEwMDZ9.jfivtqyht7GqSgCN_99IuCNpenj9dhxA9DnMBy5fvCQ"
+                            },
+                            {
+                                "key": "User-Agent",
+                                "value": "Thunder Client (https://www.thunderclient.com)",
+                                "disabled": true
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "Get all Artists",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "http://localhost:3000/flow/artists",
+                            "path": [
+                                "flow",
+                                "artists"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3000"
+                        },
+                        "header": [
+                            {
+                                "key": "x-access-token",
+                                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjkwMzIzODA2LCJleHAiOjE2OTAzMzEwMDZ9.jfivtqyht7GqSgCN_99IuCNpenj9dhxA9DnMBy5fvCQ"
+                            },
+                            {
+                                "key": "User-Agent",
+                                "value": "Thunder Client (https://www.thunderclient.com)",
+                                "disabled": true
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "Get Playlist Info by User",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "http://localhost:3000/flow/pl",
+                            "query": [
+                                {
+                                    "key": "token",
+                                    "value": "",
+                                    "disabled": true
+                                }
+                            ],
+                            "variable": [],
+                            "path": [
+                                "flow",
+                                "pl"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3000"
+                        },
+                        "header": [
+                            {
+                                "key": "x-access-token",
+                                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxMSIsImlhdCI6MTczMjExNzA5OCwiZXhwIjoxNzMyMTI0Mjk4fQ.NzFuj8Q3Z17G1RFvv5AInSm31IJL63TN3k0Qih_IdxM"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "*/*",
+                                "disabled": true
+                            },
+                            {
+                                "key": "User-Agent",
+                                "value": "Thunder Client (https://www.thunderclient.com)",
+                                "disabled": true
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            },
+                            "raw": "{\n  \"id\": 1\n}"
+                        }
+                    }
+                },
+                {
+                    "name": "Add a Song to a Playlist",
+                    "request": {
+                        "method": "POST",
+                        "url": {
+                            "raw": "http://localhost:3005/api/flow/addSong",
+                            "query": [
+                                {
+                                    "key": "token",
+                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjg5ODA3OTM4LCJleHAiOjE2ODk4MTE1Mzh9.pBDNdpA0GlNxMRCU4pRrlpHqfOdgqVbYyYyO5qp9b0I",
+                                    "disabled": true
+                                }
+                            ],
+                            "variable": [],
+                            "path": [
+                                "api",
+                                "flow",
+                                "addSong"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3005"
+                        },
+                        "header": [
+                            {
+                                "key": "x-access-token",
+                                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjg5ODkxMjgyLCJleHAiOjE2ODk4OTQ4ODJ9.EYCbCBDsPJH47p4BjJmNFKvU1eGkfO_lVJt5ptI4xTg"
+                            },
+                            {
+                                "key": "User-Agent",
+                                "value": "Thunder Client (https://www.thunderclient.com)",
+                                "disabled": true
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            },
+                            "raw": "{\n  \"song_id\": 1,\n  \"playlist_id\": 7\n}"
+                        }
+                    }
+                },
+                {
+                    "name": "Add playlist with songs",
+                    "request": {
+                        "method": "POST",
+                        "url": {
+                            "raw": "http://localhost:3005/api/flow/addPlaylistWithSongs",
+                            "query": [
+                                {
+                                    "key": "token",
+                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjg5ODA3OTM4LCJleHAiOjE2ODk4MTE1Mzh9.pBDNdpA0GlNxMRCU4pRrlpHqfOdgqVbYyYyO5qp9b0I",
+                                    "disabled": true
+                                }
+                            ],
+                            "variable": [],
+                            "path": [
+                                "api",
+                                "flow",
+                                "addPlaylistWithSongs"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3005"
+                        },
+                        "header": [
+                            {
+                                "key": "x-access-token",
+                                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjkwMDUzMjUxLCJleHAiOjE2OTAwNjA0NTF9.z7jm7jl6ZqA4Jw5VGSTDb5iKLY8eVuB2dk9qpphObqQ"
+                            },
+                            {
+                                "key": "User-Agent",
+                                "value": "Thunder Client (https://www.thunderclient.com)",
+                                "disabled": true
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            },
+                            "raw": "{\n  \"playlist_name\": \"naranjita\",\n  \"songs\":[1,2,3,1]\n}"
+                        }
+                    }
+                },
+                {
+                    "name": "Delete a Song to a Playlist",
+                    "request": {
+                        "method": "DELETE",
+                        "url": {
+                            "raw": "http://localhost:3005/api/flow/removeSong",
+                            "query": [
+                                {
+                                    "key": "token",
+                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjg5ODA3OTM4LCJleHAiOjE2ODk4MTE1Mzh9.pBDNdpA0GlNxMRCU4pRrlpHqfOdgqVbYyYyO5qp9b0I",
+                                    "disabled": true
+                                }
+                            ],
+                            "variable": [],
+                            "path": [
+                                "api",
+                                "flow",
+                                "removeSong"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3005"
+                        },
+                        "header": [
+                            {
+                                "key": "x-access-token",
+                                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjg5ODkxMjgyLCJleHAiOjE2ODk4OTQ4ODJ9.EYCbCBDsPJH47p4BjJmNFKvU1eGkfO_lVJt5ptI4xTg"
+                            },
+                            {
+                                "key": "User-Agent",
+                                "value": "Thunder Client (https://www.thunderclient.com)",
+                                "disabled": true
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            },
+                            "raw": "{\n  \"song_id\": 4,\n  \"playlist_id\": 7\n}"
+                        }
+                    }
+                },
+                {
+                    "name": "Add a Playlist to a User",
+                    "request": {
+                        "method": "POST",
+                        "url": {
+                            "raw": "http://localhost:3005/api/flow/addPlaylist",
+                            "query": [
+                                {
+                                    "key": "token",
+                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjg5ODA3OTM4LCJleHAiOjE2ODk4MTE1Mzh9.pBDNdpA0GlNxMRCU4pRrlpHqfOdgqVbYyYyO5qp9b0I",
+                                    "disabled": true
+                                }
+                            ],
+                            "variable": [],
+                            "path": [
+                                "api",
+                                "flow",
+                                "addPlaylist"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3005"
+                        },
+                        "header": [
+                            {
+                                "key": "x-access-token",
+                                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjg5ODYxOTk5LCJleHAiOjE2ODk4NjU1OTl9.KIpAoD2ZP_zZwl4A346x5Rj4vWTvRNy3cH_Ai7PaT6o"
+                            },
+                            {
+                                "key": "User-Agent",
+                                "value": "Thunder Client (https://www.thunderclient.com)",
+                                "disabled": true
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            },
+                            "raw": "{\n  \"playlist_name\": \"Pulpo\"\n}"
+                        }
+                    }
+                },
+                {
+                    "name": "Delete a Playlist to a User ",
+                    "request": {
+                        "method": "DELETE",
+                        "url": {
+                            "raw": "http://localhost:3005/api/flow/removePlaylist",
+                            "query": [
+                                {
+                                    "key": "token",
+                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjg5ODA3OTM4LCJleHAiOjE2ODk4MTE1Mzh9.pBDNdpA0GlNxMRCU4pRrlpHqfOdgqVbYyYyO5qp9b0I",
+                                    "disabled": true
+                                }
+                            ],
+                            "variable": [],
+                            "path": [
+                                "api",
+                                "flow",
+                                "removePlaylist"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3005"
+                        },
+                        "header": [
+                            {
+                                "key": "x-access-token",
+                                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjkwMDU0MDg2LCJleHAiOjE2OTAwNjEyODZ9.W6ZSGFcoaKjc3UpzqscAVF4ikCUhZW_cO1jmT__j-u8"
+                            },
+                            {
+                                "key": "User-Agent",
+                                "value": "Thunder Client (https://www.thunderclient.com)",
+                                "disabled": true
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            },
+                            "raw": "{\n  \"playlist_id\": 11\n}"
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

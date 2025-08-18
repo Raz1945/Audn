@@ -1,7 +1,6 @@
 const musicModel = require('../models/musicServices');
 
 
-// Todo Testear
 // Obtiene una lista con todos los artistas
 const getAllArtists = async (_req, res) => {
   try {
@@ -22,8 +21,8 @@ const getAllArtists = async (_req, res) => {
 };
 
 
-// ! sin testear 
 // Obtiene una lista con todas las canciones o filtra por término de búsqueda
+//? no se si esta disenada para filtrar 
 const getAllSongs = async (req, res) => {
   try {
     const { search } = req.query;

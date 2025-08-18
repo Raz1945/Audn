@@ -12,6 +12,7 @@ import { Dashboard } from '../Components/Dashboard/Dashboard';
 import Home from '../Components/Home/Home';
 import { CupidoMusical } from '../Components/CupidoMusical/CupidoMusical';
 import { Search } from '../Components/Search/Search';
+import { Navigate } from 'react-router-dom';
 
 
 export const AppRoutes = createBrowserRouter([
@@ -20,69 +21,60 @@ export const AppRoutes = createBrowserRouter([
     element: <Layout />,
     children: [
       {
+        index: true,
+        element: <Navigate to="/login" replace />
+      },
+      {
         path: '/login',
         element: <Login />,
-        index: true, // Indica que es la página de inicio
       },
       {
         path: '/google-login',
-        index: false,
         element: <h1>Logueado con Google</h1>,
       },
       {
         path: '/apple-login',
-        index: false,
         element: <h1>Logueado con Apple</h1>,
       },
       {
         path: '/register',
-        index: false,
         element: <Register />,
       },
       {
         path: '/register2',
-        index: false,
         element: <Register2 />,
       },
       {
         path: '/sing-in',
-        index: false,
         element: <SingIn />,
       },
       {
         path: '/recovery',
-        index: false,
         element: <Recovery />
       },
       {
         path: '/recoverySuccess',
-        index: false,
         element: <RecoverySuccess />
       },
       {
         path: '/recoveryMsg',
-        index: false,
         element: <RecoveryMsg />
       },
       {
-        // loader de carga
         path: '/LoginSuccess',
-        index: false,
         element: <LoadingScreen />
       },
       {
-        // TODO corregir css 
         path: '/dashboard',
-        index: false,
-        element: <Dashboard/>,
+        element: <Dashboard />,
         children: [
           {
             path: 'home',
-            element: <Home/>
+            element: <Home />
           },
           {
             path: 'search',
-            element: <Search/>
+            element: <Search />
           },
           {
             path: 'profile',
@@ -96,8 +88,7 @@ export const AppRoutes = createBrowserRouter([
       },
       {
         path: '/cupidoMusical',
-        index: false,
-        element: <CupidoMusical/>,
+        element: <CupidoMusical />,
       },
     ],
   },
