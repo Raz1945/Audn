@@ -44,13 +44,13 @@ const login = async (req, res) => {
     }
 
     //todo A eliminar -> Logs Sensibles
-    console.log('Buscando usuario con identifier:', userIdentifier);
+    // console.log('Buscando usuario con identifier:', userIdentifier);
 
     // Buscar al usuario usando la función findOne
     const user = await User.findOne(userIdentifier);
 
     //todo A eliminar -> Logs Sensibles
-    console.log('Usuario encontrado:', user);
+    // console.log('Usuario encontrado:', user);
 
     // Verificar si el usuario existe y la contraseña es correcta
     if (!user || !(await bcrypt.compare(password, user.password))) {
@@ -61,15 +61,28 @@ const login = async (req, res) => {
     }
 
     // Generar un token JWT
-    const accessToken = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, {
-      expiresIn: process.env.JWT_EXPIRATION_TIME,
-    });
+    const accessToken = jwt.sign(
+      {
+        userId: user.id,
+        username: user.username,
+        email: user.email,
+        is_premium: user.is_premium,
+      },
+      process.env.JWT_SECRET,
+      { expiresIn: process.env.JWT_EXPIRATION_TIME }
+    );
 
     //todo A eliminar -> Logs Sensibles
-    console.log('Token generado:', accessToken);
+    // console.log('Token generado:', accessToken);
 
     // Responder con el Token JWT
-    res.status(200).json({ accessToken });
+    res.status(200).json({
+      accessToken,
+      id: user.id,
+      username: user.username,
+      email: user.email,
+      is_premium: user.is_premium,
+    });
   } catch (error) {
     console.error('Error al iniciar sesión:', error);
     // Mensaje genérico para errores internos del servidor
@@ -83,25 +96,32 @@ const recovery = async (req, res) => {
     const { userIdentifier } = req.body;
 
     if (!userIdentifier) {
-      return res.status(400).json({ message: 'El identificador de usuario es requerido' });
+      return res
+        .status(400)
+        .json({ message: 'El identificador de usuario es requerido' });
     }
 
-    // Llama a la función para encontrar el email del usuario
     const email = await User.findUserEmail(userIdentifier);
 
     if (!email) {
       return res.status(404).json({ message: 'Usuario no encontrado' });
     }
 
-    // Simula el envío del email (en una implementación real, se usaría un servicio de email)
+    // todo ELIMINAR
     console.log(`Simulación de envío de email a: ${email}`);
 
-    // Retorna el email al frontend para su uso
     res.status(200).json({ email });
   } catch (error) {
     console.error('Error en la recuperación de contraseña:', error);
-    res.status(500).json({ message: 'Error en el servidor, intenta nuevamente' });
+    res
+      .status(500)
+      .json({ message: 'Error en el servidor, intenta nuevamente' });
   }
 };
+
+//? Que puede hacer un usuario?
+// Crear una playlist
+// Agreaga una/s cancion a una playlist
+// Eliminar una/s cancion de una playlist
 
 module.exports = { register, login, recovery };

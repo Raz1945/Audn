@@ -158,7 +158,7 @@ export const SingIn = () => {
             />
           </div>
           
-          <Link to={'/recovery'} className="recovery-link" tabIndex="5" >
+          <Link to={'/recovery'} className="recovery-link" tabIndex="9" >
             ¿Olvidaste tu contraseña?
           </Link>
         </div>

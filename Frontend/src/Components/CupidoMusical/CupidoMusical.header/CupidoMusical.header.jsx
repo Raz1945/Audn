@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom";
 import { smIcons } from "../../../assets/icons"; 
 import '../CupidoMusical.header/styles.css'
 
-const CupidoMusicalHeader = () => {
+export const CupidoMusicalHeader = () => {
   return (
     <>
       <nav className="top-navbar">
@@ -17,5 +17,3 @@ const CupidoMusicalHeader = () => {
     </>
   );
 }
-
-export default CupidoMusicalHeader;

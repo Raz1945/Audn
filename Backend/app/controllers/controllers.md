@@ -1,0 +1,1 @@
+Reciben la request y responden.

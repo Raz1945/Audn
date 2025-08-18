@@ -1,79 +1,163 @@
-import { useEffect } from "react";
-import { AppContainer } from "../other/AppContainer/AppContainer"
-import CupidoMusicalHeader from "./CupidoMusical.header/CupidoMusical.header"
-import { useState } from "react";
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import { AppContainer } from '../other/AppContainer/AppContainer';
+import { CupidoMusicalHeader } from './CupidoMusical.header/CupidoMusical.header';
+import { Loader } from '../Loaders/Loader/Loader';
+import { CupidoMusicalCard } from './CupidoMusical.card/CupidoMusical.card';
+import { CupidoMusicalButton } from './CupidoMusicalButton/CupidoMusicalButton';
+import { smIcons } from '../../assets/icons';
+import { ButtonStandard } from '../ButtonStandard/ButtonStandard';
+import './index.css';
 
-import artistsData from '../../data/songs.json';
-import { Loader } from "../Loaders/Loader/Loader";
-
-// TODO      
 export const CupidoMusical = () => {
+  const apiUrl = import.meta.env.VITE_API_BACKEND_URL;
 
-  const [likeList, setLikeList] = useState([]);                       // Estado para almacenar los artistas con like
-  const [artists, setArtists] = useState([]);                         // Estado para almacenar todos los artistas que estan disponibles
-  const [currentArtistIndex, setCurrentArtistIndex] = useState(0);    // Estado para almacenar el indice del artista actual
-  const [likedArtist, setLikedArtist] = useState([]);                 // Estado para almacenar los artistas con like
-  const [availableArtists, setAvailableArtists] = useState([]);       // Estado para almacenar los artistas disponibles para mostrar
+  const [likeList, setLikeList] = useState([]); // Artistas que el usuario ha marcado con "like"
+  const [artists, setArtists] = useState([]); // Artistas disponibles
+  const [currentArtistIndex, setCurrentArtistIndex] = useState(0); // Índice del artista actual
+  const [nextArtistIndex, setNextArtistIndex] = useState(1); // Índice del siguiente artista
+  const [availableArtists, setAvailableArtists] = useState([]); // Artistas disponibles para mostrar (no en likeList)
+  const [loading, setLoading] = useState(true); // Estado de carga de los datos
+  const [error, setError] = useState(null); // Mensaje de error en caso de fallo
 
-  // Cargar artistas desde el JSON al montar el componente
+  // Obtener los artistas desde la API al montar el componente
   useEffect(() => {
-    setArtists(artistsData);
-  }, []);
+    const fetchArtists = async () => {
+      try {
+        setLoading(true);
+        const response = await axios.get(`${apiUrl}/flow/artists`); // Petición a la API
+        setArtists(response.data); // Guardar artistas en el estado
+        setLoading(false);
+      } catch (err) {
+        setError('Error al obtener los datos de artistas.');
+        setLoading(false);
+      }
+    };
 
+    fetchArtists();
+  }, [apiUrl]);
+
+  // Filtrar artistas que no están en la lista de likes
   useEffect(() => {
-    const filteredArtists = artists.filter((artists) => !likedArtist.includes(artists));
-    setAvailableArtists(filteredArtists);
-    // console.log('Artistas con like:', likedArtist);
+    const filteredArtists = artists.filter((artist) => !likeList.includes(artist));
+    setAvailableArtists(filteredArtists); // Actualizar la lista de artistas disponibles
+  }, [artists, likeList]);
 
-  }, [artists, likedArtist]);
-
+  // Manejar el "like" de un artista
   const handleLikeArtist = () => {
-    // Verificamos si alcanzo el limite 
     if (likeList.length >= 6) {
       alert('¡Has alcanzado el límite de 6 likes!');
       return;
     }
-    const currentArtist = availableArtists[currentArtistIndex];
-    setLikeList((prevLikes) => [...prevLikes, currentArtist]);                        // Agregamos el artista actual a la lista de 'likes'
-    setCurrentArtistIndex((prevLikes) => (prevLikes + 1) % availableArtists.length)   // Avanzamos al siguiente artista disponible o retornamos al inicio
-    setLikedArtist((prevLikedArtists => [...prevLikedArtists, currentArtist]))        // Movemos el artista actual a la lista de artistas con 'likes'
-  }
 
-  const handleDislikeArtist = () => {
-    setCurrentArtistIndex((prevIndex) => (prevIndex + 1) % availableArtists.length);
+    const currentArtist = availableArtists[currentArtistIndex];
+    setLikeList((prevLikes) => [...prevLikes, currentArtist]); // Agregar artista a la lista de likes
+    setCurrentArtistIndex(nextArtistIndex); // Avanzar al siguiente artista
+    setNextArtistIndex((nextArtistIndex + 1) % availableArtists.length); // Actualizar el índice del siguiente artista
   };
 
-  const handleRewindArtis = () => {
-    // Verificamos si hay algun artista en la lista de likes antes de intentar eliminar
-    if (likeList.length === 0) {
-      console.log('No hay artistas en la lista de likes para remover.');
-      return;      
-    }
+  // Manejar el "dislike" de un artista (avanzar al siguiente)
+  const handleDislikeArtist = () => {
+    setCurrentArtistIndex(nextArtistIndex); // Avanzar al siguiente artista
+    setNextArtistIndex((nextArtistIndex + 1) % availableArtists.length); // Actualizar índice siguiente
+  };
 
-    // obtenemos el ultimo artista de la lista de 'likes'
+  // Deshacer un "like" (volver al último artista marcado)
+  const handleRewindArtist = () => {
+    if (likeList.length === 0) return;
+
     const lastLikedArtist = likeList[likeList.length - 1];
+    setLikeList((prevLikes) => prevLikes.slice(0, -1)); // Eliminar el último "like"
+    if (availableArtists[currentArtistIndex]?.id === lastLikedArtist.id) {
+      setCurrentArtistIndex(nextArtistIndex); // Avanzar al siguiente artista si es necesario
+      setNextArtistIndex((nextArtistIndex + 1) % availableArtists.length);
+    }
+  };
 
-    // Remover el ultimo artista de la lista de 'likes'
-    setLikeList((prevIndex) => prevIndex.slice(0, -1));
-    setLikedArtist((prevLikedArtists) => prevLikedArtists.filter((artists) => artists !== lastLikedArtist))
-    console.log('Se removió el artista:', lastLikedArtist);
+  //TODO Crear una nueva playlist (todavía no implementado)
+  const handleCreatePlaylist = () => {
+    // Se crea la playlist
+    // Se agregan una/dos canciones de cada artista elegido
+    
+    alert('Se crea la playlist');
+  };
+
+  //Mostrar el Loader mientras se cargan los datos o un mensaje de error
+  if (loading) {
+    return <Loader />;
   }
 
-  const handleCreatePlaylist = () => {
-    alert('Se crea la playlists')
+  if (error) {
+    return <div className="error-message">{error}</div>;
   }
 
   return (
-    <>
-      <AppContainer>
-        {availableArtists.length === 0 ? (
-          <Loader/>
-        ) : (
-          <>
-            <CupidoMusicalHeader/>
-          </>
-        )}
-      </AppContainer>
-    </>
-  )
-}
+    <AppContainer>
+      {availableArtists.length === 0 ? (
+        <div className="empty-message">No hay artistas disponibles</div>
+      ) : (
+        <>
+          <CupidoMusicalHeader />
+          <div className="cupido-container">
+            <CupidoMusicalCard
+              src={availableArtists[currentArtistIndex]?.image}
+              alt={availableArtists[currentArtistIndex]?.name}
+            />
+
+            {availableArtists.length > 1 && (
+              <CupidoMusicalCard
+                src={availableArtists[nextArtistIndex]?.image}
+                alt={availableArtists[nextArtistIndex]?.name}
+                next="next"
+              />
+            )}
+
+            <div className="cupido__btn">
+              <CupidoMusicalButton
+                onClick={handleLikeArtist}
+                img={smIcons.like}
+                alt="like"
+              />
+              <CupidoMusicalButton
+                onClick={handleDislikeArtist}
+                img={smIcons.cross}
+                alt="Dislike"
+              />
+            </div>
+
+            <h2 className="cupido__title">
+              {availableArtists[currentArtistIndex]?.name}
+            </h2>
+
+            <div className="cupido-matches-container">
+              <span className="cupido__matches-sub_title">
+                Matches actuales:
+              </span>
+              <div className="cupido__matches">
+                <CupidoMusicalButton
+                  onClick={handleRewindArtist}
+                  img={smIcons.rewind}
+                  alt="history"
+                />
+              </div>
+            </div>
+
+            <div className="cupido-matches-likes">
+              {likeList.map((artist, index) => (
+                <div key={index} className="miniCover">
+                  <img src={artist?.image} alt={artist?.name} />
+                </div>
+              ))}
+            </div>
+
+            <ButtonStandard
+              text="Crear Playlist"
+              state={likeList.length <= 6 && likeList.length !== 0 ? 'active' : 'disabled'}
+              onClick={handleCreatePlaylist}
+            />
+          </div>
+        </>
+      )}
+    </AppContainer>
+  );
+};

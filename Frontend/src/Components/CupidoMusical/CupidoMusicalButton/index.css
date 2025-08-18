@@ -1,0 +1,25 @@
+.cupido__btn-container {
+  display: flex;
+  width: 64px;
+  height: 64px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 32px;
+  background: var(--blanco, #fdfeff);
+  box-shadow: 2px 2px 4px 0px rgba(8, 8, 17, 0.08),
+    0px 0px 6px 0px rgba(8, 8, 17, 0.04);
+}
+
+.cupido__btn-container img {
+  display: flex;
+  padding: 1.333px;
+  justify-content: center;
+  align-items: center;
+  gap: 10.667px;
+
+  width: 32px;
+  height: 32px;
+  object-fit: cover;
+  fill: var(--medios-tonos-gris-5, #26262e);
+}

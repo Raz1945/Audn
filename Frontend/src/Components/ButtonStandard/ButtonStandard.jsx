@@ -8,12 +8,9 @@ export const ButtonStandard = ({
   text = 'label-text',
   tabindex,
   type = state === 'active' ? 'submit' : 'button',
-
+  onClick
 }) => {
-  const onClick = () => {
-    console.log('click');
-  }
-
+  
   return (
     <>
         <button

@@ -7,15 +7,12 @@ const musicController = require('../controllers/musicController');
 const playlistController = require('../controllers/playlistController');
 const authenticateToken = require('../middleware/authMiddleware');
 
-const playlistRoutes = require('./playlistRoutes');
 
 // Registro y login
   // http://localhost:3000/register
 router.post('/register', userController.register);
-
   // http://localhost:3000/login
 router.post('/login', userController.login);
-
   // http://localhost:3000/recovery
 router.post('/recovery', userController.recovery);
 
@@ -29,8 +26,7 @@ router.get('/flow/songs', musicController.getAllSongs);
 
 // Playlists
   // http://localhost:3000/flow/pl
-router.use('/', playlistRoutes);
-
+router.get('/flow/pl', authenticateToken, playlistController.getUserPlaylist);
 
 
 // Testeo que haya conexcion 
