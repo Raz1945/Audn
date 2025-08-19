@@ -1,6 +1,10 @@
 const playlistService = require('../services/playlistService');
 
 // === Auxiliares de duración ===
+// Estas funciones son auxiliares para convertir entre formatos de duración
+// y no están directamente relacionadas con las playlists, pero son útiles
+// para manejar la duración de las canciones en las playlists.
+// Se pueden usar para formatear la duración de las canciones al obtenerlas
 const convertHMSToSeconds = (duration) => {
   const [hours, minutes, seconds] = duration.split(':').map(Number);
   return hours * 3600 + minutes * 60 + seconds;
@@ -18,6 +22,8 @@ const formatDurationAsString = (duration) => {
   const seconds = duration.seconds.toString().padStart(2, '0');
   return `${hours}:${minutes}:${seconds}`;
 };
+
+
 
 // === CRUD Playlists ===
 const createPlaylist = async (req, res) => {
@@ -54,6 +60,7 @@ const updatePlaylist = async (req, res) => {
   try {
     const { name, imageUrl } = req.body;
     if (!name && !imageUrl) return res.status(400).json({ error: 'Debes enviar al menos un campo' });
+
     const updated = await playlistService.updatePlaylist(req.user.id, req.params.id, name, imageUrl);
     res.json(updated);
   } catch (error) {
@@ -82,8 +89,12 @@ const getSongs = async (req, res) => {
 
 const addSongToPlaylist = async (req, res) => {
   try {
-    await playlistService.addSong(req.params.id, req.body.songId);
-    res.status(201).json({ message: "Song added" });
+    const result = await playlistService.addSong(req.params.id, req.body.songId);
+    if (result.success) {
+      res.status(201).json({ message: result.message });
+    } else {
+      res.status(400).json({ error: result.message });
+    }
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
@@ -91,8 +102,12 @@ const addSongToPlaylist = async (req, res) => {
 
 const removeSongFromPlaylist = async (req, res) => {
   try {
-    await playlistService.removeSong(req.params.id, req.body.songId);
-    res.json({ message: "Song removed" });
+    const result = await playlistService.removeSong(req.params.id, req.body.songId);
+    if (result.success) {
+      res.json({ message: result.message });
+    } else {
+      res.status(400).json({ error: result.message });
+    }
   } catch (error) {
     res.status(400).json({ error: error.message });
   }

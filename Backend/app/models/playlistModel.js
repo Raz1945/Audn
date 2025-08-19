@@ -1,9 +1,9 @@
 const knex = require('../database/config/db');
 
-// Playlists
+// === Playlists ===
 const createPlaylist = (userId, name, imageUrl = null) =>
   knex("music_data.playlists")
-    .insert({ user_id: userId, name, image_url: imageUrl })
+    .insert({ user_id: userId, name, image_url: imageUrl, songs_count: 0 })
     .returning("*");
 
 const getPlaylistById = (userId, playlistId) =>
@@ -30,12 +30,36 @@ const updatePlaylist = (userId, playlistId, name, imageUrl) =>
 const deletePlaylist = (playlistId) =>
   knex("music_data.playlists").where({ id: playlistId }).del();
 
-// Canciones dentro de playlists
-const addSongToPlaylist = (playlistId, songId) =>
-  knex("music_data.playlist_songs").insert({ playlist_id: playlistId, song_id: songId });
+// === Canciones en playlist ===
+const addSongToPlaylist = async (playlistId, songId) => {
+  const playlist = await knex("music_data.playlists").where({ id: playlistId }).first();
+  if (!playlist) throw new Error('La playlist no existe.');
 
-const removeSongFromPlaylist = (playlistId, songId) =>
-  knex("music_data.playlist_songs").where({ playlist_id: playlistId, song_id: songId }).del();
+  const exists = await knex("music_data.playlist_songs")
+    .where({ playlist_id: playlistId, song_id: songId })
+    .first();
+  if (exists) throw new Error('La canción ya está en la playlist.');
+
+  await knex("music_data.playlist_songs").insert({ playlist_id: playlistId, song_id: songId });
+  await knex("music_data.playlists").where({ id: playlistId }).increment('songs_count', 1);
+
+  return { success: true, message: 'Canción añadida correctamente.' };
+};
+
+const removeSongFromPlaylist = async (playlistId, songId) => {
+  const playlist = await knex("music_data.playlists").where({ id: playlistId }).first();
+  if (!playlist) throw new Error('La playlist no existe.');
+
+  const exists = await knex("music_data.playlist_songs")
+    .where({ playlist_id: playlistId, song_id: songId })
+    .first();
+  if (!exists) throw new Error('La canción no está en la playlist.');
+
+  await knex("music_data.playlist_songs").where({ playlist_id: playlistId, song_id: songId }).del();
+  await knex("music_data.playlists").where({ id: playlistId }).decrement('songs_count', 1);
+
+  return { success: true, message: 'Canción removida correctamente.' };
+};
 
 const getSongsFromPlaylist = (playlistId) =>
   knex("music_data.songs as s")
