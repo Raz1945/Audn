@@ -30,6 +30,7 @@ const updatePlaylist = (userId, playlistId, name, imageUrl) =>
 const deletePlaylist = (playlistId) =>
   knex("music_data.playlists").where({ id: playlistId }).del();
 
+
 // === Canciones en playlist ===
 const addSongToPlaylist = async (playlistId, songId) => {
   const playlist = await knex("music_data.playlists").where({ id: playlistId }).first();
@@ -67,6 +68,12 @@ const getSongsFromPlaylist = (playlistId) =>
     .where("ps.playlist_id", playlistId)
     .select("s.*");
 
+// === Cupido Musical ===
+const getSongsByArtists = (artistIds) =>
+  knex("music_data.songs")
+    .whereIn("artist_id", artistIds)
+    .select("*");
+
 module.exports = {
   createPlaylist,
   getPlaylistById,
@@ -76,4 +83,5 @@ module.exports = {
   addSongToPlaylist,
   removeSongFromPlaylist,
   getSongsFromPlaylist,
+  getSongsByArtists,
 };

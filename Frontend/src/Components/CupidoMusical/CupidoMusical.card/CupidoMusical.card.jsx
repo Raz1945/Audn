@@ -1,14 +1,14 @@
-import '../CupidoMusical.card/index.css'
+import './index.css'
 
 export const CupidoMusicalCard = ({ src, alt, next }) => {
   return (
     <>
-        <div className={`cover ${next}`}>
-          <img
-            src={src}
-            alt={alt}
-          />
-        </div>
+      <div className={`cover ${next}`}>
+        <img
+          src={src}
+          alt={alt}
+        />
+      </div>
     </>
   );
 }

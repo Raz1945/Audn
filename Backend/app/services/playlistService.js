@@ -41,6 +41,49 @@ async function getSongs(playlistId) {
   return await playlistModel.getSongsFromPlaylist(playlistId);
 }
 
+
+// === Cupido Musical ===
+async function createCupidoPlaylist(userId, artists) {
+    // Buscar imagen de portada: primero artista con imagen o predeterminada
+  const playlistImage = "https://i.imgur.com/buVdhRQ.jpeg";
+
+
+  // Crear la playlist vacía primero
+  const [playlist] = await playlistModel.createPlaylist(
+    userId,
+    "Playlist Cupido Musical ❤️",
+    playlistImage
+  );
+
+  if (!playlist) throw new Error("No se pudo crear la playlist");
+
+  // Buscar canciones de esos artistas
+  const songs = await playlistModel.getSongsByArtists(artists);
+
+  // Opcional: limitar a 2-3 canciones por artista
+  const balanced = balanceSongsByArtist(songs, 3);
+
+  // Insertar canciones en la playlist
+  for (const song of balanced) {
+    await playlistModel.addSongToPlaylist(playlist.id, song.id);
+  }
+
+  return { ...playlist, songs: balanced };
+}
+
+// auxiliar para que no se te llene de 50 temas de un solo artista
+function balanceSongsByArtist(songs, limitPerArtist) {
+  const grouped = {};
+  songs.forEach(song => {
+    if (!grouped[song.artist_id]) grouped[song.artist_id] = [];
+    if (grouped[song.artist_id].length < limitPerArtist) {
+      grouped[song.artist_id].push(song);
+    }
+  });
+  return Object.values(grouped).flat();
+}
+
+
 module.exports = {
   createPlaylist,
   getUserPlaylists,
@@ -50,4 +93,5 @@ module.exports = {
   addSong,
   removeSong,
   getSongs,
+  createCupidoPlaylist,
 };

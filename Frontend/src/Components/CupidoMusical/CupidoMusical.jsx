@@ -7,10 +7,16 @@ import { CupidoMusicalCard } from './CupidoMusical.card/CupidoMusical.card';
 import { CupidoMusicalButton } from './CupidoMusicalButton/CupidoMusicalButton';
 import { smIcons } from '../../assets/icons';
 import { ButtonStandard } from '../ButtonStandard/ButtonStandard';
+import { useNavigate } from 'react-router-dom';
 import './index.css';
+
+
+//! ELIMINAR LOS LOGS ANTES DE DAR POR TEMINADO ESTE COMPONENTE
+
 
 export const CupidoMusical = () => {
   const apiUrl = import.meta.env.VITE_API_BACKEND_URL;
+  const navigate = useNavigate();
 
   const [likeList, setLikeList] = useState([]); // Artistas que el usuario ha marcado con "like"
   const [artists, setArtists] = useState([]); // Artistas disponibles
@@ -20,6 +26,7 @@ export const CupidoMusical = () => {
   const [loading, setLoading] = useState(true); // Estado de carga de los datos
   const [error, setError] = useState(null); // Mensaje de error en caso de fallo
 
+  
   // Obtener los artistas desde la API al montar el componente
   useEffect(() => {
     const fetchArtists = async () => {
@@ -37,50 +44,94 @@ export const CupidoMusical = () => {
     fetchArtists();
   }, [apiUrl]);
 
+
   // Filtrar artistas que no están en la lista de likes
   useEffect(() => {
     const filteredArtists = artists.filter((artist) => !likeList.includes(artist));
     setAvailableArtists(filteredArtists); // Actualizar la lista de artistas disponibles
   }, [artists, likeList]);
 
-  // Manejar el "like" de un artista
-  const handleLikeArtist = () => {
-    if (likeList.length >= 6) {
-      alert('¡Has alcanzado el límite de 6 likes!');
-      return;
-    }
 
-    const currentArtist = availableArtists[currentArtistIndex];
-    setLikeList((prevLikes) => [...prevLikes, currentArtist]); // Agregar artista a la lista de likes
-    setCurrentArtistIndex(nextArtistIndex); // Avanzar al siguiente artista
-    setNextArtistIndex((nextArtistIndex + 1) % availableArtists.length); // Actualizar el índice del siguiente artista
-  };
+  // Manejar "like" de un artista con log
+const handleLikeArtist = () => {
+  if (likeList.length >= 6) {
+    alert('¡Has alcanzado el límite de 6 likes!');
+    return;
+  }
 
-  // Manejar el "dislike" de un artista (avanzar al siguiente)
-  const handleDislikeArtist = () => {
-    setCurrentArtistIndex(nextArtistIndex); // Avanzar al siguiente artista
-    setNextArtistIndex((nextArtistIndex + 1) % availableArtists.length); // Actualizar índice siguiente
-  };
+  const currentArtist = availableArtists[currentArtistIndex];
+  console.log("❤️ Likeando artista:", currentArtist); // log del artista actual
+  setLikeList((prevLikes) => {
+    const newLikes = [...prevLikes, currentArtist];
+    console.log("📝 Lista de likes actualizada:", newLikes.map(a => ({ id: a?.id, name: a?.name })));
+    return newLikes;
+  });
 
-  // Deshacer un "like" (volver al último artista marcado)
-  const handleRewindArtist = () => {
-    if (likeList.length === 0) return;
+  setCurrentArtistIndex(nextArtistIndex);
+  setNextArtistIndex((nextArtistIndex + 1) % availableArtists.length);
+};
 
-    const lastLikedArtist = likeList[likeList.length - 1];
-    setLikeList((prevLikes) => prevLikes.slice(0, -1)); // Eliminar el último "like"
-    if (availableArtists[currentArtistIndex]?.id === lastLikedArtist.id) {
-      setCurrentArtistIndex(nextArtistIndex); // Avanzar al siguiente artista si es necesario
-      setNextArtistIndex((nextArtistIndex + 1) % availableArtists.length);
-    }
-  };
+// Manejar el "dislike" de un artista (avanzar al siguiente)
+const handleDislikeArtist = () => {
+  setCurrentArtistIndex(nextArtistIndex); // Avanzar al siguiente artista
+  setNextArtistIndex((nextArtistIndex + 1) % availableArtists.length); // Actualizar índice siguiente
+};
 
-  //TODO Crear una nueva playlist (todavía no implementado)
-  const handleCreatePlaylist = () => {
-    // Se crea la playlist
-    // Se agregan una/dos canciones de cada artista elegido
+// Deshacer un "like" (volver al último artista marcado)
+const handleRewindArtist = () => {
+  if (likeList.length === 0) return;
+
+  const lastLikedArtist = likeList[likeList.length - 1];
+  setLikeList((prevLikes) => prevLikes.slice(0, -1)); // Eliminar el último "like"
+  if (availableArtists[currentArtistIndex]?.id === lastLikedArtist.id) {
+    setCurrentArtistIndex(nextArtistIndex); // Avanzar al siguiente artista si es necesario
+    setNextArtistIndex((nextArtistIndex + 1) % availableArtists.length);
+  }
+};
+
+// Crear playlist  
+const handleCreatePlaylist = async () => {
+  try {
+    const token = localStorage.getItem("token");
+    console.log("🔑 Token desde localStorage:", token);
     
-    alert('Se crea la playlist');
-  };
+    if (!token) throw new Error("No hay token de usuario");
+    
+    // Verifica que apiUrl esté correcto
+    console.log("🌐 API URL:", apiUrl);
+    
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      },
+      withCredentials: true
+    };
+
+    console.log("📤 Enviando request...");
+    
+    const response = await axios.post(
+      `${apiUrl}/flow/pl/cupido`,
+      { artists: likeList.map(a => a.id) },
+      config
+    );
+
+    console.log("✅ Response:", response.data);
+    navigate('/cupidoMusical/pl'); // Redirigir a la página de éxito
+  } catch (err) {
+    console.error("❌ Error completo:", err);
+    console.error("Status:", err.response?.status);
+    console.error("Data:", err.response?.data);
+    console.error("Headers:", err.response?.headers);
+    
+    if (err.response?.status === 401) {
+      alert("Token inválido o expirado. Por favor, volvé a loguearte.");
+      localStorage.removeItem("token");
+      // Redirigir al login
+    }
+  }
+};
+
 
   //Mostrar el Loader mientras se cargan los datos o un mensaje de error
   if (loading) {
@@ -152,7 +203,7 @@ export const CupidoMusical = () => {
 
             <ButtonStandard
               text="Crear Playlist"
-              state={likeList.length <= 6 && likeList.length !== 0 ? 'active' : 'disabled'}
+              state={likeList.length >= 2 && likeList.length <= 6 ? 'active' : 'disabled'}
               onClick={handleCreatePlaylist}
             />
           </div>

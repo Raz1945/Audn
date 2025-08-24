@@ -113,6 +113,22 @@ const removeSongFromPlaylist = async (req, res) => {
   }
 };
 
+// === Cupido Musical ===
+const createCupidoPlaylist = async (req, res) => {
+  try {
+    const { artists } = req.body; // array de IDs de artistas
+    if (!artists || !artists.length) {
+      return res.status(400).json({ error: "Debes enviar artistas para crear la playlist" });
+    }
+
+    const userId = req.user.id;
+    const playlist = await playlistService.createCupidoPlaylist(userId, artists);
+    res.status(201).json(playlist);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
 module.exports = {
   createPlaylist,
   getUserPlaylists,
@@ -122,4 +138,5 @@ module.exports = {
   getSongs,
   addSongToPlaylist,
   removeSongFromPlaylist,
+  createCupidoPlaylist,
 };

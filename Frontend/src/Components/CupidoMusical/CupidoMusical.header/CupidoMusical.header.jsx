@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
-import { smIcons } from "../../../assets/icons"; 
-import '../CupidoMusical.header/styles.css'
+import { smIcons } from "../../../assets/icons";
+import './styles.css'
 
 export const CupidoMusicalHeader = () => {
   return (

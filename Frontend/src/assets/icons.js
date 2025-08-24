@@ -23,11 +23,16 @@ export const smIcons = {
     activeTrue: '/icons/small/bell/bell.outline.active.true.sm.svg',
     inactiveFalse: '/icons/small/bell/bell.outline.active.false.sm.svg',
   },
-  leftArrow: 'icons/small/others/left-icon.svg',
-  rewind: 'icons/small/others/rewind.svg',
-  like: 'icons/small/others/like.svg',
-  cross: 'icons/small/others/cross.svg',
-  paper_plane: "public/icons/large/paper-plane.svg",
+  leftArrow: '/icons/small/others/left-icon.svg',
+  rewind: '/icons/small/others/rewind.svg',
+  like: '/icons/small/others/like.svg',
+  cross: '/icons/small/others/cross.svg',
+  paper_plane: '/icons/large/paper-plane.svg',
+
+  ham_menu: {
+    vertical: '/icons/small/others/ham_menu-v.svg',
+    horizontal: '/icons/small/others/ham_menu-h.svg',
+  },
 };
 
 export const lgIcons = {

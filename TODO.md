@@ -1,4 +1,9 @@
 # TODO 
+  - Revisar componente 'HomeHeader'
+  - Crear componente/espacio donde muestre la lsita creada.
 
-- Probar las rutas de las playlists con Postman
-- Asegurarse de que las rutas de las playlists esten bien implementadas en el Frontend
+# PROBLEMA
+Tengo un problema importante al intentar enviar la solicitud de POST para la creacion de la playlist desde el Navegador. (Aun sin resolver)
+
+## Extra TODO
+- Se podria crear distintos endpoints para los datos del usuario

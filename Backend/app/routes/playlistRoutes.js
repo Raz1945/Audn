@@ -7,8 +7,11 @@ const authenticateToken = require("../middleware/authMiddleware");
 // RUTAS DE PLAYLISTS (/flow/pl)
 // ====================================
 
-//* Crear playlist
+//* Crear playlist vacia
 router.post("/flow/pl", authenticateToken, playlistController.createPlaylist);
+
+//* Crear playlist con los artistas seleccionados en Cupido Musical
+router.post("/flow/pl/cupido", authenticateToken, playlistController.createCupidoPlaylist);
 
 //* Obtener todas las playlists del usuario
 router.get("/flow/pl", authenticateToken, playlistController.getUserPlaylists);

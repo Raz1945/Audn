@@ -7,7 +7,7 @@ const searchController = require('../controllers/searchController');
 // ====================================
 
 //* Búsqueda global
-router.get('/', searchController.searchGlobal);
+router.get('/search', searchController.searchGlobal);
 
 // Ejemplo de rutas de búsqueda
 // /search?q=get&type=songs&limit=10&page=1
