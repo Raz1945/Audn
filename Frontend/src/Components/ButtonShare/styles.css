@@ -1,4 +1,4 @@
-.goback-container {
+.share-container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -10,17 +10,12 @@
   padding: 0;
 }
 
-.goback-container:focus {
-  outline:-webkit-focus-ring-color auto 1px;
+.share-container:focus {
+  outline: -webkit-focus-ring-color auto 1px;
 }
 
-.goback {
+.share {
   width: 24px;
   height: 24px;
   transition: transform 0.3s ease, opacity 0.3s ease;
-}
-
-.goback.animate-out {
-  transform: translateX(-20px);
-  opacity: 0;
 }

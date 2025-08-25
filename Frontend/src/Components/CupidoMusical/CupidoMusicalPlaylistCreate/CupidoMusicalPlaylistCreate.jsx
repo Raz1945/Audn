@@ -1,5 +1,6 @@
 import { cover } from "../../../assets/covers"
 import { smIcons } from "../../../assets/icons"
+import { ButtonShare } from "../../ButtonShare/ButtonShare"
 import { AppContainer } from "../../other/AppContainer/AppContainer"
 import { NavbarBottom } from "../../other/NavBarBottom/NavBarBottom"
 import { PlaylistNav } from "../../Playlist/PlaylistNav"
@@ -30,7 +31,7 @@ const CupidoMusicalPlaylistCreate = () => {
             <img src={smIcons.verified} alt="Verificado" />
 
             {/* Cambiar para que parezca que copio el link (modal de aviso) */}
-            <img src={smIcons.share} alt="compartir" />
+            <ButtonShare />
           </div>
 
           <div className="playlist-info__right">
