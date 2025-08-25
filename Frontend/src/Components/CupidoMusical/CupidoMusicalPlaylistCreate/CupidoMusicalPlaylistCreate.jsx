@@ -29,8 +29,6 @@ const CupidoMusicalPlaylistCreate = () => {
           <div className="playlist-info__left">
             <img src={smIcons.logo} alt="Logo" />
             <img src={smIcons.verified} alt="Verificado" />
-
-            {/* Cambiar para que parezca que copio el link (modal de aviso) */}
             <ButtonShare />
           </div>
 

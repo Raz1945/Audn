@@ -1,3 +1,4 @@
+import { ButtonGoBack } from '../../ButtonGoBack/ButtonGoBack';
 import './styles.css'
 
 export const CupidoMusicalHeader = () => {
