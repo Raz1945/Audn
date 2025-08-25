@@ -1,11 +1,11 @@
 .top_pl-navbar {
   display: flex;
   justify-content: space-between;
-  align-items: center;            
+  align-items: center;
 
   width: 320px;
   height: 60px;
-  padding: 0 8px; 
+  padding: 0 8px;
   margin: 0;
 
   position: relative;
@@ -19,14 +19,14 @@
   justify-content: center;
   align-items: center;
   width: 100%;
-  overflow: hidden;     
+  overflow: hidden;
 }
 
 .top_pl-navbar__title {
   color: #26262e;
   text-align: center;
   text-overflow: ellipsis;
-  white-space: nowrap;  
+  white-space: nowrap;
   overflow: hidden;
 
   font-family: Rubik;
@@ -50,37 +50,4 @@
   line-height: 14px;
   letter-spacing: 0.5px;
   margin: 5px;
-}
-
-.config-container {
-  position: relative;
-  display: inline-block;
-}
-
-.dropdown-menu {
-  position: absolute;
-  top: 40px; /* debajo del icono */
-  right: 0;
-  background-color: #fff;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  box-shadow: 0px 4px 8px rgba(0,0,0,0.1);
-  z-index: 9;
-  min-width: 160px;
-  padding: 8px 0;
-}
-
-.dropdown-item {
-  width: 100%;
-  padding: 10px 14px;
-  text-align: left;
-  border: none;
-  background: none;
-  cursor: pointer;
-  font-size: 14px;
-  color: #333;
-}
-
-.dropdown-item:hover {
-  background-color: #f5f5f5;
 }

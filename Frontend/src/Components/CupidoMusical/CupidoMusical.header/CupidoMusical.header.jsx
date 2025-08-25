@@ -1,14 +1,10 @@
-import { NavLink } from "react-router-dom";
-import { smIcons } from "../../../assets/icons";
 import './styles.css'
 
 export const CupidoMusicalHeader = () => {
   return (
     <>
       <nav className="top-navbar">
-        <NavLink to={`/dashboard/home`}>
-          <img src={smIcons.leftArrow} alt="left Arrow" />
-        </NavLink>
+        <ButtonGoBack to={'/dashboard/home'} />
 
         <div className="top-navbar__texts">
           <p className="top-navbar__title">Cupido Musical</p>
