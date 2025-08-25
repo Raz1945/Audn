@@ -21,26 +21,3 @@
   transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
-
-.toast {
-  position: absolute;
-  top: 0px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: rgba(0, 0, 0, 0.8);
-  color: #fff;
-  padding: 8px 16px;
-  border-radius: 8px;
-  font-size: 14px;
-  animation: fadeInOut 2s ease forwards;
-  pointer-events: none; /* no bloquea clicks */
-  z-index: 9999;
-}
-
-
-@keyframes fadeInOut {
-  0% { opacity: 0; transform: translate(-50%, 0px); }
-  10% { opacity: 1; transform: translate(-50%, 0); }
-  90% { opacity: 1; transform: translate(-50%, 0); }
-  100% { opacity: 0; transform: translate(-50%, -20px); }
-}

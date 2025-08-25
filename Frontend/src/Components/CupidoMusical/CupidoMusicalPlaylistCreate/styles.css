@@ -66,8 +66,12 @@
   align-items: center;
   gap: 12px;
   width: 216px;
-  margin: 16px;
+  margin: 12px 16px;
+  border: none;
+  cursor: pointer;
+  background-color: transparent;
 }
+
 .playlist-btns__left span {
   font-family: Rubik;
   font-weight: 500;
@@ -86,4 +90,18 @@
   gap: 8px;
 }
 
+.playlist-btns__shuffle {
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+}
 
+.playlist-btns__play {
+  width: 48px;
+  height: 48px;
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+}

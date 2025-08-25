@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { smIcons } from "../../assets/icons";
+import { Toast } from "../Toast/Toast";
 import "./styles.css";
 
 export const ButtonShare = ({ to }) => {
@@ -9,11 +10,6 @@ export const ButtonShare = ({ to }) => {
     try {
       await navigator.clipboard.writeText(to);
       setShowToast(true);
-
-      // ocultar automáticamente el aviso después de 2s
-      setTimeout(() => {
-        setShowToast(false);
-      }, 2000);
     } catch (err) {
       console.error("Error al copiar enlace", err);
     }
@@ -26,9 +22,11 @@ export const ButtonShare = ({ to }) => {
       </button>
 
       {showToast && (
-        <div className="toast">
-          📋 Enlace copiado
-        </div>
+        <Toast
+          text="Enlace copiado"
+          icon="📋"
+          onClose={() => setShowToast(false)}
+        />
       )}
     </>
   );

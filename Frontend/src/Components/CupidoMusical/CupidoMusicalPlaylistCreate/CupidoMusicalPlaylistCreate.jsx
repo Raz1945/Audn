@@ -42,19 +42,30 @@ const CupidoMusicalPlaylistCreate = () => {
         <div className="playlist-btns">
           {/* Cambiar por endpoint correspondiente para copiar la lista e ingrasar el nuevo nombre de la lista */}
           {/* Deberia de salir un modal para agregar el nombre de la nueva playlist */}
-          <div className="playlist-btns__left">
+          <button
+            className="playlist-btns__left"
+            onClick={() => alert('Funcionalidad en desarrollo')}
+          >
             <img src={smIcons.copy} alt="btn copy" />
             <span>Crer Copia</span>
-          </div>
+          </button>
+
+
 
           <div className="playlist-btns__right">
-            {/* <button className="playlist-btns__shuffle"> */}
-            <img src={smIcons.shuffle} alt="btn shuffle" />
-            {/* </button> */}
+            <button
+              onClick={() => alert('Funcionalidad en desarrollo') }
+              className="playlist-btns__shuffle">
+              <img src={smIcons.shuffle.active} alt="btn shuffle" />
 
-            {/* <button className="playlist-btns__play"> */}
-            <img src={smIcons.play} alt="btn play" />
-            {/* </button> */}
+              {/* Toast que diga cuando esta aleatorio activado o no */}
+            </button>
+
+            <button
+              onClick={() => alert('Funcionalidad en desarrollo') }
+              className="playlist-btns__play">
+              <img src={smIcons.play} alt="btn play" />
+            </button>
           </div>
         </div>
 

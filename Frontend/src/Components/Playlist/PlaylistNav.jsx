@@ -1,3 +1,4 @@
+import { smIcons } from "../../assets/icons";
 import { ButtonGoBack } from "../ButtonGoBack/ButtonGoBack";
 import { ButtonHam } from "../ButtonHam/ButtonHam";
 import "./styles.css";
@@ -16,10 +17,27 @@ export const PlaylistNav = () => {
       {/* Configuraciones */}
       <ButtonHam
         options={[
-          { label: "Editar Playlist", onClick: () => console.log("Editar") },
-          { label: "Eliminar Playlist", onClick: () => console.log("Eliminar") },
+          {
+            label: (
+              <>
+                <img src={smIcons.edit.active} alt="bell" style={{ width: 16, height: 16, marginRight: 8 }} />
+                Editar Playlist
+              </>
+            ),
+            onClick: () => console.log("Editar")
+          },
+          {
+            label: (
+              <>
+                <img src={smIcons.edit.inactive} alt="trash" style={{ width: 16, height: 16, marginRight: 8 }} />
+                Eliminar Playlist
+              </>
+            ),
+            onClick: () => console.log("Eliminar")
+          },
         ]}
       />
+
     </nav>
   );
 };
