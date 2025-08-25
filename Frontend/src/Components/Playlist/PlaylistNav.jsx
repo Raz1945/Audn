@@ -36,7 +36,7 @@ export const PlaylistNav = () => {
         {/* Configuraciones */}
         <div className="config-container" ref={dropdownRef}>
           <img
-            src={smIcons.ham_menu.vertical}
+            src={smIcons.ham.v}
             alt="ham menu"
             onClick={() => setOpen(!open)}
             style={{ cursor: "pointer" }}

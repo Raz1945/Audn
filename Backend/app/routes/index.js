@@ -31,6 +31,7 @@ router.get('/ping', (_req, res) => {
 // TODO - Agregar rutas para obtener la imagen de la playlist
 // TODO - Agregar rutas para obtener la imagen de la artista en la playlist
 // TODO - Agregar rutas para obtener el total de tiempo de las canciones de una playlist
+// TODO - Agregar rutas para copiar una playlist (crear una nueva playlist con las canciones de otra playlist)
 
 
 //TODO Hay que agregar rutas para manejar errores 404 y 500

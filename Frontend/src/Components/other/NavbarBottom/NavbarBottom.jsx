@@ -9,7 +9,7 @@ export const NavbarBottom = () => {
   const location = useLocation();
 
   useEffect(()=> {
-    // Agregar más rutas según sea necesario para activar el icono correspondiente
+    //* Agregar más rutas según sea necesario para activar el icono correspondiente
     switch (location.pathname){
       case '/dashboard/home':
         setActiveIcon(smIcons.home.active);

@@ -22,17 +22,24 @@ export const smIcons = {
   bell: {
     activeTrue: '/icons/small/bell/bell.outline.active.true.sm.svg',
     inactiveFalse: '/icons/small/bell/bell.outline.active.false.sm.svg',
+  },  
+  ham: {
+    v: '/icons/small/ham/ham_menu_vertical.svg',
+    h: '/icons/small/ham/ham_menu-horizontal.svg',
   },
+
+  logo:'/icons/small/audn-logo.svg',
   leftArrow: '/icons/small/others/left-icon.svg',
   rewind: '/icons/small/others/rewind.svg',
   like: '/icons/small/others/like.svg',
   cross: '/icons/small/others/cross.svg',
   paper_plane: '/icons/large/paper-plane.svg',
+  share: '/icons/small/share.svg',
+  verified: '/icons/small/verified.svg',
 
-  ham_menu: {
-    vertical: '/icons/small/others/ham_menu-v.svg',
-    horizontal: '/icons/small/others/ham_menu-h.svg',
-  },
+  play: '/icons/small/others/play-btn.svg',
+  shuffle: '/icons/small/others/shuffle.svg',
+  copy: '/icons/small/others/copy.svg',
 };
 
 export const lgIcons = {

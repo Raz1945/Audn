@@ -4,7 +4,7 @@ import HomeCard from "./Home.card/Home.card";
 
 import { images } from "../../assets/images";
 
-const Home = () => {
+export const Home = () => {
   return (
     <>
       {/* // todo Revisar Header */}
@@ -28,5 +28,3 @@ const Home = () => {
     </>
   );
 }
-
-export default Home;
