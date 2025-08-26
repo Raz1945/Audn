@@ -1,58 +1,86 @@
-import { useState } from "react"
-import { cover } from "../../../assets/covers"
-import { smIcons } from "../../../assets/icons"
-import { ButtonShare } from "../../ButtonShare/ButtonShare"
-import { AppContainer } from "../../other/AppContainer/AppContainer"
-import { NavbarBottom } from "../../other/NavBarBottom/NavBarBottom"
-import { PlaylistNav } from "../../Playlist/PlaylistNav"
-import './styles.css'
-import { Toast } from "../../Toast/Toast"
+import React, { useState, useEffect, useRef } from "react";
+import { cover } from "../../../assets/covers";
+import { smIcons } from "../../../assets/icons";
+import { ButtonShare } from "../../ButtonShare/ButtonShare";
+import { AppContainer } from "../../other/AppContainer/AppContainer";
+import { NavbarBottom } from "../../other/NavBarBottom/NavBarBottom";
+import { PlaylistNav } from "../../Playlist/PlaylistNav/PlaylistNav";
+import { Toast } from "../../Toast/Toast";
+import "./styles.css";
 
 export const CupidoMusicalPlaylistCreate = () => {
-
   const [toast, setToast] = useState(null);
+  const [isShuffle, setIsShuffle] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const tracksRef = useRef(null);
+
   const showToast = (message, icon = null) => {
     setToast({ message, icon });
-  }
+  };
 
-  const [isShuffle, setIsShuffle] = useState(false);
   const toggleShuffle = () => {
     setIsShuffle(!isShuffle);
     showToast(isShuffle ? "Aleatorio desactivado ❌" : "Aleatorio activado 🔀");
   };
 
+  // Detectar scroll en la lista de canciones
+  useEffect(() => {
+    const el = tracksRef.current;
+    if (!el) return;
+
+    const handleScroll = () => {
+      setScrolled(el.scrollTop > 50);
+    };
+
+    el.addEventListener("scroll", handleScroll);
+    return () => el.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // Datos de ejemplo para las canciones
+  const tracks = Array.from({ length: 20 }, (_, i) => ({
+    id: i + 1,
+    title: `Track ${i + 1}`,
+    artist: `Artista ${i + 1}`,
+    img: cover.wos.img
+  }));
+
   return (
     <AppContainer>
       <PlaylistNav />
+
       <div className="playlist-container">
 
-        {/* Imagen */}
-        <div className="playlist-cover">
-          {/*//todo - Cambiar por endpoint correspondiente */}
-          <img
-            src={cover.wos.img}
-            alt={cover.wos.alt}
-          />
+        {/* Barra de búsqueda animada */}
+        <div className={`playlist-searchbar ${scrolled ? "visible" : ""}`}>
+          <input type="text" placeholder="Buscar en playlist..." />
+          <button onClick={() => showToast("Filtros 🚧")}>
+            <img src={smIcons.filter} alt="Filtros" />
+          </button>
         </div>
 
+        {/* Cover e info solo si no hay scroll */}
+        {!scrolled && (
+          <>
+            <div className="playlist-cover">
+              <img src={cover.wos.img} alt={cover.wos.alt} />
+            </div>
 
-        <div className="playlist-info">
-          <div className="playlist-info__left">
-            <img src={smIcons.logo} alt="Logo" />
-            <img src={smIcons.verified} alt="Verificado" />
-            <ButtonShare />
-          </div>
+            <div className="playlist-info">
+              <div className="playlist-info__left">
+                <img src={smIcons.logo} alt="Logo" />
+                <img src={smIcons.verified} alt="Verificado" />
+                <ButtonShare />
+              </div>
+              <div className="playlist-info__right">
+                <span>1h 33m</span>
+                <img src={smIcons.history.active} alt="tiempo" />
+              </div>
+            </div>
+          </>
+        )}
 
-          <div className="playlist-info__right">
-            {/*//todo - Cambiar por endpoint correspondiente */}
-            <span >1h 33m</span>
-            <img src={smIcons.history.active} alt="tiempo" />
-          </div>
-        </div>
-
+        {/* Botones */}
         <div className="playlist-btns">
-          {/*//todo -  Cambiar por endpoint correspondiente para copiar la lista e ingrasar el nuevo nombre de la lista */}
-          {/*           Deberia de salir un modal para agregar el nombre de la nueva playlist */}
           <button
             className="playlist-btns__left"
             onClick={() => showToast("Funcionalidad en desarrollo 🚧")}
@@ -61,30 +89,43 @@ export const CupidoMusicalPlaylistCreate = () => {
             <span>Crear Copia</span>
           </button>
 
-
           <div className="playlist-btns__right">
-            <button
-              onClick={toggleShuffle}
-              className="playlist-btns__shuffle"
-            >
+            <button onClick={toggleShuffle} className="playlist-btns__shuffle">
               <img src={smIcons.shuffle.active} alt="btn shuffle" />
             </button>
 
             <button
               onClick={() => showToast("Reproduciendo ▶️")}
-
-              className="playlist-btns__play">
+              className="playlist-btns__play"
+            >
               <img src={smIcons.play} alt="btn play" />
             </button>
           </div>
         </div>
 
-
-
+        {/* Lista de canciones scrollable */}
+        <div
+          ref={tracksRef}
+          className={`playlist-tracks ${scrolled ? "expanded" : ""}`}
+        >
+          {tracks.map((track) => (
+            <div key={track.id} className="playlist-tracks__item">
+              <img src={track.img} alt={track.title} />
+              <div className="playlist-tracks__info">
+                <span className="playlist-tracks__title">{track.title}</span>
+                <span className="playlist-tracks__artist">{track.artist}</span>
+              </div>
+              <button onClick={() => showToast("Funcionalidad en desarrollo 🚧")}>
+                <img src={smIcons.ham.v} alt="Configuraciones" />
+              </button>
+            </div>
+          ))}
+        </div>
       </div>
+
       <NavbarBottom />
 
-      {/* Render condicional del Toast */}
+      {/* Toast condicional */}
       {toast && (
         <Toast
           text={toast.message}
@@ -93,7 +134,6 @@ export const CupidoMusicalPlaylistCreate = () => {
           onClose={() => setToast(null)}
         />
       )}
-
     </AppContainer>
-  )
-}
+  );
+};
