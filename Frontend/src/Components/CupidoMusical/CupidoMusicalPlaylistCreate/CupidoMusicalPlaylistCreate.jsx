@@ -23,7 +23,7 @@ export const CupidoMusicalPlaylistCreate = () => {
     showToast(isShuffle ? "Aleatorio desactivado ❌" : "Aleatorio activado 🔀");
   };
 
-  // Detectar scroll en la lista de canciones
+  // Detectar scroll
   useEffect(() => {
     const el = tracksRef.current;
     if (!el) return;
@@ -36,7 +36,6 @@ export const CupidoMusicalPlaylistCreate = () => {
     return () => el.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Datos de ejemplo para las canciones
   const tracks = Array.from({ length: 20 }, (_, i) => ({
     id: i + 1,
     title: `Track ${i + 1}`,
@@ -50,7 +49,25 @@ export const CupidoMusicalPlaylistCreate = () => {
 
       <div className="playlist-container">
 
-        {/* Barra de búsqueda animada */}
+        {/* Cover con animación */}
+        <div className={`playlist-cover fade-block ${scrolled ? "hidden" : ""}`}>
+          <img src={cover.wos.img} alt={cover.wos.alt} />
+        </div>
+
+        {/* Info con animación */}
+        <div className={`playlist-info fade-block ${scrolled ? "hidden" : ""}`}>
+          <div className="playlist-info__left">
+            <img src={smIcons.logo} alt="Logo" />
+            <img src={smIcons.verified} alt="Verificado" />
+            <ButtonShare />
+          </div>
+          <div className="playlist-info__right">
+            <span>1h 33m</span>
+            <img src={smIcons.history.active} alt="tiempo" />
+          </div>
+        </div>
+
+        {/* Searchbar (aparece con scroll) */}
         <div className={`playlist-searchbar ${scrolled ? "visible" : ""}`}>
           <input type="text" placeholder="Buscar en playlist..." />
           <button onClick={() => showToast("Filtros 🚧")}>
@@ -58,28 +75,7 @@ export const CupidoMusicalPlaylistCreate = () => {
           </button>
         </div>
 
-        {/* Cover e info solo si no hay scroll */}
-        {!scrolled && (
-          <>
-            <div className="playlist-cover">
-              <img src={cover.wos.img} alt={cover.wos.alt} />
-            </div>
-
-            <div className="playlist-info">
-              <div className="playlist-info__left">
-                <img src={smIcons.logo} alt="Logo" />
-                <img src={smIcons.verified} alt="Verificado" />
-                <ButtonShare />
-              </div>
-              <div className="playlist-info__right">
-                <span>1h 33m</span>
-                <img src={smIcons.history.active} alt="tiempo" />
-              </div>
-            </div>
-          </>
-        )}
-
-        {/* Botones */}
+        {/* Botones (se mueven con la lista) */}
         <div className="playlist-btns">
           <button
             className="playlist-btns__left"
@@ -93,7 +89,6 @@ export const CupidoMusicalPlaylistCreate = () => {
             <button onClick={toggleShuffle} className="playlist-btns__shuffle">
               <img src={smIcons.shuffle.active} alt="btn shuffle" />
             </button>
-
             <button
               onClick={() => showToast("Reproduciendo ▶️")}
               className="playlist-btns__play"
@@ -103,11 +98,8 @@ export const CupidoMusicalPlaylistCreate = () => {
           </div>
         </div>
 
-        {/* Lista de canciones scrollable */}
-        <div
-          ref={tracksRef}
-          className={`playlist-tracks ${scrolled ? "expanded" : ""}`}
-        >
+        {/* Lista de canciones */}
+        <div ref={tracksRef} className="playlist-tracks">
           {tracks.map((track) => (
             <div key={track.id} className="playlist-tracks__item">
               <img src={track.img} alt={track.title} />
@@ -125,7 +117,6 @@ export const CupidoMusicalPlaylistCreate = () => {
 
       <NavbarBottom />
 
-      {/* Toast condicional */}
       {toast && (
         <Toast
           text={toast.message}
