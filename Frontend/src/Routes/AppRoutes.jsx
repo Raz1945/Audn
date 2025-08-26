@@ -13,7 +13,7 @@ import { Dashboard } from '../components/Dashboard/Dashboard';
 import { Home } from '../components/Home/Home';
 import { CupidoMusical } from '../Components/CupidoMusical/CupidoMusical';
 import { Search } from '../components/Search/Search';
-import CupidoMusicalPlaylistCreate from '../components/CupidoMusical/CupidoMusicalPlaylistCreate/CupidoMusicalPlaylistCreate';
+import { CupidoMusicalPlaylistCreate } from '../components/CupidoMusical/CupidoMusicalPlaylistCreate/CupidoMusicalPlaylistCreate';
 
 
 export const AppRoutes = createBrowserRouter([
