@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { AppContainer } from '../other/AppContainer/AppContainer';
 import { CupidoMusicalHeader } from './CupidoMusical.header/CupidoMusical.header';
 import { Loader } from '../Loaders/Loader/Loader';
 import { CupidoMusicalCard } from './CupidoMusical.card/CupidoMusical.card';
@@ -8,11 +7,12 @@ import { CupidoMusicalButton } from './CupidoMusicalButton/CupidoMusicalButton';
 import { smIcons } from '../../assets/icons';
 import { ButtonStandard } from '../ButtonStandard/ButtonStandard';
 import { useNavigate } from 'react-router-dom';
+import { AppContainer } from '../Other/AppContainer/AppContainer';
 import './index.css';
 
 
-//! ELIMINAR LOS LOGS ANTES DE DAR POR TEMINADO ESTE COMPONENTE
-
+//todo  EL 'POST' NO FUNCIONA, CORREGIR 
+//todo  ELIMINAR LOS LOGS ANTES DE DAR POR TEMINADO ESTE COMPONENTE
 
 export const CupidoMusical = () => {
   const apiUrl = import.meta.env.VITE_API_BACKEND_URL;
@@ -25,6 +25,7 @@ export const CupidoMusical = () => {
   const [availableArtists, setAvailableArtists] = useState([]); // Artistas disponibles para mostrar (no en likeList)
   const [loading, setLoading] = useState(true); // Estado de carga de los datos
   const [error, setError] = useState(null); // Mensaje de error en caso de fallo
+  const [showToast, setShowToast] = useState(false); // Estado para mostrar el toast
 
 
   // Obtener los artistas desde la API al montar el componente
@@ -91,55 +92,44 @@ export const CupidoMusical = () => {
 
   // Crear playlist  
   const handleCreatePlaylist = async () => {
-    try {
-      const token = localStorage.getItem("token");
-      // console.log("🔑 Token desde localStorage:", token);
+  try {
+    const token = localStorage.getItem("token");
+    if (!token) throw new Error("No hay token de usuario");
 
-      if (!token) throw new Error("No hay token de usuario");
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      },
+      withCredentials: true
+    };
 
-      // Verifica que apiUrl esté correcto
-      // console.log("🌐 API URL:", apiUrl);
+    const response = await axios.post(
+      `${apiUrl}/flow/pl/cupido`,
+      { artists: likeList.map(a => a.id) },
+      config
+    );
 
-      const config = {
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`
-        },
-        withCredentials: true
-      };
+    const playlistUrl = response.data?.url || `${apiUrl}/flow/pl/cupido`;
 
-      // console.log("📤 Enviando request...");
-      const response = await axios.post(
-        `${apiUrl}/flow/pl/cupido`,
-        { artists: likeList.map(a => a.id) },
-        config
-      );
+    await navigator.clipboard.writeText(playlistUrl);
+    setShowToast(true);
 
-      await navigator.clipboard.writeText(to);
-      setShowToast(true);
+    setTimeout(() => {
+      setShowToast(false);
+      navigate('/cupidoMusical/pl');
+    }, 2000);
 
-      console.log("✅ Response:", response.data);
+  } catch (err) {
+    console.error("❌ Error completo:", err);
 
-      setTimeout(() => {
-        // Muestra el toast por 2 segundos antes de ocultarlo y navegar
-        setShowToast(false);
-        navigate('/cupidoMusical/pl');
-      }, 2000);
-
-
-    } catch (err) {
-      console.error("❌ Error completo:", err);
-      console.error("Status:", err.response?.status);
-      console.error("Data:", err.response?.data);
-      console.error("Headers:", err.response?.headers);
-
-      if (err.response?.status === 401) {
-        alert("Token inválido o expirado. Por favor, volvé a loguearte.");
-        localStorage.removeItem("token");
-        // Redirigir al login
-      }
+    if (err.response?.status === 401) {
+      alert("Token inválido o expirado. Por favor, volvé a loguearte.");
+      localStorage.removeItem("token");
     }
-  };
+  }
+};
+
 
 
   //Mostrar el Loader mientras se cargan los datos o un mensaje de error

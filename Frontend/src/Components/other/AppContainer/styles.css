@@ -5,9 +5,6 @@
   display: flex;
   align-items: center;
   flex-direction: column;
-  
-  /* background-color: cadetblue; */
-
   overflow: hidden;
   position: relative;
   z-index: 1;
