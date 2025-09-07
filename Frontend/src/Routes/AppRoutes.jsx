@@ -1,18 +1,19 @@
-import { createBrowserRouter } from 'react-router-dom';
-import { Layout } from '../Components/Layout/Layout';
-import { Login } from '../Components/Login/Login';
-import { Register } from '../Components/Register/Register';
-import { Register2 } from '../Components/Register/Register2';
-import { SingIn } from '../Components/SingIn/SingIn';
-import { LoadingScreen } from '../Components/Loaders/LoadingScreen/LoadingScreen';
-import { Recovery } from '../Components/Recovery/Recovery';
-import { RecoverySuccess } from '../Components/Loaders/RecoverySuccess/RecoverySuccess';
-import { RecoveryMsg } from '../Components/Loaders/RecoveryMsg/RecoveryMsg';
-import { Dashboard } from '../Components/Dashboard/Dashboard';
-import Home from '../Components/Home/Home';
-import { CupidoMusical } from '../Components/CupidoMusical/CupidoMusical';
-import { Search } from '../Components/Search/Search';
 import { Navigate } from 'react-router-dom';
+import { createBrowserRouter } from 'react-router-dom';
+import { Layout } from '../components/Layout/Layout';
+import { Login } from '../components/Login/Login';
+import { Register } from '../components/Register/Register';
+import { Register2 } from '../components/Register/Register2';
+import { SingIn } from '../components/SingIn/SingIn';
+import { LoadingScreen } from '../components/Loaders/LoadingScreen/LoadingScreen';
+import { Recovery } from '../components/Recovery/Recovery';
+import { RecoverySuccess } from '../components/Loaders/RecoverySuccess/RecoverySuccess';
+import { RecoveryMsg } from '../components/Loaders/RecoveryMsg/RecoveryMsg';
+import { Dashboard } from '../components/Dashboard/Dashboard';
+import { Home } from '../components/Home/Home';
+import { CupidoMusical } from '../Components/CupidoMusical/CupidoMusical';
+import { Search } from '../components/Search/Search';
+import { CupidoMusicalPlaylistCreate } from '../components/CupidoMusical/CupidoMusicalPlaylistCreate/CupidoMusicalPlaylistCreate';
 
 
 export const AppRoutes = createBrowserRouter([
@@ -77,6 +78,7 @@ export const AppRoutes = createBrowserRouter([
             element: <Search />
           },
           {
+            // TODO - Hacer componente de perfil y amigos
             path: 'profile',
             element: <h1>Perfil</h1>
           },
@@ -90,6 +92,11 @@ export const AppRoutes = createBrowserRouter([
         path: '/cupidoMusical',
         element: <CupidoMusical />,
       },
+      {
+        path: '/dashboard/profile/cupidoMusical/pl',
+        element: <CupidoMusicalPlaylistCreate />,
+      }
+      //TODO - Ruta para manejar rutas no definidas (404)
     ],
   },
 ]);

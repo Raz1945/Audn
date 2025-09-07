@@ -1,43 +1,40 @@
 const express = require('express');
 const router = express.Router();
 
-const userController = require('../controllers/userController');
-const musicController = require('../controllers/musicController');
-
-const playlistController = require('../controllers/playlistController');
-const authenticateToken = require('../middleware/authMiddleware');
-
+const userRoutes = require('./userRoutes');
+const musicRoutes = require('./musicRoutes');
 const playlistRoutes = require('./playlistRoutes');
+const searchRoutes = require('../routes/searchRoutes');
 
-// Registro y login
-  // http://localhost:3000/register
-router.post('/register', userController.register);
+// Usuario
+router.use('/', userRoutes);
 
-  // http://localhost:3000/login
-router.post('/login', userController.login);
-
-  // http://localhost:3000/recovery
-router.post('/recovery', userController.recovery);
-
+// Todo 
+// Se podria crear distintos endpoints para los datos del usuario
 
 // Musica
-  // http://localhost:3000/flow/artists
-router.get('/flow/artists', musicController.getAllArtists);
-  // http://localhost:3000/flow/songs
-router.get('/flow/songs', musicController.getAllSongs);
-
+router.use('/', musicRoutes);
 
 // Playlists
-  // http://localhost:3000/flow/pl
 router.use('/', playlistRoutes);
 
+// Rutas de búsqueda
+router.use('/', searchRoutes);
 
 
-// Testeo que haya conexcion 
-  // http://localhost:3000/ping
+// Test 
 router.get('/ping', (_req, res) => {
   console.log('ROUTES: someone pinged here!! ');
   res.send('pong pong');
 });
+
+// TODO - Agregar rutas para obtener la imagen de la playlist
+// TODO - Agregar rutas para obtener la imagen de la artista en la playlist
+// TODO - Agregar rutas para obtener el total de tiempo de las canciones de una playlist
+// TODO - Agregar rutas para copiar una playlist (crear una nueva playlist con las canciones de otra playlist)
+
+
+//TODO Hay que agregar rutas para manejar errores 404 y 500
+// 404 - Not Found  y 500 - Internal Server Error
 
 module.exports = router;

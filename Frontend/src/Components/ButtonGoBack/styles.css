@@ -1,0 +1,26 @@
+.goback-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  border: none;
+  background: none;
+  padding: 0;
+}
+
+.goback-container:focus {
+  outline:-webkit-focus-ring-color auto 1px;
+}
+
+.goback {
+  width: 24px;
+  height: 24px;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.goback.animate-out {
+  transform: translateX(-20px);
+  opacity: 0;
+}

@@ -10,6 +10,7 @@ const createPlaylistsTable = (table) => {
     .inTable('user_data.users') 
     .onDelete('CASCADE');
   table.text('image_url');
+  table.integer('songs_count').defaultTo(0);
   table.timestamps(true, true);
 };
 

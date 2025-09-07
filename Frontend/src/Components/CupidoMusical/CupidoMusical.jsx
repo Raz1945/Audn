@@ -1,16 +1,22 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { AppContainer } from '../other/AppContainer/AppContainer';
 import { CupidoMusicalHeader } from './CupidoMusical.header/CupidoMusical.header';
 import { Loader } from '../Loaders/Loader/Loader';
 import { CupidoMusicalCard } from './CupidoMusical.card/CupidoMusical.card';
 import { CupidoMusicalButton } from './CupidoMusicalButton/CupidoMusicalButton';
 import { smIcons } from '../../assets/icons';
 import { ButtonStandard } from '../ButtonStandard/ButtonStandard';
+import { useNavigate } from 'react-router-dom';
+import { AppContainer } from '../Other/AppContainer/AppContainer';
 import './index.css';
+
+
+//todo  EL 'POST' NO FUNCIONA, CORREGIR 
+//todo  ELIMINAR LOS LOGS ANTES DE DAR POR TEMINADO ESTE COMPONENTE
 
 export const CupidoMusical = () => {
   const apiUrl = import.meta.env.VITE_API_BACKEND_URL;
+  const navigate = useNavigate();
 
   const [likeList, setLikeList] = useState([]); // Artistas que el usuario ha marcado con "like"
   const [artists, setArtists] = useState([]); // Artistas disponibles
@@ -19,6 +25,8 @@ export const CupidoMusical = () => {
   const [availableArtists, setAvailableArtists] = useState([]); // Artistas disponibles para mostrar (no en likeList)
   const [loading, setLoading] = useState(true); // Estado de carga de los datos
   const [error, setError] = useState(null); // Mensaje de error en caso de fallo
+  const [showToast, setShowToast] = useState(false); // Estado para mostrar el toast
+
 
   // Obtener los artistas desde la API al montar el componente
   useEffect(() => {
@@ -37,13 +45,15 @@ export const CupidoMusical = () => {
     fetchArtists();
   }, [apiUrl]);
 
+
   // Filtrar artistas que no están en la lista de likes
   useEffect(() => {
     const filteredArtists = artists.filter((artist) => !likeList.includes(artist));
     setAvailableArtists(filteredArtists); // Actualizar la lista de artistas disponibles
   }, [artists, likeList]);
 
-  // Manejar el "like" de un artista
+
+  // Manejar "like" de un artista con log
   const handleLikeArtist = () => {
     if (likeList.length >= 6) {
       alert('¡Has alcanzado el límite de 6 likes!');
@@ -51,9 +61,15 @@ export const CupidoMusical = () => {
     }
 
     const currentArtist = availableArtists[currentArtistIndex];
-    setLikeList((prevLikes) => [...prevLikes, currentArtist]); // Agregar artista a la lista de likes
-    setCurrentArtistIndex(nextArtistIndex); // Avanzar al siguiente artista
-    setNextArtistIndex((nextArtistIndex + 1) % availableArtists.length); // Actualizar el índice del siguiente artista
+    console.log("❤️ Likeando artista:", currentArtist); // log del artista actual
+    setLikeList((prevLikes) => {
+      const newLikes = [...prevLikes, currentArtist];
+      console.log("📝 Lista de likes actualizada:", newLikes.map(a => ({ id: a?.id, name: a?.name })));
+      return newLikes;
+    });
+
+    setCurrentArtistIndex(nextArtistIndex);
+    setNextArtistIndex((nextArtistIndex + 1) % availableArtists.length);
   };
 
   // Manejar el "dislike" de un artista (avanzar al siguiente)
@@ -74,13 +90,47 @@ export const CupidoMusical = () => {
     }
   };
 
-  //TODO Crear una nueva playlist (todavía no implementado)
-  const handleCreatePlaylist = () => {
-    // Se crea la playlist
-    // Se agregan una/dos canciones de cada artista elegido
-    
-    alert('Se crea la playlist');
-  };
+  // Crear playlist  
+  const handleCreatePlaylist = async () => {
+  try {
+    const token = localStorage.getItem("token");
+    if (!token) throw new Error("No hay token de usuario");
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      },
+      withCredentials: true
+    };
+
+    const response = await axios.post(
+      `${apiUrl}/flow/pl/cupido`,
+      { artists: likeList.map(a => a.id) },
+      config
+    );
+
+    const playlistUrl = response.data?.url || `${apiUrl}/flow/pl/cupido`;
+
+    await navigator.clipboard.writeText(playlistUrl);
+    setShowToast(true);
+
+    setTimeout(() => {
+      setShowToast(false);
+      navigate('/cupidoMusical/pl');
+    }, 2000);
+
+  } catch (err) {
+    console.error("❌ Error completo:", err);
+
+    if (err.response?.status === 401) {
+      alert("Token inválido o expirado. Por favor, volvé a loguearte.");
+      localStorage.removeItem("token");
+    }
+  }
+};
+
+
 
   //Mostrar el Loader mientras se cargan los datos o un mensaje de error
   if (loading) {
@@ -152,9 +202,15 @@ export const CupidoMusical = () => {
 
             <ButtonStandard
               text="Crear Playlist"
-              state={likeList.length <= 6 && likeList.length !== 0 ? 'active' : 'disabled'}
+              state={likeList.length >= 2 && likeList.length <= 6 ? 'active' : 'disabled'}
               onClick={handleCreatePlaylist}
             />
+
+            {showToast && (
+              <div className="toast">
+                📋 Enlace copiado
+              </div>
+            )}
           </div>
         </>
       )}

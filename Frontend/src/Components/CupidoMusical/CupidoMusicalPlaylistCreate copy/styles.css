@@ -1,0 +1,206 @@
+/* 🎵 Playlist general */
+.playlist-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+  height: 100%;
+  overflow: hidden;
+  margin-bottom: 96px;
+}
+
+/* 🎵 Cover */
+.playlist-cover {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 0.6s ease, transform 0.6s ease, max-height 0.6s ease;
+  max-height: 300px;
+  overflow: hidden;
+  margin-top: 25px;
+  width: 224px;
+  height: 224px;
+  border-radius: 0px 48px;
+  position: relative;
+  z-index: 10;
+}
+.playlist-cover img {
+  width: 100%;
+  max-width: 300px;
+  border-radius: 1rem;
+}
+.playlist-cover.hidden {
+  opacity: 0;
+  transform: translateY(-40px);
+  max-height: 0;
+  pointer-events: none;
+  /* Solo aplicar el fade gradual cuando se esconde */
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 1) 70%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-size: 100% 100%;
+  mask-image: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 1) 70%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  mask-repeat: no-repeat;
+  mask-size: 100% 100%;
+}
+
+/* 🎵 Info */
+.playlist-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: opacity 0.6s ease, transform 0.6s ease, max-height 0.6s ease;
+  max-height: 60px;
+  overflow: hidden;
+}
+.playlist-info.hidden {
+  opacity: 0;
+  transform: translateY(-20px);
+  max-height: 0;
+  pointer-events: none;
+  /* Aplicar fade gradual al desaparecer */
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 1) 70%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-size: 100% 100%;
+  mask-image: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 1) 70%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  mask-repeat: no-repeat;
+  mask-size: 100% 100%;
+}
+
+.playlist-info__left {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+}
+
+.playlist-info__right {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 🎵 Searchbar (aparece con scroll y delay) */
+.playlist-searchbar {
+  position: sticky;
+  top: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  opacity: 0;
+  transform: translateY(-20px);
+  pointer-events: none;
+  transition: opacity 0.5s ease 0.8s, transform 0.5s ease 0.8s; /* delay de 0.8s */
+  background: var(--bg-color, #111);
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  z-index: 10;
+}
+.playlist-searchbar.visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+.playlist-searchbar input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: white;
+  font-size: 0.9rem;
+}
+.playlist-searchbar button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* 🎵 Botones principales */
+.playlist-btns {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+.playlist-btns__left {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+
+  font-family: Rubik;
+  font-weight: 500;
+  font-style: Medium;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0.5px;
+  text-align: center;
+}
+.playlist-btns__right {
+  display: flex;
+  gap: 0.6rem;
+}
+.playlist-btns__shuffle,
+.playlist-btns__play {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* 🎵 Lista de tracks */
+.playlist-tracks {
+  flex: 1;
+  overflow-y: auto;
+  padding-bottom: 6rem; /* espacio para no tapar con navbar */
+  scrollbar-width: none; /* Firefox */
+}
+.playlist-tracks::-webkit-scrollbar {
+  display: none; /* Chrome/Safari */
+}
+.playlist-tracks__item {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.6rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+.playlist-tracks__item img {
+  width: 48px;
+  height: 48px;
+  border-radius: 0.4rem;
+}
+.playlist-tracks__info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.playlist-tracks__title {
+  font-weight: bold;
+}
+.playlist-tracks__artist {
+  font-size: 0.85rem;
+  opacity: 0.7;
+}
+.playlist-tracks__item button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}

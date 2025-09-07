@@ -9,7 +9,7 @@ export const LoadingScreen = () => {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      navigate('/dashboard');
+      navigate('/dashboard/home');
     }, 3000);
 
     return () => clearTimeout(timer);

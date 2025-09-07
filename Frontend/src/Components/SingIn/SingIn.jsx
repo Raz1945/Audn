@@ -38,9 +38,6 @@ export const SingIn = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    // Verifica si esto se imprime
-    console.log('Formulario enviado'); // TODO ELIMINAR
-
     // Verificar que los campos de entrada sean válidos
     if (!validUserIdentifier || !validPassword) {
       setErrMsg('Por favor, ingresa un nombre de usuario y contraseña válidos.');
@@ -48,9 +45,6 @@ export const SingIn = () => {
     }
 
     try {
-      // Depuración de datos enviados
-      console.log('Datos enviados:', { userIdentifier, password }); // TODO ELIMINAR 
-
       // Solicitud POST al backend
       const response = await axios.post(
         LOGIN_URL,
@@ -64,11 +58,6 @@ export const SingIn = () => {
         }
       );
 
-      // Depuración de respuesta
-      console.log('Respuesta recibida:', response.data);  // TODO ELIMINAR 
-
-      // Si la respuesta es exitosa, se almacena el token
-      localStorage.setItem('token', response.data.accessToken); // TODO ELIMINAR 
 
       // Redirigir al usuario
       navigate('/LoginSuccess');

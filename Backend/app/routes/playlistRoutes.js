@@ -7,8 +7,11 @@ const authenticateToken = require("../middleware/authMiddleware");
 // RUTAS DE PLAYLISTS (/flow/pl)
 // ====================================
 
-//* Crear playlist
+//* Crear playlist vacia
 router.post("/flow/pl", authenticateToken, playlistController.createPlaylist);
+
+//* Crear playlist con los artistas seleccionados en Cupido Musical
+router.post("/flow/pl/cupido", authenticateToken, playlistController.createCupidoPlaylist);
 
 //* Obtener todas las playlists del usuario
 router.get("/flow/pl", authenticateToken, playlistController.getUserPlaylists);
@@ -26,17 +29,13 @@ router.delete("/flow/pl/:id", authenticateToken, playlistController.deletePlayli
 // RUTAS DE CANCIONES DENTRO DE PLAYLISTS
 // ====================================
 
-// todo testear mas adelante 
-// Obtener canciones de una playlist
-// GET /flow/pl/:id/songs
+//* Obtener todas las  canciones de una playlist
 router.get("/flow/pl/:id/songs", authenticateToken, playlistController.getSongs);
 
-// Agregar canción a una playlist
-// POST /flow/pl/:id/songs
+//* Agregar canción a una playlist
 router.post("/flow/pl/:id/songs", authenticateToken, playlistController.addSongToPlaylist);
 
-// Remover canción de una playlist
-// DELETE /flow/pl/:id/songs
+//* Remover canción de una playlist
 router.delete("/flow/pl/:id/songs", authenticateToken, playlistController.removeSongFromPlaylist);
 
 module.exports = router;

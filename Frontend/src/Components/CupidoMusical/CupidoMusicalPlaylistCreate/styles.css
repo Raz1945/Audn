@@ -1,0 +1,262 @@
+.playlist-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  margin-top: 20px;
+  padding: 20px;
+  overflow: hidden;
+  background-color: #f9f9f9;
+  height: 100%;
+  width: 100%;
+  margin-bottom: 96px;
+}
+
+/* Cover */
+.playlist-cover {
+  width: 224px;
+  height: 224px;
+  overflow: hidden;
+  border-radius: 0px 48px;
+  box-shadow: 8px 8px 16px 0px rgba(8, 8, 17, 0.08),
+    0px 0px 8px 0px rgba(8, 8, 17, 0.08);
+  transition: opacity 0.6s ease, transform 0.6s ease, max-height 0.6s ease;
+}
+.playlist-cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.playlist-cover.hidden {
+  opacity: 0;
+  transform: translateY(-40px);
+  max-height: 0;
+  pointer-events: none;
+  /* Solo aplicar el fade gradual cuando se esconde */
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 1) 70%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-size: 100% 100%;
+  mask-image: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 1) 70%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  mask-repeat: no-repeat;
+  mask-size: 100% 100%;
+}
+
+/* Info */
+.playlist-info {
+  display: flex;
+  justify-content: space-between;
+  padding: 4px;
+  gap: 8px;
+  width: 316px;
+  height: 24px;
+  transition: opacity 0.6s ease, transform 0.6s ease, max-height 0.6s ease;
+  overflow: hidden;
+}
+.playlist-info.hidden {
+  opacity: 0;
+  transform: translateY(-20px);
+  max-height: 0;
+  pointer-events: none;
+  /* Aplicar fade gradual al desaparecer */
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 1) 70%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-size: 100% 100%;
+  mask-image: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 1) 70%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  mask-repeat: no-repeat;
+  mask-size: 100% 100%;
+}
+
+.playlist-info__left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.playlist-info__right {
+  width: 228px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+}
+.playlist-info__right img {
+  width: 16px;
+  height: 16px;
+}
+
+
+/* B */
+.playlist-btns {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  width: 316px;
+  height: 24px;
+}
+
+.playlist-btns__left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 216px;
+  /* margin: 12px 16px; */
+  border: none;
+  cursor: pointer;
+  background-color: transparent;
+}
+
+.playlist-btns__left span {
+  font-family: Rubik;
+  font-weight: 500;
+  font-style: Medium;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0.5px;
+  text-align: center;
+}
+
+.playlist-btns__right {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.playlist-btns__shuffle {
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+}
+
+.playlist-btns__play {
+  width: 48px;
+  height: 48px;
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+}
+
+/* Lista de canciones */
+.playlist-tracks {
+  width: 100%;
+  max-width: 316px;
+  max-height: 260px;
+  overflow-y: auto;
+  flex: 1;
+  overflow-y: auto;
+  padding-bottom: 6rem;
+}
+.playlist-tracks::-webkit-scrollbar {
+  display: none; /* Chrome/Safari */
+}
+
+/* Estilo de cada item */
+.playlist-tracks__item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.playlist-tracks__item img {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+}
+
+.playlist-tracks__info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.playlist-tracks__title {
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.playlist-tracks__artist {
+  font-size: 12px;
+  color: #666;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.playlist-tracks__item button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+}
+
+/* Barra de búsqueda cuando se scrollea */
+.playlist-searchbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  width: 100%;
+  max-width: 316px;
+  padding: 8px 12px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.playlist-searchbar input {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 14px;
+}
+
+.playlist-searchbar button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+/* Lista normal */
+.playlist-tracks {
+  width: 100%;
+  max-width: 316px;
+  max-height: 460px;
+
+
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: max-height 0.3s ease;
+  background-color: turquoise;
+}
