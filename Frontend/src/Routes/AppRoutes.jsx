@@ -1,25 +1,30 @@
 import { Navigate } from 'react-router-dom';
 import { createBrowserRouter } from 'react-router-dom';
-import { Layout } from '../components/Layout/Layout';
-import { Login } from '../components/Login/Login';
-import { Register } from '../components/Register/Register';
-import { Register2 } from '../components/Register/Register2';
-import { SingIn } from '../components/SingIn/SingIn';
-import { LoadingScreen } from '../components/Loaders/LoadingScreen/LoadingScreen';
-import { Recovery } from '../components/Recovery/Recovery';
-import { RecoverySuccess } from '../components/Loaders/RecoverySuccess/RecoverySuccess';
-import { RecoveryMsg } from '../components/Loaders/RecoveryMsg/RecoveryMsg';
-import { Dashboard } from '../components/Dashboard/Dashboard';
-import { Home } from '../components/Home/Home';
-import { CupidoMusical } from '../Components/CupidoMusical/CupidoMusical';
-import { Search } from '../components/Search/Search';
-import { CupidoMusicalPlaylistCreate } from '../components/CupidoMusical/CupidoMusicalPlaylistCreate/CupidoMusicalPlaylistCreate';
+
+import { AppLayout } from '../components/layout/AppLayout/AppLayout';
+
+import { Login } from '../features/Login/Login';
+import { SignIn } from '../features/SignIn/SignIn';
+import { Register } from '../features/Register/Register';
+import { Register2 } from '../features/Register/Register2';
+import { Recovery } from '../features/Recovery/Recovery';
+
+import { Dashboard } from '../features/Dashboard/Dashboard';
+import { Home } from '../features/Home/Home';
+import { CupidoMusical } from '../features/CupidoMusical/CupidoMusical';
+import { CupidoMusicalPlaylistCreate } from '../features/CupidoMusical/components/CupidoMusicalPlaylistCreate/CupidoMusicalPlaylistCreate';
+import { Search } from '../features/Search/Search';
+
+import { RecoverySuccess } from '../features/Auth/components/RecoverySuccess/RecoverySuccess';
+import { RecoveryMsg } from '../features/Auth/components/RecoveryMsg/RecoveryMsg';
+import { LoadingScreen } from '../components/ui/Loaders/LoadingScreen/LoadingScreen';
+import { MusicaContextual } from '../features/MusicaContextual/MusicaContextual';
 
 
 export const AppRoutes = createBrowserRouter([
   {
     path: '/',
-    element: <Layout />,
+    element: <AppLayout />,
     children: [
       {
         index: true,
@@ -47,7 +52,7 @@ export const AppRoutes = createBrowserRouter([
       },
       {
         path: '/sing-in',
-        element: <SingIn />,
+        element: <SignIn />,
       },
       {
         path: '/recovery',
@@ -95,6 +100,11 @@ export const AppRoutes = createBrowserRouter([
       {
         path: '/dashboard/profile/cupidoMusical/pl',
         element: <CupidoMusicalPlaylistCreate />,
+      },
+      // TODO - Revisar
+      {
+        path: '/musicaContextual',
+        element: <MusicaContextual />,
       }
       //TODO - Ruta para manejar rutas no definidas (404)
     ],
