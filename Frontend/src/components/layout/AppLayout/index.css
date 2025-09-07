@@ -4,9 +4,11 @@
 }
 
 .appLayout {
-  /* TODO - Luego cambiar para que se adapte a mobile */
   width: 368px;
   height: 792px;
+  transform: scale(0.75);
+  transform-origin: center ; 
+  margin: 0 auto; 
 
   display: flex;
   align-items: center;
@@ -31,9 +33,9 @@
   position: relative;
   z-index: 1;
 
-  border: 2px solid #242424;
-  /* Es solo para ver el tamaño que ocupa */
   border-radius: 2rem;
-  /* box-shadow: 7px 7px 0px 1px #242424; */
   box-shadow: var(--shadow-elevation-high);
+
+  /** Es solo para ver el tamaño que ocupa */
+  /* border: 2px solid #242424; */
 }

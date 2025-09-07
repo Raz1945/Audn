@@ -19,6 +19,7 @@ import { RecoverySuccess } from '../features/Auth/components/RecoverySuccess/Rec
 import { RecoveryMsg } from '../features/Auth/components/RecoveryMsg/RecoveryMsg';
 import { LoadingScreen } from '../components/ui/Loaders/LoadingScreen/LoadingScreen';
 import { MusicaContextual } from '../features/MusicaContextual/MusicaContextual';
+import { Profile } from '../features/Profile/Profile';
 
 
 export const AppRoutes = createBrowserRouter([
@@ -85,7 +86,7 @@ export const AppRoutes = createBrowserRouter([
           {
             // TODO - Hacer componente de perfil y amigos
             path: 'profile',
-            element: <h1>Perfil</h1>
+            element: <Profile />
           },
           {
             path: 'friends',
