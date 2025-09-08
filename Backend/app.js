@@ -33,8 +33,6 @@ app.options('*', (req, res) => {
 // Configurar el middleware para parsear el cuerpo de las solicitudes en formato JSON
 app.use(express.json());
 
-
-
 //* Middleware de debug para ver todas las requests
 app.use((req, res, next) => {
   console.log('=== NUEVA REQUEST ===');
@@ -46,7 +44,6 @@ app.use((req, res, next) => {
   console.log('=====================');
   next();
 });
-
 
 // Configurar las rutas de la API
 app.use('/', routes);

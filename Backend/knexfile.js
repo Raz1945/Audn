@@ -10,14 +10,15 @@ module.exports = {
       host: process.env.DB_HOST,
       port: process.env.DB_PORT,
       database: process.env.DB_NAME,
-      ssl: process.env.DB_SSL === 'true' ? { rejectUnauthorized: false } : false
+      ssl:
+        process.env.DB_SSL === 'true' ? { rejectUnauthorized: false } : false,
     },
     migrations: {
       directory: path.join(__dirname, 'app/database', 'migrations'),
     },
     seeds: {
       directory: path.join(__dirname, 'app/database', 'seeds'),
-    }
+    },
   },
 
   production: {
@@ -28,6 +29,9 @@ module.exports = {
     },
     migrations: {
       directory: path.join(__dirname, 'app/database', 'migrations'),
+    },
+    seeds: {
+      directory: path.join(__dirname, 'app/database', 'seeds'),
     },
   },
 };
