@@ -1,13 +1,13 @@
 import { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 
-import { updateEmail } from "../../app/slices/emailSlice";
-import { Navbar } from "../../components/layout/Navbar/Navbar";
-import { ButtonLink } from "../../components/ui/Buttons/ButtonLink/ButtonLink";
-import { InputInstruction } from "../../components/ui/Inputs/InputInstruction/InputInstruction";
+import { updateEmail } from "@app/slices/emailSlice";
+import { Navbar } from "@components/layout/Navbar/Navbar";
+import { ButtonLink } from "@components/ui/Buttons/ButtonLink/ButtonLink";
+import { InputInstruction } from "@components/ui/Inputs/InputInstruction/InputInstruction";
 
-import './index.css'
-import '../../assets/validate.css'
+import "./index.css"
+import "@assets/validate.css"
 
 
 const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;

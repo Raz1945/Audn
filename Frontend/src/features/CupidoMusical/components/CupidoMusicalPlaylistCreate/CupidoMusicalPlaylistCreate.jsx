@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
-import { cover } from "../../../../assets/images/covers";
-import { smIcons } from "../../../../assets/icons";
-import { ButtonShare } from "../../../../components/ui/Buttons/ButtonShare/ButtonShare";
-import { AppContainer } from "../../../../components/layout/AppContainer/AppContainer";
-import { Sidebar } from "../../../../components/layout/Sidebar/Sidebar";
-import { PlaylistNav } from "../../../Playlist/PlaylistNav/PlaylistNav";
-import { Toast } from "../../../../components/ui/Toast/Toast";
+import { cover } from "@assets/images/covers";
+import { smIcons } from "@assets/icons";
+import { ButtonShare } from "@components/ui/Buttons/ButtonShare/ButtonShare";
+import { AppContainer } from "@components/layout/AppContainer/AppContainer";
+import { Sidebar } from "@components/layout/Sidebar/Sidebar";
+import { PlaylistNav } from "@features/Playlist/PlaylistNav/PlaylistNav";
+import { Toast } from "@components/ui/Toast/Toast";
 import "./styles.css";
 
 export const CupidoMusicalPlaylistCreate = () => {

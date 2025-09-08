@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { smIcons } from "../../../../assets/icons/index";
+import { smIcons } from "@assets/icons/index";
 import "./styles.css";
 
 export const ButtonGoBack = ({ to }) => {

@@ -2,15 +2,15 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-import { AppContainer } from '../../components/layout/AppContainer/AppContainer';
-import { Loader } from '../../components/ui/Loaders/Loader/Loader';
-import { ButtonStandard } from '../../components/ui/Buttons/ButtonStandard/ButtonStandard';
+import { AppContainer } from '@components/layout/AppContainer/AppContainer';
+import { Loader } from '@components/ui/Loaders/Loader/Loader';
+import { ButtonStandard } from '@components/ui/Buttons/ButtonStandard/ButtonStandard';
 
-import { CupidoMusicalHeader } from './components/CupidoMusicalheader/CupidoMusicalheader';
-import { CupidoMusicalCard } from './components/CupidoMusicalcard/CupidoMusicalcard';
-import { CupidoMusicalButton } from './components/CupidoMusicalButton/CupidoMusicalButton';
+import { CupidoMusicalHeader } from '@features/CupidoMusical/components/CupidoMusicalheader/CupidoMusicalheader';
+import { CupidoMusicalCard } from '@features/CupidoMusical/components/CupidoMusicalcard/CupidoMusicalcard';
+import { CupidoMusicalButton } from '@features/CupidoMusical/components/CupidoMusicalButton/CupidoMusicalButton';
 
-import { smIcons } from '../../assets/icons/index';
+import { smIcons } from '@assets/icons/index';
 import './index.css';
 
 

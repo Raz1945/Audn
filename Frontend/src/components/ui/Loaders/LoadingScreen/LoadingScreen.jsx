@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Loader } from '../Loader/Loader';
+import { Loader } from '@components/ui/Loaders/Loader/Loader';
 
 import './index.css'
 

@@ -1,4 +1,4 @@
-import { ButtonLink } from '../../components/ui/Buttons/ButtonLink/ButtonLink';
+import { ButtonLink } from '@components/ui/Buttons/ButtonLink/ButtonLink';
 import { AppleIcon } from '../../assets/icons/AppleIcon';
 import { GoogleIcon } from '../../assets/icons/GoogleIcon';
 

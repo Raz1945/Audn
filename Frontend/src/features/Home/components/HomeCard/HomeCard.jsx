@@ -1,7 +1,7 @@
 import './styles.css'
 import { NavLink } from 'react-router-dom';
 
-const HomeCard = ({ to, img, title, subTitle }) => {
+export const HomeCard = ({ to, img, title, subTitle }) => {
 
   return (
     <NavLink to={to}>
@@ -17,5 +17,3 @@ const HomeCard = ({ to, img, title, subTitle }) => {
     </NavLink>
   );
 }
-
-export default HomeCard;

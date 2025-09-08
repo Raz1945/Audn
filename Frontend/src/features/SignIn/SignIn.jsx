@@ -1,16 +1,17 @@
-import axios from '../../api/axios';
+import axios from '@api/axios';
 import { useMemo, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
-import { signInValidateUser } from '../../app/utils/signInValidateUser';
-import { Navbar } from '../../components/layout/Navbar/Navbar';
-import { InputInstruction } from '../../components/ui/Inputs/InputInstruction/InputInstruction';
-import { ButtonLogin } from '../../components/ui/Buttons/ButtonLogin/ButtonLogin';
+import { signInValidateUser } from '@app/utils/signInValidateUser';
+import { Navbar } from '@components/layout/Navbar/Navbar';
+import { InputInstruction } from '@components/ui/Inputs/InputInstruction/InputInstruction';
+import { ButtonLogin } from '@components/ui/Buttons/ButtonLogin/ButtonLogin';
 
 import './index.css';
-import '../../assets/validate.css';
+import '@assets/validate.css';
 
-const LOGIN_URL = 'http://localhost:3000/login';
+// const LOGIN_URL = 'http://localhost:3000/login';
+const LOGIN_URL = '/login';
 
 export const SignIn = () => {
   const [userIdentifier, setUserIdentifier] = useState(''); // puede recibir un user o un email

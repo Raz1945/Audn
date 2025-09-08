@@ -1,17 +1,17 @@
 import { useState, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import axios from '../../api/axios';
+import axios from '@api/axios';
 
-import { updateUser } from '../../app/slices/userSlice';
-import { updatePassword } from '../../app/slices/passwordSlice';
-import { validate } from '../../app/utils/validate';
+import { updateUser } from '@app/slices/userSlice';
+import { updatePassword } from '@app/slices/passwordSlice';
+import { validate } from '@app/utils/validate';
 
-import { InputInstruction } from '../../components/ui/Inputs/InputInstruction/InputInstruction';
-import { ButtonStandard } from '../../components/ui/Buttons/ButtonStandard/ButtonStandard';
-import { InputCheckbox } from '../../components/ui/Inputs/InputCheckbox/inputCheckbox';
+import { InputInstruction } from '@components/ui/Inputs/InputInstruction/InputInstruction';
+import { ButtonStandard } from '@components/ui/Buttons/ButtonStandard/ButtonStandard';
+import { InputCheckbox } from '@components/ui/Inputs/InputCheckbox/inputCheckbox';
 
-import { Navbar } from '../../components/layout/Navbar/Navbar';
+import { Navbar } from '@components/layout/Navbar/Navbar';
 
 const REGISTER_URL = '/register';
 

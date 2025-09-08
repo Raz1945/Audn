@@ -1,8 +1,8 @@
 import { useState, useRef, useEffect } from "react";
-import { smIcons } from "../../../../assets/icons/index";
+import { smIcons } from "@assets/icons/index";
 import "./styles.css";
 
-export const ButtonHam = ({ options = [] }) => {
+export const ButtonHam = ({ options = [], icon = smIcons.ham.v }) => {
   const [open, setOpen] = useState(false);
   const dropdownRef = useRef(null);
 
@@ -20,7 +20,7 @@ export const ButtonHam = ({ options = [] }) => {
   return (
     <div className="config-container" ref={dropdownRef}>
       <button className="config-button" onClick={() => setOpen(!open)}>
-        <img src={smIcons.ham.v} alt="ham menu" className="config-icon" />
+        <img src={icon} alt="ham menu" className="config-icon" />
       </button>
 
       {open && (

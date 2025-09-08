@@ -1,6 +1,6 @@
-import { smIcons } from "../../../assets/icons";
-import { ButtonGoBack } from "../../../components/ui/Buttons/ButtonGoBack/ButtonGoBack";
-import { ButtonHam } from "../../../components/ui/Buttons/ButtonHam/ButtonHam";
+import { smIcons } from "@/assets/icons";
+import { ButtonGoBack } from "@/components/ui/Buttons/ButtonGoBack/ButtonGoBack";
+import { ButtonHam } from "@/components/ui/Buttons/ButtonHam/ButtonHam";
 import "./styles.css";
 
 export const PlaylistNav = () => {

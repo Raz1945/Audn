@@ -3,7 +3,7 @@ import { smIcons } from "./index";
 export const History = () => {
   return (
     <>
-      <img src={smIcons.history.inactive} alt="Historial" />
+      <img src={smIcons.history.inactive} alt="Historial" className="config-icon"/>
     </>
   )
 }

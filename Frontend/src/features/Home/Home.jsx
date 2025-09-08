@@ -1,8 +1,7 @@
-import HomeHeader from "./components/HomeHeader/HomeHeader";
-import HomeCardsContainer from "./components/HomeCardsContainer/HomeCardsContainer";
-import HomeCard from "./components/HomeCard/HomeCard";
-
-import { images } from "../../assets/images/index";
+import { HomeHeader } from "@features/Home/components/HomeHeader/HomeHeader";
+import { HomeCardsContainer } from "@features/Home/components/HomeCardsContainer/HomeCardsContainer";
+import { HomeCard } from "@features/Home/components/HomeCard/HomeCard";
+import { images } from "@assets/images/index";
 
 export const Home = () => {
   return (

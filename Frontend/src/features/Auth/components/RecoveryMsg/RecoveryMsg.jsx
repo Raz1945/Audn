@@ -1,5 +1,5 @@
-import { ButtonLink } from '../../../../components/ui/Buttons/ButtonLink/ButtonLink';
-import { PaperPlane } from '../../../../assets/icons/PaperPlane';
+import { ButtonLink } from '@components/ui/Buttons/ButtonLink/ButtonLink';
+import { PaperPlane } from '@assets/icons/PaperPlane';
 import './index.css';
 
 export const RecoveryMsg = () => {

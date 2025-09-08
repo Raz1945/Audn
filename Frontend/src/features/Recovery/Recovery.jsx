@@ -1,14 +1,14 @@
 import { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from '../../api/axios';
+import axios from '@api/axios';
 
-import { ButtonLogin } from '../../components/ui/Buttons/ButtonLogin/ButtonLogin';
-import { Navbar } from '../../components/layout/Navbar/Navbar';
-import { recoveryValidateUser } from '../../app/utils/recoveryValidateUser';
+import { ButtonLogin } from '@components/ui/Buttons/ButtonLogin/ButtonLogin';
+import { Navbar } from '@components/layout/Navbar/Navbar';
+import { recoveryValidateUser } from '@app/utils/recoveryValidateUser';
 
-import './index.css';
+import './index.css'; // TODO Hacer
 
-const RECOVERY_URL = 'http://localhost:3000/recovery'; //TODO crear en el backend
+const RECOVERY_URL = '/recovery';
 
 export const Recovery = () => {
   const [userIdentifier, setUserIdentifier] = useState(''); // Puede recibir un user o un email

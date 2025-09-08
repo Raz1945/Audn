@@ -1,5 +1,5 @@
 import './styles.css'
-const HomeCardsContainer = ({ children }) => {
+export const HomeCardsContainer = ({ children }) => {
 
   return (
     <main className="cards-container">
@@ -7,5 +7,3 @@ const HomeCardsContainer = ({ children }) => {
     </main>
   );
 }
-
-export default HomeCardsContainer;

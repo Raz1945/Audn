@@ -1,14 +1,15 @@
-import './index.css';
 import { useState, useEffect } from "react"
-import { smIcons } from "../../../assets/icons"
 import { useLocation } from "react-router-dom";
-import { SidebarElement } from "./SidebarElement"
+import { SidebarElement } from "@components/layout/Sidebar/SidebarElement"
+import { smIcons } from "@assets/icons"
+import './index.css';
 
 export const Sidebar = () => {
   const [activeIcon, setActiveIcon] = useState(null);
   const location = useLocation();
 
   useEffect(() => {
+    
     //* Agregar más rutas según sea necesario para activar el icono correspondiente
     switch (location.pathname) {
       case '/dashboard/home':

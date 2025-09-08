@@ -1,10 +1,13 @@
 # TODO 
-  - Revisar componente 'HomeHeader'
-  - Crear componente/espacio donde muestre la lsita creada.
-  - Revisar problema.
-  - Documentar, explicar que se necesita para correr la app. 
   - Agregar FIGMA a la documentacion 
+  - Documentar, explicar que se necesita para correr la app. 
+  - Se agrega importacion de manera absoluta '@' en vez de la relativa '../../'
   
+  - Crear componente/espacio donde muestre la paylistCupido creada.
+
+
+
+  - Completar css de Recovery
 
 # PROBLEMA
 ## En CupidoMusical

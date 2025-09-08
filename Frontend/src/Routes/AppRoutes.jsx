@@ -1,25 +1,25 @@
 import { Navigate } from 'react-router-dom';
 import { createBrowserRouter } from 'react-router-dom';
 
-import { AppLayout } from '../components/layout/AppLayout/AppLayout';
+import { AppLayout } from '@components/layout/AppLayout/AppLayout';
 
-import { Login } from '../features/Login/Login';
-import { SignIn } from '../features/SignIn/SignIn';
-import { Register } from '../features/Register/Register';
-import { Register2 } from '../features/Register/Register2';
-import { Recovery } from '../features/Recovery/Recovery';
+import { Login } from '@features/Login/Login';
+import { SignIn } from '@features/SignIn/SignIn';
+import { Register } from '@features/Register/Register';
+import { Register2 } from '@features/Register/Register2';
+import { Recovery } from '@features/Recovery/Recovery';
 
-import { Dashboard } from '../features/Dashboard/Dashboard';
-import { Home } from '../features/Home/Home';
-import { CupidoMusical } from '../features/CupidoMusical/CupidoMusical';
-import { CupidoMusicalPlaylistCreate } from '../features/CupidoMusical/components/CupidoMusicalPlaylistCreate/CupidoMusicalPlaylistCreate';
-import { Search } from '../features/Search/Search';
+import { Dashboard } from '@features/Dashboard/Dashboard';
+import { Home } from '@features/Home/Home';
+import { CupidoMusical } from '@features/CupidoMusical/CupidoMusical';
+import { CupidoMusicalPlaylistCreate } from '@features/CupidoMusical/components/CupidoMusicalPlaylistCreate/CupidoMusicalPlaylistCreate';
+import { Search } from '@features/Search/Search';
 
-import { RecoverySuccess } from '../features/Auth/components/RecoverySuccess/RecoverySuccess';
-import { RecoveryMsg } from '../features/Auth/components/RecoveryMsg/RecoveryMsg';
-import { LoadingScreen } from '../components/ui/Loaders/LoadingScreen/LoadingScreen';
-import { MusicaContextual } from '../features/MusicaContextual/MusicaContextual';
-import { Profile } from '../features/Profile/Profile';
+import { RecoverySuccess } from '@features/Auth/components/RecoverySuccess/RecoverySuccess';
+import { RecoveryMsg } from '@features/Auth/components/RecoveryMsg/RecoveryMsg';
+import { LoadingScreen } from '@components/ui/Loaders/LoadingScreen/LoadingScreen';
+import { MusicaContextual } from '@features/MusicaContextual/MusicaContextual';
+import { Profile } from '@features/Profile/Profile';
 
 
 export const AppRoutes = createBrowserRouter([
@@ -80,6 +80,7 @@ export const AppRoutes = createBrowserRouter([
             element: <Home />
           },
           {
+            // TODO - Hacer funcion de busqueda
             path: 'search',
             element: <Search />
           },
