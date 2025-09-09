@@ -9,7 +9,7 @@ import { validate } from '@app/utils/validate';
 
 import { InputInstruction } from '@components/ui/Inputs/InputInstruction/InputInstruction';
 import { ButtonStandard } from '@components/ui/Buttons/ButtonStandard/ButtonStandard';
-import { InputCheckbox } from '@components/ui/Inputs/InputCheckbox/inputCheckbox';
+import { Input_Checkbox } from '@/components/ui/Inputs/InputCheckbox/Input_Checkbox';
 
 import { Navbar } from '@components/layout/Navbar/Navbar';
 
