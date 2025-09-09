@@ -22,7 +22,7 @@ import { MusicaContextual } from '@features/MusicaContextual/MusicaContextual';
 import { Profile } from '@features/Profile/Profile';
 
 
-export const AppRoutes = createBrowserRouter([
+export const app_routes = createBrowserRouter([
   {
     path: '/',
     element: <AppLayout />,
