@@ -4,8 +4,13 @@ const cors = require('cors');
 const routes = require('./app/routes');
 
 // Obtener las variables de entorno
-const port = process.env.PORT || 3000; // Puerto del servidor
-const corsOrigin = process.env.CORS_ORIGIN || 'http://localhost:5173'; // Origen permitido para el CORS
+const port = process.env.PORT || 3000;
+
+// Detectar entorno de frontend automáticamente
+const allowedOrigins = [
+  'http://localhost:5173', // desarrollo local
+  'https://audn-1u0f1r5bx-raz1945s-projects.vercel.app' // producción Vercel
+];
 
 // Crear la aplicación Express
 const app = express();
@@ -13,21 +18,29 @@ const app = express();
 // Configurar el middleware CORS
 app.use(
   cors({
-    origin: corsOrigin, // Especificar el origen permitido para el CORS
-    credentials: true, // Permitir el envío de credenciales en las solicitudes
-    allowedHeaders: ['Content-Type', 'Authorization'], // Especificar los encabezados permitidos
-    exposedHeaders: ['Authorization'] // 👈 Agrega esto si es necesario
+    origin: function (origin, callback) {
+      // Permitir requests sin origin (como Postman)
+      if (!origin) return callback(null, true);
+
+      if (allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error(`CORS: origen no permitido -> ${origin}`));
+      }
+    },
+    credentials: true,
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    exposedHeaders: ['Authorization']
   })
 );
 
 //* Manejar preflight OPTIONS requests para todas las rutas
 app.options('*', (req, res) => {
-  console.log('Preflight OPTIONS request recibida');
-  res.header('Access-Control-Allow-Origin', corsOrigin);
+  res.header('Access-Control-Allow-Origin', allowedOrigins.join(','));
   res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
   res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
   res.header('Access-Control-Allow-Credentials', 'true');
-  res.status(200).send();
+  res.sendStatus(200);
 });
 
 // Configurar el middleware para parsear el cuerpo de las solicitudes en formato JSON
@@ -48,7 +61,7 @@ app.use((req, res, next) => {
 // Configurar las rutas de la API
 app.use('/', routes);
 
-// Iniciar el servidor en el puerto especificado
+// Iniciar el servidor
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
