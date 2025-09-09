@@ -1,5 +1,5 @@
 import { Bell } from '@assets/icons/Bell.jsx';
-import { History } from '@assets/icons/history.jsx';
+import { History } from '@assets/icons/History.jsx';
 import './styles.css'
 
 export const HomeHeader = () => {
