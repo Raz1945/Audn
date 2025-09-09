@@ -7,7 +7,7 @@ import { Loader } from '@components/ui/Loaders/Loader/Loader';
 import { ButtonStandard } from '@components/ui/Buttons/ButtonStandard/ButtonStandard';
 
 import { CupidoMusicalHeader } from '@features/CupidoMusical/components/CupidoMusicalheader/CupidoMusicalheader';
-import { CupidoMusicalCard } from '@features/CupidoMusical/components/CupidoMusicalcard/CupidoMusicalcard';
+import { CupidoMusicalCard } from '@features/CupidoMusical/components/CupidoMusicalCard/CupidoMusicalCard';
 import { CupidoMusicalButton } from '@features/CupidoMusical/components/CupidoMusicalButton/CupidoMusicalButton';
 
 import { smIcons } from '@assets/icons/index';
