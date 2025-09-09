@@ -9,7 +9,7 @@ import { validate } from '@app/utils/validate';
 
 import { InputInstruction } from '@components/ui/Inputs/InputInstruction/InputInstruction';
 import { ButtonStandard } from '@components/ui/Buttons/ButtonStandard/ButtonStandard';
-import { Input_Checkbox } from '@/components/ui/Inputs/Input_Checkbox/Input_Checkbox';
+import { InputCheckbox } from '@/components/ui/Inputs/InputCheckbox/InputCheckbox';
 
 import { Navbar } from '@components/layout/Navbar/Navbar';
 
@@ -168,7 +168,7 @@ export const Register2 = () => {
           </div>
 
           <div className="register__checkbox-wapper">
-            <Input_Checkbox onChange={(e) => setIsAgreed(e.target.checked)} />
+            <InputCheckbox onChange={(e) => setIsAgreed(e.target.checked)} />
             <span className="register__checkbox-text">He leído y acepto los
               <span className="register__text-orange">Términos</span> y
               <span className="register__text-orange">Condiciones.</span>
