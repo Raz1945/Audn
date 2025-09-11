@@ -19,6 +19,7 @@ import './index.css';
 
 export const CupidoMusical = () => {
   const apiUrl = import.meta.env.VITE_API_BACKEND_URL;
+  
   const navigate = useNavigate();
 
   const [likeList, setLikeList] = useState([]); // Artistas que el usuario ha marcado con "like"
