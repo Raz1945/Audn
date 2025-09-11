@@ -1,7 +1,7 @@
 import { useState, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import axios from '@api/axios';
+import api from '@api/axios';
 
 import { updateUser } from '@app/slices/userSlice';
 import { updatePassword } from '@app/slices/passwordSlice';
@@ -70,7 +70,7 @@ export const Register2 = () => {
     }
 
     try {
-      const response = await axios.post(
+      const response = await api.post(
         REGISTER_URL,
         JSON.stringify({
           email: emailFromStore,

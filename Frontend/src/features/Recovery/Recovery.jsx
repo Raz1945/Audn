@@ -1,12 +1,12 @@
 import { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from '@api/axios';
 
 import { ButtonLogin } from '@components/ui/Buttons/ButtonLogin/ButtonLogin';
 import { Navbar } from '@components/layout/Navbar/Navbar';
 import { recoveryValidateUser } from '@app/utils/recoveryValidateUser';
 
 import './index.css'; // TODO Hacer
+import api from '@/api/axios';
 
 const RECOVERY_URL = '/recovery';
 
@@ -36,7 +36,7 @@ export const Recovery = () => {
     try {
       console.log('Datos enviados', { userIdentifier });
 
-      const response = await axios.post(
+      const response = await api.post(
         RECOVERY_URL,
         {
           userIdentifier

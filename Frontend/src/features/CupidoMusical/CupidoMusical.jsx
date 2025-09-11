@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 
 import { AppContainer } from '@components/layout/AppContainer/AppContainer';
 import { Loader } from '@components/ui/Loaders/Loader/Loader';
@@ -12,6 +11,7 @@ import { CupidoMusicalButton } from '@features/CupidoMusical/components/CupidoMu
 
 import { smIcons } from '@assets/icons/index';
 import './index.css';
+import api from '@/api/axios';
 
 
 //todo  EL 'POST' NO FUNCIONA, CORREGIR 
@@ -19,7 +19,7 @@ import './index.css';
 
 export const CupidoMusical = () => {
   const apiUrl = import.meta.env.VITE_API_BACKEND_URL;
-  
+
   const navigate = useNavigate();
 
   const [likeList, setLikeList] = useState([]); // Artistas que el usuario ha marcado con "like"
@@ -37,7 +37,7 @@ export const CupidoMusical = () => {
     const fetchArtists = async () => {
       try {
         setLoading(true);
-        const response = await axios.get(`${apiUrl}/flow/artists`); // Petición a la API
+        const response = await api.get(`${apiUrl}/flow/artists`); // Petición a la API
         setArtists(response.data); // Guardar artistas en el estado
         setLoading(false);
       } catch (err) {
@@ -108,7 +108,7 @@ export const CupidoMusical = () => {
         withCredentials: true
       };
 
-      const response = await axios.post(
+      const response = await api.post(
         `${apiUrl}/flow/pl/cupido`,
         { artists: likeList.map(a => a.id) },
         config

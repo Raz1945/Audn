@@ -1,4 +1,4 @@
-import axios from '@api/axios';
+import api from '@api/axios';
 import { useMemo, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
@@ -47,7 +47,7 @@ export const SignIn = () => {
 
     try {
       // Solicitud POST al backend
-      const response = await axios.post(
+      const response = await api.post(
         LOGIN_URL,
         {
           userIdentifier,
