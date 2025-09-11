@@ -18,7 +18,7 @@ import api from '@/api/axios';
 //todo  ELIMINAR LOS LOGS ANTES DE DAR POR TEMINADO ESTE COMPONENTE
 
 export const CupidoMusical = () => {
-  const apiUrl = import.meta.env.VITE_API_BACKEND_URL;
+  const apiUrl = import.meta.env.VITE_API_URL;
 
   const navigate = useNavigate();
 
