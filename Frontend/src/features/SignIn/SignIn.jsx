@@ -61,12 +61,12 @@ export const SignIn = () => {
       }
 
       // Opcional: guardar info de usuario
-      // localStorage.setItem("user", JSON.stringify({
-      //   id: response.data.id,
-      //   username: response.data.username,
-      //   email: response.data.email,
-      //   is_premium: response.data.is_premium
-      // }));
+      localStorage.setItem("user", JSON.stringify({
+        id: response.data.id,
+        username: response.data.username,
+        email: response.data.email,
+        is_premium: response.data.is_premium
+      }));
 
       // Redirigir al usuario
       navigate('/LoginSuccess');

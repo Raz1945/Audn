@@ -130,7 +130,8 @@ export const CupidoMusical = () => {
 
       setTimeout(() => {
         setShowToast(false);
-        navigate('/cupidoMusical/pl');
+        // navigate('/cupidoMusical/pl');
+        navigate('/dashboard/profile/cupidoMusical/pl');
       }, 2000);
 
     } catch (err) {
