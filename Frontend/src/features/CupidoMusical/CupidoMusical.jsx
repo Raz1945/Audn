@@ -121,6 +121,8 @@ export const CupidoMusical = () => {
         config
       );
 
+      console.log("✅ Playlist creada:");
+
       const playlistUrl = response.data?.url || `${apiUrl}/flow/pl/cupido`;
 
       await navigator.clipboard.writeText(playlistUrl);
