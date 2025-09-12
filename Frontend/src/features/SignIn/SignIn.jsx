@@ -39,32 +39,40 @@ export const SignIn = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    // Verificar que los campos de entrada sean válidos
     if (!validUserIdentifier || !validPassword) {
       setErrMsg('Por favor, ingresa un nombre de usuario y contraseña válidos.');
       return;
     }
 
     try {
-      // Solicitud POST al backend
       const response = await api.post(
         LOGIN_URL,
-        {
-          userIdentifier,
-          password
-        },
+        { userIdentifier, password },
         {
           headers: { 'Content-Type': 'application/json' },
-          withCredentials: true // Si es necesario manejar cookies/sesiones
+          withCredentials: true
         }
       );
 
+      // Guardar el token en localStorage
+      const token = response.data.accessToken;
+      if (token) {
+        localStorage.setItem("token", token);
+      }
+
+      // Opcional: guardar info de usuario
+      localStorage.setItem("user", JSON.stringify({
+        id: response.data.id,
+        username: response.data.username,
+        email: response.data.email,
+        is_premium: response.data.is_premium
+      }));
 
       // Redirigir al usuario
       navigate('/LoginSuccess');
     } catch (error) {
       if (error.response) {
-        console.log('Error Response:', error.response); // Log para facilitar depuración
+        console.log('Error Response:', error.response);
         if (error.response.status === 401) {
           setErrMsg('Credenciales incorrectas. Inténtalo de nuevo.');
         } else {

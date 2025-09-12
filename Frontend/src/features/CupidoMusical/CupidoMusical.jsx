@@ -30,7 +30,7 @@ export const CupidoMusical = () => {
   const [loading, setLoading] = useState(true); // Estado de carga de los datos
   const [error, setError] = useState(null); // Mensaje de error en caso de fallo
   const [showToast, setShowToast] = useState(false); // Estado para mostrar el toast
-
+  const [toastMessage, setToastMessage] = useState('');
 
   // Obtener los artistas desde la API al montar el componente
   useEffect(() => {
@@ -60,12 +60,19 @@ export const CupidoMusical = () => {
   // Manejar "like" de un artista con log
   const handleLikeArtist = () => {
     if (likeList.length >= 6) {
-      alert('¡Has alcanzado el límite de 6 likes!');
+      setToastMessage('¡Has alcanzado el límite de 6 likes!');
+      setShowToast(true);
+
+      setTimeout(() => {
+        setShowToast(false);
+      }, 2000);
+
       return;
     }
 
     const currentArtist = availableArtists[currentArtistIndex];
-    console.log("❤️ Likeando artista:", currentArtist); // log del artista actual
+    // log del artista actual
+    console.log("❤️ Likeando artista:", currentArtist);
     setLikeList((prevLikes) => {
       const newLikes = [...prevLikes, currentArtist];
       console.log("📝 Lista de likes actualizada:", newLikes.map(a => ({ id: a?.id, name: a?.name })));
@@ -213,6 +220,12 @@ export const CupidoMusical = () => {
             {showToast && (
               <div className="toast">
                 📋 Enlace copiado
+              </div>
+            )}
+
+            {showToast && (
+              <div className="toast">
+                {toastMessage}
               </div>
             )}
           </div>
