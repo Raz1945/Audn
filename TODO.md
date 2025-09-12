@@ -1,12 +1,16 @@
 # TODO 
   - Agregar FIGMA a la documentacion 
   - Documentar, explicar que se necesita para correr la app. 
-  - Se agrega importacion de manera absoluta '@' en vez de la relativa '../../'
-  
+  - Se agrega importacion de manera absoluta al frontend '@' en vez de la relativa '../../'
+
+
+
+
+  - Agregar importacion absoluta al backend
+  - ver Axios.
+
+
   - Crear componente/espacio donde muestre la paylistCupido creada.
-
-
-
   - Completar css de Recovery
 
 # PROBLEMA

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import api from '@/api/axios';
 
 import { AppContainer } from '@components/layout/AppContainer/AppContainer';
 import { Loader } from '@components/ui/Loaders/Loader/Loader';
@@ -11,7 +12,7 @@ import { CupidoMusicalButton } from '@features/CupidoMusical/components/CupidoMu
 
 import { smIcons } from '@assets/icons/index';
 import './index.css';
-import api from '@/api/axios';
+import { Toast } from '@/components/ui/Toast/Toast';
 
 
 //todo  EL 'POST' NO FUNCIONA, CORREGIR 
@@ -121,7 +122,7 @@ export const CupidoMusical = () => {
         config
       );
 
-      console.log("✅ Playlist creada:");
+      console.log("✅ Playlist creada:", response.data);
 
       const playlistUrl = response.data?.url || `${apiUrl}/flow/pl/cupido`;
 
@@ -130,7 +131,6 @@ export const CupidoMusical = () => {
 
       setTimeout(() => {
         setShowToast(false);
-        // navigate('/cupidoMusical/pl');
         navigate('/dashboard/profile/cupidoMusical/pl');
       }, 2000);
 
@@ -221,15 +221,17 @@ export const CupidoMusical = () => {
             />
 
             {showToast && (
-              <div className="toast">
-                📋 Enlace copiado
-              </div>
+              <Toast
+                icon={'📋'}
+                text={'Enlace copiado'}
+              />
             )}
 
             {showToast && (
-              <div className="toast">
-                {toastMessage}
-              </div>
+              <Toast
+                icon={'⚠️'}
+                text={toastMessage}
+              />
             )}
           </div>
         </>
